@@ -1,0 +1,1258 @@
+/* ===================================================================   John Kenneth Cañete — Portfolio
+   Style:      Modern Dark (Cinema Mobile)
+   Palette:    Developer Tool / IDE  — "code dark + run green"
+   Type:       Archivo (headings) + Space Grotesk (body)
+   Source:     design-system/ken-portfolio/MASTER.md
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600&display=swap');
+
+/* --------------------------------------------------------------------------
+   1. Tokens
+   -------------------------------------------------------------------------- */
+
+:root {
+  /* Color — dark is primary. Never pure #000 (OLED smear).
+     Every colour the page paints is declared here; nothing downstream
+     hardcodes a hex, so the light theme below only has to restate this block. */
+  --color-background:      #0F172A;
+  --color-surface:         #1B2336;
+  --color-surface-raised:  #222C42;
+  --color-muted:           #272F42;
+  --color-foreground:      #F8FAFC;
+  --color-muted-foreground:#94A3B8;
+  --color-border:          rgba(148, 163, 184, 0.14);
+  --color-border-strong:   rgba(148, 163, 184, 0.28);
+  --color-accent:          #22C55E;
+  --color-accent-hover:    #16A34A;
+  --color-accent-soft:     rgba(34, 197, 94, 0.12);
+  --color-on-accent:       #0F172A;
+  --color-glow-a:          rgba(34, 197, 94, 0.16);
+  --color-glow-b:          rgba(99, 102, 241, 0.18);
+  --color-header:          rgba(15, 23, 42, 0.72);
+  --color-header-solid:    rgba(15, 23, 42, 0.88);
+  --color-scrim:           rgba(15, 23, 42, 0.78);
+  --color-grad-a:          rgba(34, 197, 94, 0.10);
+  --color-grad-b:          rgba(99, 102, 241, 0.12);
+
+  /* Type */
+  --font-heading: 'Archivo', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-body:    'Space Grotesk', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-mono:    ui-monospace, 'SF Mono', 'Cascadia Code', Menlo, monospace;
+
+  --text-xs:   0.8125rem;
+  --text-sm:   0.9375rem;
+  --text-base: 1rem;
+  --text-lg:   1.125rem;
+  --text-xl:   1.375rem;
+  --text-2xl:  1.75rem;
+  --text-3xl:  2.25rem;
+  --text-hero: clamp(2.25rem, 6vw, 4.25rem);
+
+  /* Space — density 4/10 (standard, 16-64px) */
+  --space-2xs: 0.5rem;
+  --space-xs:  0.75rem;
+  --space-sm:  1rem;
+  --space-md:  1.5rem;
+  --space-lg:  2.5rem;
+  --space-xl:  4rem;
+  --space-2xl: 6rem;
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+
+  --shadow-card: 0 1px 2px rgba(0,0,0,0.3), 0 12px 32px rgba(0,0,0,0.28);
+  --shadow-lift: 0 2px 4px rgba(0,0,0,0.3), 0 24px 56px rgba(0,0,0,0.42);
+  --shadow-media: 0 12px 32px rgba(0,0,0,0.45);
+
+  /* Motion — Expo.out, 150-450ms */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 160ms;
+  --dur-mid:  260ms;
+  --dur-slow: 420ms;
+
+  --maxw: 1140px;
+}
+
+/* --------------------------------------------------------------------------
+   1b. Light theme
+   The bright green reads at only ~2.2:1 on a light ground, so the accent
+   darkens to #15803D (4.8:1) wherever it carries text. Declared twice on
+   purpose: once for people whose OS says light, once for the explicit
+   toggle — so the button can override the OS in both directions.
+   -------------------------------------------------------------------------- */
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --color-background:      #F6F8FB;
+    --color-surface:         #FFFFFF;
+    --color-surface-raised:  #F1F5F9;
+    --color-muted:           #EEF2F7;
+    --color-foreground:      #0F172A;
+    --color-muted-foreground:#4A5A70;
+    --color-border:          rgba(15, 23, 42, 0.12);
+    --color-border-strong:   rgba(15, 23, 42, 0.26);
+    --color-accent:          #15803D;
+    --color-accent-hover:    #166534;
+    --color-accent-soft:     rgba(21, 128, 61, 0.14);
+    --color-on-accent:       #FFFFFF;
+    --color-glow-a:          rgba(34, 197, 94, 0.16);
+    --color-glow-b:          rgba(99, 102, 241, 0.14);
+    --color-header:          rgba(246, 248, 251, 0.76);
+    --color-header-solid:    rgba(246, 248, 251, 0.92);
+    --color-scrim:           rgba(255, 255, 255, 0.86);
+    --color-grad-a:          rgba(21, 128, 61, 0.08);
+    --color-grad-b:          rgba(99, 102, 241, 0.10);
+    --shadow-card:  0 1px 2px rgba(15,23,42,0.06), 0 10px 28px rgba(15,23,42,0.08);
+    --shadow-lift:  0 2px 4px rgba(15,23,42,0.08), 0 22px 50px rgba(15,23,42,0.14);
+    --shadow-media: 0 10px 26px rgba(15,23,42,0.18);
+  }
+}
+
+:root[data-theme="light"] {
+  --color-background:      #F6F8FB;
+  --color-surface:         #FFFFFF;
+  --color-surface-raised:  #F1F5F9;
+  --color-muted:           #EEF2F7;
+  --color-foreground:      #0F172A;
+  --color-muted-foreground:#4A5A70;
+  --color-border:          rgba(15, 23, 42, 0.12);
+  --color-border-strong:   rgba(15, 23, 42, 0.26);
+  --color-accent:          #15803D;
+  --color-accent-hover:    #166534;
+  --color-accent-soft:     rgba(21, 128, 61, 0.14);
+  --color-on-accent:       #FFFFFF;
+  --color-glow-a:          rgba(34, 197, 94, 0.16);
+  --color-glow-b:          rgba(99, 102, 241, 0.14);
+  --color-header:          rgba(246, 248, 251, 0.76);
+  --color-header-solid:    rgba(246, 248, 251, 0.92);
+  --color-scrim:           rgba(255, 255, 255, 0.86);
+  --color-grad-a:          rgba(21, 128, 61, 0.08);
+  --color-grad-b:          rgba(99, 102, 241, 0.10);
+  --shadow-card:  0 1px 2px rgba(15,23,42,0.06), 0 10px 28px rgba(15,23,42,0.08);
+  --shadow-lift:  0 2px 4px rgba(15,23,42,0.08), 0 22px 50px rgba(15,23,42,0.14);
+  --shadow-media: 0 10px 26px rgba(15,23,42,0.18);
+}
+
+/* --------------------------------------------------------------------------
+   2. Reset & base
+   -------------------------------------------------------------------------- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+/* A class-level `display` beats the UA's [hidden] rule on specificity, so any
+   component that sets display would ignore the attribute without this. */
+[hidden] { display: none !important; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.65;
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Ambient light blobs — slow oscillation, sits behind everything. */
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  z-index: -1;
+  border-radius: 50%;
+  filter: blur(120px);
+  pointer-events: none;
+}
+body::before {
+  width: 46vw; height: 46vw;
+  top: -14vw; left: -10vw;
+  background: var(--color-glow-a);
+  animation: drift-a 26s ease-in-out infinite alternate;
+}
+body::after {
+  width: 40vw; height: 40vw;
+  top: 32vh; right: -14vw;
+  background: var(--color-glow-b);
+  animation: drift-b 32s ease-in-out infinite alternate;
+}
+
+@keyframes drift-a {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(6vw, 8vh, 0); }
+}
+@keyframes drift-b {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-7vw, -6vh, 0); }
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  margin: 0;
+  text-wrap: balance;
+}
+
+p { margin: 0; }
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: var(--color-foreground);
+  text-decoration: none;
+  transition: color var(--dur-fast) var(--ease-out-expo);
+}
+
+ul { margin: 0; padding: 0; list-style: none; }
+
+hr { display: none; } /* separators are handled by section rhythm */
+
+/* Visible focus for keyboard users — never removed. */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+.skip-link {
+  position: absolute;
+  left: var(--space-sm);
+  top: -100px;
+  z-index: 100;
+  padding: var(--space-xs) var(--space-sm);
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  transition: top var(--dur-mid) var(--ease-out-expo);
+}
+.skip-link:focus { top: var(--space-sm); }
+
+/* --------------------------------------------------------------------------
+   3. Layout primitives
+   -------------------------------------------------------------------------- */
+
+.wrap {
+  width: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: var(--space-md);
+}
+
+.section { padding-block: var(--space-2xl); }
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-muted-foreground);
+}
+
+.eyebrow::before {
+  content: "";
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 0 4px var(--color-accent-soft);
+}
+
+/* --------------------------------------------------------------------------
+   4. Header / nav — frosted glass, sticky
+   -------------------------------------------------------------------------- */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--color-header);
+  backdrop-filter: blur(16px) saturate(1.4);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--dur-mid) var(--ease-out-expo),
+              background var(--dur-mid) var(--ease-out-expo);
+}
+
+.site-header[data-scrolled="true"] {
+  border-bottom-color: var(--color-border);
+  background: var(--color-header-solid);
+}
+
+.header-inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  min-height: 4.25rem;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-2xs);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: var(--text-base);
+  letter-spacing: -0.02em;
+  white-space: nowrap;           /* never let the name stack */
+  min-width: 0;
+  flex: 0 1 auto;
+  /* nowrap alone overflows the flex item and paints over the nav — these two
+     make it yield instead. */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.brand .handle {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 400;
+  color: var(--color-muted-foreground);
+  white-space: nowrap;
+}
+
+.site-nav ul {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+}
+
+.site-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;              /* touch target */
+  padding-inline: var(--space-xs);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  color: var(--color-muted-foreground);
+  transition: color var(--dur-fast) var(--ease-out-expo),
+              background var(--dur-fast) var(--ease-out-expo);
+}
+
+.site-nav a:hover { color: var(--color-foreground); background: var(--color-muted); }
+.site-nav a[aria-current="true"] { color: var(--color-accent); }
+
+/* Theme toggle — shows the mode you'd switch *to*. */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;                  /* touch target */
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-muted-foreground);
+  cursor: pointer;
+  transition: color var(--dur-fast) var(--ease-out-expo),
+              background var(--dur-fast) var(--ease-out-expo);
+}
+
+.theme-toggle:hover {
+  color: var(--color-foreground);
+  background: var(--color-muted);
+}
+
+.theme-toggle svg { width: 18px; height: 18px; }
+
+/* Dark theme active → offer the sun. Light theme active → offer the moon. */
+.theme-toggle .icon-sun  { display: block; }
+.theme-toggle .icon-moon { display: none; }
+
+:root[data-theme="light"] .theme-toggle .icon-sun  { display: none; }
+:root[data-theme="light"] .theme-toggle .icon-moon { display: block; }
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) .theme-toggle .icon-sun  { display: none; }
+  :root:not([data-theme="dark"]) .theme-toggle .icon-moon { display: block; }
+}
+
+.nav-cta {
+  color: var(--color-on-accent) !important;
+  background: var(--color-accent);
+  font-weight: 600;
+  padding-inline: var(--space-sm) !important;
+}
+.nav-cta:hover { background: var(--color-accent-hover) !important; }
+
+/* Below 46rem the handle stands in for the name entirely. */
+@media (max-width: 46rem) {
+  .brand { align-items: center; }
+  .brand .brand-name { display: none; }
+  .brand .handle {
+    display: inline;
+    font-family: var(--font-mono);
+    font-size: var(--text-base);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--color-foreground);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   4b. Mobile menu
+   Below 40rem the links move into a dropdown anchored to the right of the
+   header. Above it, nothing changes — a hamburger on a wide screen just hides
+   navigation that has room to be visible.
+   -------------------------------------------------------------------------- */
+
+.nav-toggle { display: none; }
+
+@media (max-width: 40rem) {
+  .nav-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    /* 44px of tap area, but nothing drawn around the lines. */
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--color-foreground);
+    cursor: pointer;
+    transition: color var(--dur-fast) var(--ease-out-expo);
+  }
+  .nav-toggle:hover { color: var(--color-accent); }
+  .nav-toggle svg { width: 24px; height: 24px; }
+  .nav-toggle .icon-close { display: none; }
+  .nav-toggle[aria-expanded="true"] .icon-open { display: none; }
+  .nav-toggle[aria-expanded="true"] .icon-close { display: block; }
+
+  .site-nav {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: var(--space-md);
+    left: auto;
+    min-width: 12rem;
+    padding: var(--space-2xs);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    /* Opaque, not the header's translucent fill — page text showing through a
+       menu makes it unreadable. */
+    background: var(--color-surface);
+    box-shadow: var(--shadow-lift);
+    /* closed state — kept in the DOM so the links stay findable */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px);
+    transition: opacity var(--dur-fast) var(--ease-out-expo),
+                transform var(--dur-fast) var(--ease-out-expo),
+                visibility var(--dur-fast);
+  }
+
+  .site-header.nav-open .site-nav {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .site-nav ul {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2px;
+  }
+
+  .site-nav li { display: flex; }
+
+  .site-nav a,
+  .site-nav .theme-toggle {
+    width: 100%;
+    justify-content: flex-start;
+    gap: var(--space-2xs);
+    min-height: 44px;
+    padding-inline: var(--space-sm);
+    border: 0;
+    border-radius: var(--radius-sm);
+  }
+
+  /* Theme control sits last in the menu, under a divider. */
+  .site-nav li:has(.theme-toggle) {
+    order: 99;
+    margin-top: var(--space-2xs);
+    padding-top: var(--space-2xs);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .site-nav .theme-toggle::after {
+    content: "Light mode";
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+  }
+  :root[data-theme="light"] .site-nav .theme-toggle::after { content: "Dark mode"; }
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) .site-nav .theme-toggle::after { content: "Dark mode"; }
+  }
+
+  .nav-cta { justify-content: flex-start !important; }
+}
+
+@media (max-width: 40rem) and (prefers-reduced-motion: reduce) {
+  .site-nav { transition: none; }
+}
+
+/* --------------------------------------------------------------------------
+   5. Hero
+   -------------------------------------------------------------------------- */
+
+.hero {
+  /* No bottom padding — the following .section supplies its own top padding,
+     and stacking both leaves a dead gap under the intro. */
+  padding-block: clamp(3.5rem, 11vw, 7.5rem) 0;
+}
+
+.hero h1 {
+  font-size: var(--text-hero);
+  font-weight: 800;
+  max-width: 20ch;
+  margin-block: var(--space-md) 0;
+}
+
+.hero h1 .accent {
+  color: var(--color-accent);
+  /* underline that draws itself in on load */
+  background-image: linear-gradient(var(--color-accent), var(--color-accent));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: var(--u, 0%) 2px;
+  transition: background-size 900ms var(--ease-out-expo) 500ms;
+}
+
+.hero-lead {
+  max-width: 60ch;
+  margin-top: var(--space-md);
+  font-size: var(--text-lg);
+  color: var(--color-muted-foreground);
+}
+
+.hero-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md) var(--space-lg);
+  margin-top: var(--space-lg);
+  padding-block: var(--space-md);
+  /* Rules top and bottom fence the facts off as their own band and give the
+     intro a definite end, so the space before the grid reads as a break
+     rather than as nothing. */
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.hero-facts li {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 9rem;
+}
+
+.hero-facts dt, .fact-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted-foreground);
+}
+
+.fact-value { font-size: var(--text-sm); font-weight: 500; }
+
+.fact-value.available {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  color: var(--color-accent);
+}
+
+/* Five facts in a single column eats the whole screen on a phone — pair
+   them up instead. */
+@media (max-width: 40rem) {
+  .hero-facts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-md) var(--space-sm);
+  }
+  .hero-facts li { min-width: 0; }
+}
+
+.pulse {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  animation: pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 var(--color-accent-soft); }
+  50%      { box-shadow: 0 0 0 6px transparent; }
+}
+
+/* --------------------------------------------------------------------------
+   6. Buttons
+   -------------------------------------------------------------------------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2xs);
+  min-height: 44px;
+  padding: 0 var(--space-md);
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform var(--dur-fast) var(--ease-out-expo),
+              background var(--dur-fast) var(--ease-out-expo),
+              border-color var(--dur-fast) var(--ease-out-expo),
+              color var(--dur-fast) var(--ease-out-expo);
+}
+
+.btn:active { transform: scale(0.97); }
+
+.btn { max-width: 100%; }
+
+/* The contact email is longer than a narrow screen is wide. */
+@media (max-width: 30rem) {
+  .contact-actions { flex-direction: column; align-items: stretch; }
+  .contact-actions .btn {
+    width: 100%;
+    height: auto;
+    min-height: 44px;
+    padding: 0.6rem var(--space-sm);
+    white-space: normal;
+    overflow-wrap: anywhere;
+    text-align: center;
+  }
+}
+
+.btn-primary {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+.btn-primary:hover { background: var(--color-accent-hover); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--color-foreground);
+  border-color: var(--color-border-strong);
+}
+.btn-ghost:hover {
+  background: var(--color-muted);
+  border-color: var(--color-muted-foreground);
+}
+
+.btn svg { width: 16px; height: 16px; flex: none; }
+
+/* --------------------------------------------------------------------------
+   7. Work grid
+   -------------------------------------------------------------------------- */
+
+.work-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr));
+  gap: var(--space-md);
+}
+
+.project {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  transition: transform var(--dur-mid) var(--ease-out-expo),
+              border-color var(--dur-mid) var(--ease-out-expo),
+              box-shadow var(--dur-mid) var(--ease-out-expo);
+}
+
+.project:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-border-strong);
+  box-shadow: var(--shadow-lift);
+}
+
+.project:focus-within {
+  border-color: var(--color-accent);
+}
+
+.project-media {
+  position: relative;
+  aspect-ratio: 16 / 10;         /* reserves space — no layout shift */
+  overflow: hidden;
+  background: var(--color-muted);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.project-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  transition: transform var(--dur-slow) var(--ease-out-expo);
+}
+
+.project:hover .project-media img { transform: scale(1.04); }
+
+/* Portrait (mobile) screenshots: show the whole device shot on a dark
+   stage instead of cover-cropping it into a bright slab. */
+.project-media.is-portrait {
+  padding: var(--space-sm);
+  background:
+    radial-gradient(80% 80% at 50% 0%, var(--color-grad-b), transparent 70%),
+    var(--color-muted);
+}
+
+/* A mobile app with no screenshot: stage its icon rather than stretching a
+   1:1 image across a 16:10 card. */
+.project-media.is-icon {
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(70% 70% at 50% 30%, var(--color-grad-a), transparent 70%),
+    var(--color-muted);
+}
+
+.project-media.is-icon img {
+  width: auto;
+  height: 46%;
+  aspect-ratio: 1;
+  border-radius: 22%;            /* squircle-ish, like a launcher icon */
+  box-shadow: var(--shadow-media);
+}
+
+.project-media.is-portrait img {
+  /* `contain` on a full-size box can never overflow the stage, so the whole
+     screenshot always fits. The shadow is a filter, not box-shadow, so it
+     hugs the picture rather than its letterbox. */
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  filter: drop-shadow(var(--shadow-media));
+}
+
+.project-index {
+  position: absolute;
+  top: var(--space-xs);
+  left: var(--space-xs);
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--color-scrim);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--color-border);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-accent);
+}
+
+.project-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  flex: 1;
+  padding: var(--space-md);
+}
+
+.project-body h3 {
+  font-size: var(--text-xl);
+  letter-spacing: -0.02em;
+}
+
+.project-meta {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.05em;
+  color: var(--color-muted-foreground);
+}
+
+.project-desc {
+  font-size: var(--text-sm);
+  color: var(--color-muted-foreground);
+  flex: 1;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tags li {
+  padding: 3px 10px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-muted);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-muted-foreground);
+}
+
+.project-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-top: var(--space-2xs);
+  padding-top: var(--space-sm);
+  border-top: 1px solid var(--color-border);
+}
+
+.project-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 32px;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-muted-foreground);
+}
+
+.project-links a:hover { color: var(--color-accent); }
+.project-links a svg { width: 15px; height: 15px; flex: none; }
+
+.project-links a.is-live { color: var(--color-accent); }
+
+/* --------------------------------------------------------------------------
+   8. Stack
+   -------------------------------------------------------------------------- */
+
+.stack-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+  gap: var(--space-md);
+}
+
+.stack-group {
+  padding: var(--space-md);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition: border-color var(--dur-mid) var(--ease-out-expo);
+}
+
+.stack-group:hover { border-color: var(--color-border-strong); }
+
+.stack-group h3 {
+  font-size: var(--text-xs);
+  font-family: var(--font-mono);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: var(--space-sm);
+}
+
+.stack-group li {
+  padding-block: 5px;
+  font-size: var(--text-sm);
+  color: var(--color-muted-foreground);
+  border-top: 1px solid var(--color-border);
+}
+.stack-group li:first-child { border-top: 0; }
+
+/* --------------------------------------------------------------------------
+   9. Contact
+   -------------------------------------------------------------------------- */
+
+.contact-card {
+  position: relative;
+  padding: clamp(2rem, 6vw, 4rem);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(120% 140% at 8% 0%, var(--color-grad-a), transparent 58%),
+    radial-gradient(110% 130% at 100% 100%, var(--color-grad-b), transparent 55%),
+    var(--color-surface);
+  overflow: hidden;
+}
+
+.contact-card h2 {
+  font-size: clamp(1.75rem, 4.5vw, 2.75rem);
+  max-width: 18ch;
+  margin-block: var(--space-sm) var(--space-md);
+}
+
+.contact-card p {
+  max-width: 54ch;
+  color: var(--color-muted-foreground);
+}
+
+.contact-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  margin-top: var(--space-lg);
+}
+
+/* --------------------------------------------------------------------------
+   10. Footer
+   -------------------------------------------------------------------------- */
+
+.site-footer {
+  margin-top: var(--space-xl);
+  padding-block: var(--space-lg);
+  border-top: 1px solid var(--color-border);
+}
+
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  font-size: var(--text-sm);
+  color: var(--color-muted-foreground);
+}
+
+.footer-inner a:hover { color: var(--color-accent); }
+.footer-inner .to-top { display: inline-flex; align-items: center; gap: 6px; }
+
+/* --------------------------------------------------------------------------
+   11. Scroll reveal — 1-2 elements per view, staggered
+   -------------------------------------------------------------------------- */
+
+.reveal {
+  opacity: 0;
+  transform: translate3d(0, 18px, 0);
+  transition: opacity var(--dur-slow) var(--ease-out-expo),
+              transform var(--dur-slow) var(--ease-out-expo);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  will-change: auto;
+}
+
+/* If JS never runs, content must still be visible. */
+.no-js .reveal { opacity: 1; transform: none; }
+
+/* --------------------------------------------------------------------------
+   12. Reduced motion — honour the OS setting
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal { opacity: 1; transform: none; }
+  .project:hover { transform: none; }
+  .project:hover .project-media img { transform: none; }
+  body::before, body::after { animation: none; }
+  .hero h1 .accent { background-size: 100% 2px; }
+
+}
+
+/* --------------------------------------------------------------------------
+   13. Print
+   -------------------------------------------------------------------------- */
+
+@media print {
+  body { background: #fff; color: #000; }
+  body::before, body::after,
+  .site-header, .contact-actions, .cue { display: none; }
+  .project, .stack-group, .contact-card { border: 1px solid #ccc; box-shadow: none; }
+  .reveal { opacity: 1; transform: none; }
+}
+
+/* ===== Variant: monogram ================================================== */
+.hero-mono {
+  display: grid;
+  gap: var(--space-lg);
+  align-items: start;
+}
+/* The second column only exists when the photo area does, so commenting the
+   mark out of the HTML collapses this to a single column with no CSS edit.
+   Browsers without :has() get the single-column layout, which is the state
+   we're in anyway. */
+.hero-mono:has(.mono-mark) {
+  grid-template-columns: auto minmax(0, 1fr);
+}
+.mono-mark {
+  width: clamp(6rem, 13vw, 11rem);
+  aspect-ratio: 1;
+  display: grid; place-items: center;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-strong);
+  background:
+    radial-gradient(120% 120% at 20% 10%, var(--color-grad-a), transparent 62%),
+    radial-gradient(120% 120% at 90% 90%, var(--color-grad-b), transparent 60%),
+    var(--color-surface);
+  box-shadow: var(--shadow-card);
+}
+.mono-mark span {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: clamp(2.25rem, 5.5vw, 4.5rem);
+  letter-spacing: -0.06em;
+  color: var(--color-foreground);
+}
+.mono-copy h1 { max-width: 18ch; }
+
+@media (max-width: 46rem) {
+  .hero-mono { grid-template-columns: 1fr; gap: var(--space-md); }
+}
+/* ===== Part: scroll-cue =================================================== */
+.cue { padding-block: var(--space-xl); }
+.cue-inner {
+  display: flex; align-items: center; gap: var(--space-sm);
+}
+.cue-line {
+  flex: 1; height: 1px;
+  background: linear-gradient(to right, transparent, var(--color-border-strong), transparent);
+}
+.cue-text {
+  font-family: var(--font-mono); font-size: var(--text-xs);
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--color-muted-foreground);
+  white-space: nowrap;
+}
+.cue-arrow {
+  width: 16px; height: 16px; flex: none;
+  color: var(--color-accent);
+  animation: cue-bob 2.2s var(--ease-out-expo) infinite;
+}
+@keyframes cue-bob {
+  0%, 100% { transform: translateY(-2px); opacity: 0.6; }
+  50%      { transform: translateY(3px);  opacity: 1; }
+}
+.cue + .section { padding-top: 0; }
+@media (prefers-reduced-motion: reduce) { .cue-arrow { animation: none; } }
+
+/* --------------------------------------------------------------------------
+   14. Video player
+   Triggers are hidden until script.js confirms the file exists, so a missing
+   video shows nothing rather than a button that fails.
+   -------------------------------------------------------------------------- */
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Play badge over the card preview */
+.play-overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border: 0;
+  background: rgba(15, 23, 42, 0.35);
+  color: #fff;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity var(--dur-mid) var(--ease-out-expo);
+}
+
+.project:hover .play-overlay,
+.play-overlay:focus-visible { opacity: 1; }
+
+.play-overlay svg {
+  width: 54px; height: 54px;
+  filter: drop-shadow(0 6px 18px rgba(0,0,0,0.5));
+  transition: transform var(--dur-mid) var(--ease-out-expo);
+}
+.play-overlay:hover svg { transform: scale(1.08); }
+
+/* "Watch demo", sitting in the same row as GitHub / Live site */
+.link-video {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 32px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-muted-foreground);
+  cursor: pointer;
+  transition: color var(--dur-fast) var(--ease-out-expo);
+}
+.link-video:hover { color: var(--color-accent); }
+.link-video svg { width: 15px; height: 15px; flex: none; }
+
+/* The dialog */
+.lightbox {
+  width: min(92vw, 1000px);
+  max-height: 88vh;
+  padding: 0;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  background: #000;
+  color: var(--color-foreground);
+  overflow: visible;
+}
+
+.lightbox::backdrop {
+  background: rgba(8, 12, 22, 0.82);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.lightbox-video {
+  display: block;
+  width: 100%;
+  max-height: 88vh;
+  border-radius: calc(var(--radius-md) - 1px);
+  background: #000;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: -14px; right: -14px;
+  width: 40px; height: 40px;
+  display: grid; place-items: center;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 50%;
+  background: var(--color-surface);
+  color: var(--color-foreground);
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-out-expo);
+}
+.lightbox-close:hover { background: var(--color-muted); }
+.lightbox-close svg { width: 18px; height: 18px; }
+
+/* An iframe has no intrinsic size, so it needs the ratio stated. */
+.lightbox-frame {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: 88vh;
+  border: 0;
+  border-radius: calc(var(--radius-md) - 1px);
+  background: #000;
+}
+
+.lightbox-error {
+  padding: var(--space-lg);
+  text-align: center;
+  color: var(--color-muted-foreground);
+}
+
+@media (max-width: 34rem) {
+  .lightbox-close { top: -10px; right: -10px; width: 36px; height: 36px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .play-overlay { opacity: 1; background: rgba(15, 23, 42, 0.28); }
+  .play-overlay:hover svg { transform: none; }
+}
+
+/* --------------------------------------------------------------------------
+   15. Touch sizing
+   Pointer-coarse only, so desktop spacing is untouched.
+   -------------------------------------------------------------------------- */
+
+@media (pointer: coarse) {
+  .project-links a,
+  .link-video,
+  .footer-inner .to-top,
+  .brand {
+    min-height: 44px;
+  }
+  /* .brand aligns on the baseline, which is not the centre of a 44px box. */
+  .brand { align-items: center; }
+  .project-links { gap: var(--space-2xs) var(--space-md); }
+}
+
+/* One more shed: below 23rem even "John Cañete" plus three controls won't fit. */
+@media (max-width: 23rem) {
+  .site-nav .nav-hide-xs { display: none; }
+}
+
+/* --------------------------------------------------------------------------
+   16. Long descriptions on small screens
+   Clamped to three lines with a toggle, so a card is scannable without
+   burying what the project actually is. Desktop is untouched.
+   The clamp is applied by script.js (via .has-clamp) so that with JS off the
+   full text shows rather than being trapped behind a dead button.
+   -------------------------------------------------------------------------- */
+
+.desc-toggle { display: none; }
+
+@media (max-width: 46rem) {
+  .project.has-clamp .project-desc {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    overflow: hidden;
+  }
+
+  .project.has-clamp.is-expanded .project-desc {
+    display: block;
+    overflow: visible;
+  }
+
+  .project.has-clamp .desc-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    min-height: 44px;
+    margin-top: -0.35rem;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--color-accent);
+  }
+
+  .project.has-clamp .desc-toggle svg {
+    width: 14px; height: 14px;
+    transition: transform var(--dur-fast) var(--ease-out-expo);
+  }
+  .project.has-clamp.is-expanded .desc-toggle svg { transform: rotate(180deg); }
+
+  /* Six tags wrap to three rows on a phone; show the first three. */
+  .project.has-clamp:not(.is-expanded) .tags li:nth-child(n+4) { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .desc-toggle svg { transition: none; }
+}

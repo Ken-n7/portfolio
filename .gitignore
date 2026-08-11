@@ -1,0 +1,8 @@
+.DS_Store
+node_modules/
+
+# Generated locally by the ui-ux-pro-max skill — not part of the site
+design-system/
+
+# Working notes for the author, not for the repo
+NOTES.md

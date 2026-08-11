@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>John Kenneth Cañete — Developer Portfolio</title>
+  <meta name="description" content="Hi, I'm Ken. This is my portfolio — I build things for the web. Have a look at my projects." />
+  <meta name="author" content="John Kenneth Cañete" />
+  <meta name="theme-color" content="#0F172A" />
+
+  <link rel="canonical" href="https://ken-n7.github.io/portfolio/" />
+
+  <!-- Link previews. og:image MUST be absolute — every scraper ignores a
+       relative path, which is why a bare link shows no card. -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="John Kenneth Cañete" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:url" content="https://ken-n7.github.io/portfolio/" />
+  <meta property="og:title" content="John Kenneth Cañete — Developer Portfolio" />
+  <meta property="og:description" content="Hi, I'm Ken. This is my portfolio — I build things for the web. Have a look at my projects." />
+  <meta property="og:image" content="https://ken-n7.github.io/portfolio/previews/share-card.jpg" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="John Kenneth Cañete — I build things for the web. Open to work." />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="John Kenneth Cañete — Developer Portfolio" />
+  <meta name="twitter:description" content="Hi, I'm Ken. This is my portfolio — I build things for the web. Have a look at my projects." />
+  <meta name="twitter:image" content="https://ken-n7.github.io/portfolio/previews/share-card.jpg" />
+  <meta name="twitter:image:alt" content="John Kenneth Cañete — I build things for the web. Open to work." />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "John Kenneth Cañete",
+    "alternateName": "Ken",
+    "url": "https://ken-n7.github.io/portfolio/",
+    "jobTitle": "Web Developer",
+    "email": "mailto:canetejohnkenneth04@gmail.com",
+    "address": { "@type": "PostalAddress", "addressCountry": "PH" },
+    "sameAs": ["https://github.com/Ken-n7"],
+    "knowsAbout": ["Web development", "Three.js", "Next.js", "Django", "Laravel", "Flutter"]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="styles.css" />
+
+  <script>
+    // Runs before first paint so a saved light theme never flashes dark.
+    document.documentElement.classList.remove('no-js');
+    try {
+      var t = localStorage.getItem('theme');
+      if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+    } catch (e) { /* private mode — fall back to the OS preference */ }
+  </script>
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="#top">
+        <span class="brand-name">John <span class="brand-mid">Kenneth </span>Cañete</span>
+        <span class="handle">@Ken-n7</span>
+      </a>
+      <button type="button" id="nav-toggle" class="nav-toggle" aria-expanded="false"
+              aria-controls="primary-nav" aria-label="Open menu">
+        <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+
+      <nav class="site-nav" id="primary-nav" aria-label="Primary">
+        <ul>
+          <li><a href="#work">Work</a></li>
+          <li><a href="#stack">Stack</a></li>
+          <li>
+            <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Switch to light mode">
+              <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+              <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+            </button>
+          </li>
+          <li><a href="#contact" class="nav-cta">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <section id="top" class="hero">
+      <div class="wrap hero-mono">
+        <!-- Photo area — parked for now. Uncomment to bring it back; the
+             layout switches to two columns on its own (see .hero-mono:has()).
+             To use a real photo instead of the JK mark, swap the div for:
+             <img class="mono-mark reveal" src="previews/you.jpg" width="440"
+                  height="440" alt="John Kenneth Cañete" /> -->
+        <!--
+        <div class="mono-mark reveal" aria-hidden="true"><span>JK</span></div>
+        -->
+        <div class="mono-copy">
+          <p class="eyebrow reveal" style="--reveal-delay: 80ms">Portfolio · 2024–2026</p>
+          <h1 class="reveal" style="--reveal-delay: 140ms">
+            Hi, I'm Ken. This is my <span class="accent">portfolio</span>.
+          </h1>
+          <p class="hero-lead reveal" style="--reveal-delay: 200ms">
+            I build things for the web. Here's what I've made so far — have a look around.
+          </p>
+          <ul class="hero-facts reveal" style="--reveal-delay: 260ms">
+            <li><span class="fact-label">Based in</span><span class="fact-value">Philippines</span></li>
+            <li><span class="fact-label">Availability</span><span class="fact-value available"><span class="pulse" aria-hidden="true"></span>Open to work</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <div class="cue reveal">
+      <div class="wrap cue-inner">
+        <span class="cue-line" aria-hidden="true"></span>
+        <p class="cue-text">Things I've built</p>
+        <svg class="cue-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
+        <span class="cue-line" aria-hidden="true"></span>
+      </div>
+    </div>
+
+    <section id="work" class="section" aria-label="Things I've built">
+      <div class="wrap">
+        <div class="work-grid">
+          <article class="project reveal" id="p-escape-room">
+            <div class="project-media">
+              <img src="previews/probxcape.jpg" width="1500" height="938" loading="lazy" decoding="async"
+                   alt="ProbXcape title screen — a dark 3D school corridor lit by a flickering ceiling light, with Log in, Sign up and Guest options" />
+              <span class="project-index" aria-hidden="true">01</span>
+            </div>
+            <div class="project-body">
+              <h3>ProbXcape</h3>
+              <p class="project-meta">3D Game · EdTech · 2026</p>
+              <p class="project-desc">A browser-based 3D horror escape room that teaches simple probability. Players are trapped in a fog-filled school corridor and must clear three classrooms — easy, moderate, hard — answering questions to earn digits of the exit code. Get too many wrong and something starts chasing you. Supabase handles accounts, leaderboards and per-question analytics, with a teacher dashboard for tracking a class.</p>
+              <ul class="tags">
+                <li>Three.js</li><li>Vite</li><li>Supabase</li><li>Chart.js</li><li>WebGL</li>
+              </ul>
+              <div class="project-links">
+                <a href="https://github.com/Ken-n7/escape-room-probability-game" target="_blank" rel="noopener noreferrer">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.2 1.77 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.12 3.05.74.81 1.18 1.84 1.18 3.1 0 4.43-2.69 5.4-5.25 5.69.41.36.78 1.06.78 2.14v3.17c0 .31.2.67.8.56A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5Z"/></svg>
+                  GitHub
+                </a>
+                <a class="is-live" href="https://probxcape.vercel.app" target="_blank" rel="noopener noreferrer">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+                  Live site
+                </a>
+              </div>
+            </div>
+          </article>
+          <article class="project reveal" id="p-sip-and-savor">
+            <div class="project-media">
+              <img src="previews/sip-and-savor.jpg" width="1500" height="938" loading="lazy" decoding="async"
+                   alt="Sip &amp; Savor in dark mode — 'Discover Culinary Delights' hero, a search bar, and a row of featured cocktail cards" />
+              <span class="project-index" aria-hidden="true">02</span>
+            </div>
+            <div class="project-body">
+              <h3>Sip &amp; Savor</h3>
+              <p class="project-meta">Web App · 2025</p>
+              <p class="project-desc">A recipe discovery app for meals and cocktails. Searches two public APIs at once with live autocomplete, full recipe detail pages, saved favorites, and light/dark theming. Built with a hardened data layer — in-memory caching, request throttling, and retries — on the Next.js App Router.</p>
+              <ul class="tags">
+                <li>Next.js 15</li><li>React 19</li><li>TypeScript</li><li>Tailwind</li><li>Framer Motion</li>
+              </ul>
+              <div class="project-links">
+                <a href="https://github.com/Ken-n7/sip_and_savor" target="_blank" rel="noopener noreferrer">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.2 1.77 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.12 3.05.74.81 1.18 1.84 1.18 3.1 0 4.43-2.69 5.4-5.25 5.69.41.36.78 1.06.78 2.14v3.17c0 .31.2.67.8.56A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5Z"/></svg>
+                  GitHub
+                </a>
+                <a class="is-live" href="https://sip-and-savor.vercel.app" target="_blank" rel="noopener noreferrer">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+                  Live site
+                </a>
+              </div>
+            </div>
+          </article>
+          <article class="project reveal" id="p-swarm-gallery">
+            <div class="project-media is-portrait">
+              <img src="previews/swarm-gallery.jpg" width="750" height="1500" loading="lazy" decoding="async"
+                   alt="Screenshot of the Swarm Gallery landing page — 'Your event. Everyone's gallery.' with a Scan / Join / Share flow" />
+              <span class="project-index" aria-hidden="true">03</span>
+              <button type="button" class="play-overlay" data-video="previews/swarm-demo.mp4"
+                      data-video-title="Swarm Gallery demo" hidden>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M10 8.5v7l6-3.5-6-3.5Z" fill="currentColor" stroke="none"/></svg>
+                <span class="sr-only">Play the Swarm Gallery demo video</span>
+              </button>
+            </div>
+            <div class="project-body">
+              <h3>Swarm Gallery</h3>
+              <p class="project-meta">Full-stack · Real-time · 2026</p>
+              <p class="project-desc">Local-first, offline photo &amp; video sharing for events. A laptop runs the server and Wi-Fi hotspot; guests scan a QR code, join with a username, and every upload appears on all screens instantly over WebSockets — no internet, no app install. Includes likes, avatars, video thumbnails, and per-user album exports.</p>
+              <ul class="tags">
+                <li>Next.js</li><li>Express</li><li>Socket.IO</li><li>SQLite</li><li>TypeScript</li>
+              </ul>
+              <div class="project-links">
+                <a href="https://github.com/Ken-n7/swarm-gallery" target="_blank" rel="noopener noreferrer">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.2 1.77 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.12 3.05.74.81 1.18 1.84 1.18 3.1 0 4.43-2.69 5.4-5.25 5.69.41.36.78 1.06.78 2.14v3.17c0 .31.2.67.8.56A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5Z"/></svg>
+                  GitHub
+                </a>
+                <button type="button" class="link-video" data-video="previews/swarm-demo.mp4"
+                        data-video-title="Swarm Gallery demo" hidden>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M10 8.5v7l6-3.5-6-3.5Z" fill="currentColor" stroke="none"/></svg>
+                  Watch demo
+                </button>
+              </div>
+            </div>
+          </article>
+          <article class="project reveal" id="p-consignment-ledger">
+            <div class="project-media">
+              <img src="previews/consignment-ledger.jpg" width="1500" height="938" loading="lazy" decoding="async"
+                   alt="Consignment Ledger dashboard — sidebar navigation, inventory stat cards, a deliveries-by-branch chart, and a recent stock movements table" />
+              <span class="project-index" aria-hidden="true">04</span>
+            </div>
+            <div class="project-body">
+              <h3>Consignment Ledger <span class="project-meta">(EFP Supply Chain)</span></h3>
+              <p class="project-meta">Full-stack · Inventory / Supply Chain · 2025</p>
+              <p class="project-desc">A Django inventory &amp; supply-chain system with stock reconciliation, built for a fresh-produce consignor supplying six SM/Savemore retail branches. Role-based access (admin, warehouse, sales, accountant) gates products, stock movements, batch/expiry tracking, consigned-vs-sold reconciliation, an audit log, and a reporting dashboard with charts.</p>
+              <ul class="tags">
+                <li>Django 5</li><li>Python</li><li>MySQL</li><li>Bootstrap 5</li><li>Docker</li>
+              </ul>
+              <div class="project-links">
+                <a href="https://github.com/Ken-n7/consignment-ledger" target="_blank" rel="noopener noreferrer">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.2 1.77 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.12 3.05.74.81 1.18 1.84 1.18 3.1 0 4.43-2.69 5.4-5.25 5.69.41.36.78 1.06.78 2.14v3.17c0 .31.2.67.8.56A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5Z"/></svg>
+                  GitHub
+                </a>
+              </div>
+            </div>
+          </article>
+          <article class="project reveal" id="p-evmc">
+            <div class="project-media">
+              <img src="previews/evmc.jpg" width="1500" height="938" loading="lazy" decoding="async"
+                   alt="EVMC landing page — an aerial photo of the hospital behind the site title, with navigation and emergency hotlines" />
+              <span class="project-index" aria-hidden="true">05</span>
+            </div>
+            <div class="project-body">
+              <h3>EVMC — Hospital Landing</h3>
+              <p class="project-meta">Static page · Class activity · 2026</p>
+              <p class="project-desc">A static landing page for the Eastern Visayas Medical Center, a government hospital — core services, 24/7 emergency hotlines, key stats and news on the Bootstrap 5 grid. Put together in under 30 minutes for a class activity, so that's all it is: no backend, no build step, just markup.</p>
+              <ul class="tags">
+                <li>HTML5</li><li>Bootstrap 5</li><li>Responsive</li>
+              </ul>
+              <div class="project-links">
+                <a href="https://github.com/Ken-n7/EVMC-LandingPage" target="_blank" rel="noopener noreferrer">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.2 1.77 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.12 3.05.74.81 1.18 1.84 1.18 3.1 0 4.43-2.69 5.4-5.25 5.69.41.36.78 1.06.78 2.14v3.17c0 .31.2.67.8.56A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5Z"/></svg>
+                  GitHub
+                </a>
+                <a class="is-live" href="https://ken-n7.github.io/EVMC-LandingPage/" target="_blank" rel="noopener noreferrer">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+                  Live site
+                </a>
+              </div>
+            </div>
+          </article>
+          <article class="project reveal" id="p-onehub">
+            <div class="project-media">
+              <!-- STALE: this shows the static prototype the Laravel rewrite replaced.
+                   Replace with a shot of the new site (run `make setup`, open
+                   http://localhost:8000) and update the alt text below. -->
+              <img src="previews/onehub.jpg" width="1500" height="938" loading="lazy" decoding="async"
+                   alt="Screenshot of the previous One HUb landing page" />
+              <span class="project-index" aria-hidden="true">06</span>
+            </div>
+            <div class="project-body">
+              <h3>One HUb</h3>
+              <p class="project-meta">Full-stack · Marketplace · 2026</p>
+              <p class="project-desc">A hiring marketplace for a digital solutions agency. Clients browse a service, see the specialists who could do the work, review their portfolios, and send a hire request — which staff then work from a Filament admin panel. Runs entirely on Docker: one command brings up the app, database, and mail catcher.</p>
+              <ul class="tags">
+                <li>Laravel 13</li><li>PHP 8.3</li><li>MySQL 8.4</li><li>Filament</li><li>FrankenPHP</li><li>Docker</li>
+              </ul>
+              <div class="project-links">
+                <a href="https://github.com/Ken-n7/onehub" target="_blank" rel="noopener noreferrer">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.2 1.77 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.12 3.05.74.81 1.18 1.84 1.18 3.1 0 4.43-2.69 5.4-5.25 5.69.41.36.78 1.06.78 2.14v3.17c0 .31.2.67.8.56A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5Z"/></svg>
+                  GitHub
+                </a>
+              </div>
+            </div>
+          </article>
+          <article class="project reveal" id="p-citrus-classifier">
+            <div class="project-media is-icon">
+              <img src="previews/citrus-classifier.png" width="512" height="512" loading="lazy" decoding="async"
+                   alt="App icon for the citrus classifier" />
+              <span class="project-index" aria-hidden="true">07</span>
+            </div>
+            <div class="project-body">
+              <h3>Citrus Classifier</h3>
+              <p class="project-meta">Research · Mobile ML · 2026</p>
+              <p class="project-desc">Dalandan and Calamansi are hard to tell apart at market — both green, both round — so anything working from colour struggles under changing light. This reads texture instead: grayscale images through a custom CNN running alongside a Local Binary Pattern layer, learning the rind rather than the hue. Undergraduate research comparing feature representations to find which best separated the two fruits from each other and from lookalike objects, shipped as an offline Flutter app that classifies on the phone.</p>
+              <ul class="tags">
+                <li>Flutter</li><li>Dart</li><li>TensorFlow</li><li>TensorFlow Lite</li><li>CNN + LBP</li><li>UMAP</li>
+              </ul>
+              <div class="project-links">
+                <a href="https://github.com/Ken-n7/Dalandan-Calamansi-Classification" target="_blank" rel="noopener noreferrer">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.2 1.77 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.12 3.05.74.81 1.18 1.84 1.18 3.1 0 4.43-2.69 5.4-5.25 5.69.41.36.78 1.06.78 2.14v3.17c0 .31.2.67.8.56A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5Z"/></svg>
+                  GitHub
+                </a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <div class="cue reveal">
+      <div class="wrap cue-inner">
+        <span class="cue-line" aria-hidden="true"></span>
+        <p class="cue-text">Things I build with</p>
+        <svg class="cue-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
+        <span class="cue-line" aria-hidden="true"></span>
+      </div>
+    </div>
+
+    <section id="stack" class="section" aria-label="Things I build with">
+      <div class="wrap">
+        <div class="stack-grid">
+          <div class="stack-group reveal">
+            <h3>Languages</h3>
+            <ul>
+              <li>JavaScript · TypeScript</li>
+              <li>Python</li>
+              <li>PHP · Dart</li>
+              <li>SQL · HTML &amp; CSS</li>
+            </ul>
+          </div>
+
+          <div class="stack-group reveal" style="--reveal-delay: 60ms">
+            <h3>Front end</h3>
+            <ul>
+              <li>React · Next.js</li>
+              <li>Three.js / WebGL</li>
+              <li>Flutter</li>
+              <li>Tailwind · Bootstrap</li>
+            </ul>
+          </div>
+
+          <div class="stack-group reveal" style="--reveal-delay: 120ms">
+            <h3>Back end &amp; data</h3>
+            <ul>
+              <li>Node.js · Express</li>
+              <li>Django · Laravel</li>
+              <li>Socket.IO</li>
+              <li>Supabase · PostgreSQL · MySQL · SQLite</li>
+            </ul>
+          </div>
+
+          <div class="stack-group reveal" style="--reveal-delay: 180ms">
+            <h3>Tooling</h3>
+            <ul>
+              <li>Vite · Docker</li>
+              <li>Git &amp; GitHub</li>
+              <li>Vercel · GitHub Pages</li>
+              <li>TensorFlow Lite · Playwright</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="cue reveal">
+      <div class="wrap cue-inner">
+        <span class="cue-line" aria-hidden="true"></span>
+        <p class="cue-text">Contact</p>
+        <svg class="cue-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
+        <span class="cue-line" aria-hidden="true"></span>
+      </div>
+    </div>
+
+    <section id="contact" class="section" aria-label="Contact">
+      <div class="wrap">
+        <div class="contact-card reveal">
+          <h2>Want to build something?</h2>
+          <p>I'm open to work. Easiest way to reach me is email — or go poke around my GitHub.</p>
+          <div class="contact-actions">
+            <a class="btn btn-primary" href="mailto:canetejohnkenneth04@gmail.com">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              canetejohnkenneth04@gmail.com
+            </a>
+            <a class="btn btn-ghost" href="https://github.com/Ken-n7" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.2 1.77 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.12 3.05.74.81 1.18 1.84 1.18 3.1 0 4.43-2.69 5.4-5.25 5.69.41.36.78 1.06.78 2.14v3.17c0 .31.2.67.8.56A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5Z"/></svg>
+              @Ken-n7
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <p>© 2026 John Kenneth Cañete</p>
+      <a class="to-top" href="#top">
+        Back to top
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>
+      </a>
+    </div>
+  </footer>
+
+
+  <!-- Video player. A local file plays in <video>; a Drive or YouTube link
+       goes through the <iframe>, since neither serves a raw streamable file. -->
+  <dialog id="video-lightbox" class="lightbox" aria-label="Video player">
+    <button type="button" class="lightbox-close" aria-label="Close video">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+    <video class="lightbox-video" controls playsinline preload="metadata"
+           poster="previews/swarm-demo-poster.jpg"
+           controlsList="nodownload noplaybackrate" disablePictureInPicture hidden></video>
+    <iframe class="lightbox-frame" title="Video" hidden
+            allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <p class="lightbox-error" hidden>That video couldn't be loaded.</p>
+  </dialog>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
