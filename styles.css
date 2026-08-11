@@ -32,6 +32,7 @@
   --color-header:          rgba(15, 23, 42, 0.72);
   --color-header-solid:    rgba(15, 23, 42, 0.88);
   --color-scrim:           rgba(15, 23, 42, 0.78);
+  --color-pd-scrim:        rgba(9, 14, 28, 0.92);
   --color-grad-a:          rgba(34, 197, 94, 0.10);
   --color-grad-b:          rgba(99, 102, 241, 0.12);
 
@@ -103,6 +104,7 @@
     --color-header:          rgba(246, 248, 251, 0.76);
     --color-header-solid:    rgba(246, 248, 251, 0.92);
     --color-scrim:           rgba(255, 255, 255, 0.86);
+    --color-pd-scrim:        rgba(240, 244, 250, 0.94);
     --color-grad-a:          rgba(21, 128, 61, 0.08);
     --color-grad-b:          rgba(99, 102, 241, 0.10);
     --shadow-card:  0 1px 2px rgba(15,23,42,0.06), 0 10px 28px rgba(15,23,42,0.08);
@@ -129,6 +131,7 @@
   --color-header:          rgba(246, 248, 251, 0.76);
   --color-header-solid:    rgba(246, 248, 251, 0.92);
   --color-scrim:           rgba(255, 255, 255, 0.86);
+  --color-pd-scrim:        rgba(240, 244, 250, 0.94);
   --color-grad-a:          rgba(21, 128, 61, 0.08);
   --color-grad-b:          rgba(99, 102, 241, 0.10);
   --shadow-card:  0 1px 2px rgba(15,23,42,0.06), 0 10px 28px rgba(15,23,42,0.08);
@@ -677,42 +680,70 @@ hr { display: none; } /* separators are handled by section rhythm */
 .work-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr));
-  gap: var(--space-md);
+  gap: var(--space-lg);
 }
 
-.project {
+/* Each card carries its own --theme-color, sampled from its screenshot, so the
+   glow and the accents belong to that project rather than to the site. */
+
+.project { position: relative; }
+
+/* The whole card is the trigger — one tap opens the detail. The links live in
+   the overlay, so nothing here competes for the click. */
+.project-open {
   position: relative;
-  display: flex;
-  flex-direction: column;
+  display: block;
+  width: 100%;
+  padding: 0;
+  text-align: left;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: var(--shadow-card);
+  cursor: pointer;
+  color: inherit;
+  font: inherit;
+  box-shadow: 0 0 40px -18px hsl(var(--theme-color) / 0.65), var(--shadow-card);
+  animation: card-float var(--float-dur, 7s) var(--float-delay, 0s) ease-in-out infinite;
   transition: transform var(--dur-mid) var(--ease-out-expo),
               border-color var(--dur-mid) var(--ease-out-expo),
               box-shadow var(--dur-mid) var(--ease-out-expo);
 }
 
-.project:hover {
-  transform: translateY(-4px);
-  border-color: var(--color-border-strong);
-  box-shadow: var(--shadow-lift);
+/* Low amplitude and long period — at rest it should read as breathing, not
+   bobbing. Phases are staggered per card so the grid never pulses in sync. */
+@keyframes card-float {
+  0%, 100% { translate: 0 0; }
+  50%      { translate: 0 -7px; }
 }
 
-.project:focus-within {
-  border-color: var(--color-accent);
+.project:nth-child(3n+1) .project-open { --float-dur: 7.5s; --float-delay: -0.4s; }
+.project:nth-child(3n+2) .project-open { --float-dur: 8.4s; --float-delay: -2.6s; }
+.project:nth-child(3n+3) .project-open { --float-dur: 6.8s; --float-delay: -4.9s; }
+
+.project-open:hover,
+.project-open:focus-visible {
+  transform: translateY(-6px);
+  border-color: hsl(var(--theme-color) / 0.55);
+  box-shadow: 0 0 70px -14px hsl(var(--theme-color) / 0.75), var(--shadow-lift);
 }
 
-.project-media {
+/* Freeze the drift while anyone is reading or reaching for a card, and while
+   the overlay is up — a moving background behind a modal is nauseating. */
+.project-open:hover,
+.project-open:focus-visible,
+body.pd-open .project-open { animation-play-state: paused; }
+
+.project-shot {
   position: relative;
-  aspect-ratio: 16 / 10;         /* reserves space — no layout shift */
+  display: block;
+  aspect-ratio: 3 / 2;           /* landscape, but tall enough that the wash
+                                    below the title never reaches the subject */
   overflow: hidden;
   background: var(--color-muted);
-  border-bottom: 1px solid var(--color-border);
 }
 
-.project-media img {
+.project-shot img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -720,85 +751,244 @@ hr { display: none; } /* separators are handled by section rhythm */
   transition: transform var(--dur-slow) var(--ease-out-expo);
 }
 
-.project:hover .project-media img { transform: scale(1.04); }
+.project-open:hover .project-shot img { transform: scale(1.06); }
 
-/* Portrait (mobile) screenshots: show the whole device shot on a dark
-   stage instead of cover-cropping it into a bright slab. */
-.project-media.is-portrait {
-  padding: var(--space-sm);
+/* Portrait screenshots and app icons can't be cropped to landscape without
+   losing the subject, so they sit whole on a tinted stage instead. */
+.project-shot.is-portrait,
+.project-shot.is-icon {
   background:
-    radial-gradient(80% 80% at 50% 0%, var(--color-grad-b), transparent 70%),
+    radial-gradient(75% 90% at 50% 0%, hsl(var(--theme-color) / 0.45), transparent 70%),
     var(--color-muted);
 }
 
-/* A mobile app with no screenshot: stage its icon rather than stretching a
-   1:1 image across a 16:10 card. */
-.project-media.is-icon {
-  display: grid;
-  place-items: center;
-  background:
-    radial-gradient(70% 70% at 50% 30%, var(--color-grad-a), transparent 70%),
-    var(--color-muted);
-}
-
-.project-media.is-icon img {
-  width: auto;
-  height: 46%;
-  aspect-ratio: 1;
-  border-radius: 22%;            /* squircle-ish, like a launcher icon */
-  box-shadow: var(--shadow-media);
-}
-
-.project-media.is-portrait img {
-  /* `contain` on a full-size box can never overflow the stage, so the whole
-     screenshot always fits. The shadow is a filter, not box-shadow, so it
-     hugs the picture rather than its letterbox. */
-  width: 100%;
-  height: 100%;
+.project-shot.is-portrait img {
   object-fit: contain;
-  object-position: center;
+  padding: var(--space-2xs) 0;
   filter: drop-shadow(var(--shadow-media));
 }
 
-.project-index {
-  position: absolute;
-  top: var(--space-xs);
-  left: var(--space-xs);
-  padding: 4px 10px;
-  border-radius: var(--radius-pill);
-  background: var(--color-scrim);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid var(--color-border);
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  color: var(--color-accent);
+.project-shot.is-icon img {
+  width: auto;
+  height: 68%;
+  margin: 0 auto;
+  aspect-ratio: 1;
+  border-radius: 22%;
+  box-shadow: var(--shadow-media);
 }
 
-.project-body {
+/* An inset shadow rather than a themed wash. It has to be deep enough to
+   carry white text over a bright dashboard screenshot, so "subtle" here means
+   neutral and shadow-shaped, not faint — over Sip & Savor or the ledger a
+   genuinely light one leaves the title unreadable. */
+.project-face {
+  position: absolute;
+  inset: 0;
   display: flex;
   flex-direction: column;
-  gap: var(--space-xs);
-  flex: 1;
+  justify-content: flex-end;
+  gap: 2px;
   padding: var(--space-md);
+  box-shadow:
+    inset 0 -80px 44px -30px rgba(6, 10, 20, 0.92),
+    inset 0 -170px 80px -60px rgba(6, 10, 20, 0.7);
 }
 
-.project-body h3 {
-  font-size: var(--text-xl);
+.project-name {
+  font-family: var(--font-heading);
+  font-size: clamp(1.1rem, 2.2vw, var(--text-xl));
+  font-weight: 700;
+  line-height: 1.15;
   letter-spacing: -0.02em;
+  color: #FFFFFF;
+  text-shadow: 0 1px 12px hsl(var(--theme-color) / 0.9);
 }
 
-.project-meta {
+/* A trailing clause inside a title — "(EFP Supply Chain)" — is context, not
+   part of the name, so it steps back a little. */
+.project-name .project-meta {
+  font-weight: 500;
+  font-size: 0.82em;
+  color: rgba(255, 255, 255, 0.8);
+}
+.pd-title .project-meta {
+  font-weight: 500;
+  font-size: 0.72em;
+  color: var(--color-muted-foreground);
+}
+
+.project-kicker {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.82);
+  text-shadow: 0 1px 10px hsl(var(--theme-color) / 0.9);
+}
+
+
+
+/* --------------------------------------------------------------------------
+   7b. Project detail overlay
+   The card's detail block is moved in here on open and moved back on close.
+   -------------------------------------------------------------------------- */
+
+/* No panel — the content sits straight on the blurred page and uses the whole
+   screen. The dialog fills the viewport and stays transparent so the blur
+   behind it is the only surface. */
+.pd {
+  width: 100vw;
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--color-foreground);
+  overflow: hidden;
+}
+
+/* Blur alone isn't separation — the grid behind stays legible enough to
+   compete with the text on top, so the scrim carries most of the weight and
+   the blur just softens what's left. */
+.pd::backdrop {
+  background: var(--color-pd-scrim);
+  backdrop-filter: blur(26px) saturate(112%);
+  -webkit-backdrop-filter: blur(26px) saturate(112%);
+}
+
+.pd-close {
+  position: absolute;
+  top: clamp(0.75rem, 3vh, 1.5rem);
+  right: clamp(0.75rem, 3vw, 1.5rem);
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-raised);
+  color: var(--color-foreground);
+  cursor: pointer;
+  transition: border-color var(--dur-fast) var(--ease-out-expo);
+}
+.pd-close:hover { border-color: hsl(var(--theme-color) / 0.7); }
+.pd-close svg { width: 18px; height: 18px; }
+
+/* Portrait first: shot, then stack, then buttons, then the text. The desktop
+   rule below only moves the text into a second column — the order never
+   changes, so the DOM reads the same either way.
+
+   Flex, not grid, because the text has to be the one thing that scrolls: a
+   flex column under a max-height lets .pd-right take the remainder and
+   .pd-text scroll inside it. As a grid the rows just sized to their content
+   and the tail got clipped with no way to reach it. */
+.pd-grid {
+  display: flex;
+  flex-direction: column;
+  width: min(1100px, 100%);
+  height: 100%;
+  margin: 0 auto;
+  justify-content: center;
+  padding: clamp(3.5rem, 8vh, 5rem) var(--space-md) var(--space-md);
+  overflow: hidden;
+}
+
+.pd-left { display: flex; flex-direction: column; min-width: 0; flex: 0 0 auto; }
+
+.pd-shot {
+  aspect-ratio: 16 / 9;
+  max-height: 26svh;             /* leave the description room on a phone */
+  border-radius: var(--radius-md);
+  flex: 0 0 auto;
+  overflow: hidden;
+  background:
+    radial-gradient(70% 85% at 50% 10%, hsl(var(--theme-color) / 0.4), transparent 72%),
+    hsl(var(--theme-color) / 0.12);
+}
+
+.pd-img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+.pd-shot.is-portrait .pd-img,
+.pd-shot.is-icon .pd-img { object-fit: contain; padding: var(--space-xs); }
+.pd-shot.is-icon .pd-img { border-radius: 18%; }
+
+.pd-side {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  padding: var(--space-sm) 0;
+  flex: 0 0 auto;
+}
+
+.pd-right {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;                 /* or the scroller below can never shrink */
+  padding: 0;
+}
+
+.pd-title {
+  font-size: clamp(1.35rem, 4.5vw, var(--text-2xl));
+  letter-spacing: -0.02em;
+  padding-right: 3rem;           /* clear of the close button */
+}
+
+.pd-kicker {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.05em;
+  color: hsl(var(--theme-color) / 1);
+  filter: brightness(1.9);
+  margin: 4px 0 var(--space-sm);
+}
+
+/* The description gets its own scroller so a long one never pushes the shot,
+   the stack or the buttons off screen. */
+.pd-text {
+  flex: 1 1 auto;
+  min-height: 7rem;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-right: var(--space-2xs);
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--theme-color) / 0.6) transparent;
+}
+
+.pd-text .project-desc {
+  font-size: var(--text-base);
+  line-height: 1.65;
   color: var(--color-muted-foreground);
 }
+
+.pd-text::-webkit-scrollbar { width: 6px; }
+.pd-text::-webkit-scrollbar-thumb {
+  background: hsl(var(--theme-color) / 0.6);
+  border-radius: var(--radius-pill);
+}
+
+.pd .project-links { margin-top: 0; }
+
+@media (min-width: 52rem) {
+  .pd-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    align-items: stretch;
+  }
+  .pd-grid  { gap: var(--space-lg); align-items: center; align-content: center; }
+  .pd-left  { min-height: 0; }
+  .pd-right { padding: 0; }
+  .pd-shot  { max-height: none; }
+}
+
+/* --------------------------------------------------------------------------
+   7c. Shared card pieces (used inside the overlay)
+   -------------------------------------------------------------------------- */
 
 .project-desc {
   font-size: var(--text-sm);
   color: var(--color-muted-foreground);
-  flex: 1;
 }
 
 .tags {
@@ -809,37 +999,76 @@ hr { display: none; } /* separators are handled by section rhythm */
 
 .tags li {
   padding: 3px 10px;
-  border: 1px solid var(--color-border);
+  border: 1px solid hsl(var(--theme-color) / 0.35);
   border-radius: var(--radius-pill);
-  background: var(--color-muted);
+  background: hsl(var(--theme-color) / 0.16);
   font-family: var(--font-mono);
   font-size: var(--text-xs);
-  color: var(--color-muted-foreground);
+  color: var(--color-foreground);
 }
 
 .project-links {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-sm);
-  margin-top: var(--space-2xs);
   padding-top: var(--space-sm);
   border-top: 1px solid var(--color-border);
 }
 
-.project-links a {
+.project-links a,
+.project-links button {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  min-height: 32px;
+  min-height: 44px;
+  padding: 0 var(--space-sm);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface-raised);
   font-size: var(--text-sm);
   font-weight: 500;
-  color: var(--color-muted-foreground);
+  color: var(--color-foreground);
+  cursor: pointer;
+  transition: border-color var(--dur-fast) var(--ease-out-expo),
+              background-color var(--dur-fast) var(--ease-out-expo);
 }
 
-.project-links a:hover { color: var(--color-accent); }
-.project-links a svg { width: 15px; height: 15px; flex: none; }
+.project-links a:hover,
+.project-links button:hover {
+  border-color: hsl(var(--theme-color) / 0.6);
+  background: hsl(var(--theme-color) / 0.2);
+}
 
+.project-links svg { width: 16px; height: 16px; flex: none; }
 .project-links a.is-live { color: var(--color-accent); }
+
+/* With JS off nothing can open, so the cards render as they always did —
+   everything visible, inline, no trigger. The !important is not decoration:
+   the global [hidden] rule near the top is itself !important, and without a
+   match here the descriptions and links would simply vanish. */
+.no-js .project-detail[hidden] {
+  display: block !important;
+  padding: var(--space-md);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-top: 0;
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+}
+.no-js .project-open {
+  cursor: default;
+  animation: none;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+.no-js .project-open:hover { transform: none; }
+.no-js .project-detail > * + * { margin-top: var(--space-sm); }
+/* The overlay never opens, so it must not reserve space either. */
+.no-js .pd { display: none !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  .project-open { animation: none; }
+  .project-open:hover { transform: none; }
+  .project-open:hover .project-shot img { transform: none; }
+}
 
 /* --------------------------------------------------------------------------
    8. Stack
@@ -1094,8 +1323,7 @@ hr { display: none; } /* separators are handled by section rhythm */
   }
 
   .reveal { opacity: 1; transform: none; }
-  .project:hover { transform: none; }
-  .project:hover .project-media img { transform: none; }
+  .project-open:hover { transform: none; }
   body::before, body::after { animation: none; }
   .hero h1 .accent { background-size: 100% 2px; }
 
@@ -1199,28 +1427,8 @@ hr { display: none; } /* separators are handled by section rhythm */
 }
 
 /* Play badge over the card preview */
-.play-overlay {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  border: 0;
-  background: rgba(15, 23, 42, 0.35);
-  color: #fff;
-  cursor: pointer;
-  opacity: 0;
-  transition: opacity var(--dur-mid) var(--ease-out-expo);
-}
 
-.project:hover .play-overlay,
-.play-overlay:focus-visible { opacity: 1; }
-
-.play-overlay svg {
-  width: 54px; height: 54px;
-  filter: drop-shadow(0 6px 18px rgba(0,0,0,0.5));
-  transition: transform var(--dur-mid) var(--ease-out-expo);
-}
-.play-overlay:hover svg { transform: scale(1.08); }
+.project:hover
 
 /* "Watch demo", sitting in the same row as GitHub / Live site */
 .link-video {
@@ -1304,8 +1512,6 @@ hr { display: none; } /* separators are handled by section rhythm */
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .play-overlay { opacity: 1; background: rgba(15, 23, 42, 0.28); }
-  .play-overlay:hover svg { transform: none; }
 }
 
 /* --------------------------------------------------------------------------
@@ -1330,56 +1536,3 @@ hr { display: none; } /* separators are handled by section rhythm */
   .site-nav .nav-hide-xs { display: none; }
 }
 
-/* --------------------------------------------------------------------------
-   16. Long descriptions on small screens
-   Clamped to three lines with a toggle, so a card is scannable without
-   burying what the project actually is. Desktop is untouched.
-   The clamp is applied by script.js (via .has-clamp) so that with JS off the
-   full text shows rather than being trapped behind a dead button.
-   -------------------------------------------------------------------------- */
-
-.desc-toggle { display: none; }
-
-@media (max-width: 46rem) {
-  .project.has-clamp .project-desc {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
-    line-clamp: 3;
-    overflow: hidden;
-  }
-
-  .project.has-clamp.is-expanded .project-desc {
-    display: block;
-    overflow: visible;
-  }
-
-  .project.has-clamp .desc-toggle {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    min-height: 44px;
-    margin-top: -0.35rem;
-    padding: 0;
-    border: 0;
-    background: none;
-    cursor: pointer;
-    font-family: var(--font-body);
-    font-size: var(--text-sm);
-    font-weight: 500;
-    color: var(--color-accent);
-  }
-
-  .project.has-clamp .desc-toggle svg {
-    width: 14px; height: 14px;
-    transition: transform var(--dur-fast) var(--ease-out-expo);
-  }
-  .project.has-clamp.is-expanded .desc-toggle svg { transform: rotate(180deg); }
-
-  /* Six tags wrap to three rows on a phone; show the first three. */
-  .project.has-clamp:not(.is-expanded) .tags li:nth-child(n+4) { display: none; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .desc-toggle svg { transition: none; }
-}

@@ -265,54 +265,94 @@
     });
   }
 
-  /* ---- 6. Clamp long descriptions on small screens -------------------- */
+  /* ---- 6. Project detail overlay --------------------------------------
+     The card is the trigger; its .project-detail block is *moved* into the
+     dialog on open and moved home on close. Moving rather than cloning keeps
+     one copy of every node, so the video trigger keeps the listener that
+     section 5 already gave it and nothing can drift out of step.        */
 
-  var CLAMP_AT = window.matchMedia('(max-width: 46rem)');
+  var pd = document.getElementById('project-dialog');
 
-  function buildToggle(card) {
-    var desc = card.querySelector('.project-desc');
-    if (!desc || card.querySelector('.desc-toggle')) return;
+  if (pd && typeof pd.showModal === 'function') {
+    var pdImg    = pd.querySelector('.pd-img');
+    var pdShot   = pd.querySelector('.pd-shot');
+    var pdSide   = pd.querySelector('.pd-side');
+    var pdText   = pd.querySelector('.pd-text');
+    var pdTitle  = pd.querySelector('.pd-title');
+    var pdKicker = pd.querySelector('.pd-kicker');
+    var pdClose  = pd.querySelector('.pd-close');
+    var borrowed = [];      // [node, itsHome] so close can always undo the move
+    var opener   = null;
 
-    var btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'desc-toggle';
-    btn.setAttribute('aria-expanded', 'false');
-    btn.innerHTML = '<span>Read more</span>' +
-      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" ' +
-      'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
-      '<path d="m6 9 6 6 6-6"/></svg>';
+    function lend(node, into) {
+      if (!node) return;
+      borrowed.push([node, node.parentNode]);
+      into.appendChild(node);
+    }
 
-    var name = (card.querySelector('h3') || {}).textContent || 'this project';
-    btn.setAttribute('aria-label', 'Read more about ' + name.trim());
+    function returnAll() {
+      borrowed.forEach(function (pair) { pair[1].appendChild(pair[0]); });
+      borrowed.length = 0;
+    }
 
-    btn.addEventListener('click', function () {
-      var open = card.classList.toggle('is-expanded');
-      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-      btn.firstChild.textContent = open ? 'Show less' : 'Read more';
-      btn.setAttribute('aria-label',
-        (open ? 'Show less about ' : 'Read more about ') + name.trim());
+    function openProject(card, trigger) {
+      var shot   = card.querySelector('.project-shot');
+      var img    = shot.querySelector('img');
+      var detail = card.querySelector('.project-detail');
+
+      opener = trigger;
+      pd.style.setProperty('--theme-color', card.style.getPropertyValue('--theme-color'));
+
+      pdImg.src = img.currentSrc || img.src;
+      pdImg.alt = img.alt;
+      pdImg.width = img.width; pdImg.height = img.height;
+      // A portrait shot or an app icon has to keep its shape here too.
+      pdShot.className = 'pd-shot' +
+        (shot.classList.contains('is-portrait') ? ' is-portrait' : '') +
+        (shot.classList.contains('is-icon') ? ' is-icon' : '');
+
+      pdTitle.textContent  = card.querySelector('.project-name').textContent;
+      pdKicker.textContent = card.querySelector('.project-kicker').textContent;
+
+      lend(detail.querySelector('.tags'), pdSide);
+      lend(detail.querySelector('.project-links'), pdSide);
+      lend(detail.querySelector('.project-desc'), pdText);
+
+      pdText.scrollTop = 0;
+      document.body.classList.add('pd-open');
+      // showModal alone doesn't stop the page behind from scrolling.
+      document.body.style.overflow = 'hidden';
+      pd.showModal();
+      pdClose.focus();
+    }
+
+    function closeProject() { if (pd.open) pd.close(); }
+
+    document.querySelectorAll('.project-open').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        openProject(btn.closest('.project'), btn);
+      });
     });
 
-    desc.insertAdjacentElement('afterend', btn);
-  }
+    pdClose.addEventListener('click', closeProject);
 
-  /* Only clamp cards whose text actually overflows three lines — a short
-     description shouldn't grow a button that does nothing. */
-  function applyClamps() {
-    document.querySelectorAll('#work .project').forEach(function (card) {
-      if (!CLAMP_AT.matches) { card.classList.remove('has-clamp', 'is-expanded'); return; }
-      buildToggle(card);
-      var desc = card.querySelector('.project-desc');
-      if (!desc) return;
-      card.classList.add('has-clamp');
-      var overflows = desc.scrollHeight > desc.clientHeight + 2;
-      var manyTags = card.querySelectorAll('.tags li').length > 3;
-      if (!overflows && !manyTags) card.classList.remove('has-clamp');
+    /* There is no panel to click outside of any more — the dialog fills the
+       screen — so treat a hit on the empty ground as a dismiss. Only the
+       containers themselves count; anything inside them is content. */
+    var pdGrid = pd.querySelector('.pd-grid');
+    pd.addEventListener('click', function (e) {
+      if (e.target === pd || e.target === pdGrid) closeProject();
+    });
+
+    pd.addEventListener('close', function () {
+      returnAll();
+      document.body.classList.remove('pd-open');
+      document.body.style.overflow = '';
+      pdImg.removeAttribute('src');
+      if (opener && opener.focus) opener.focus();   // back where the visitor was
+      opener = null;
     });
   }
-
-  applyClamps();
-  CLAMP_AT.addEventListener('change', applyClamps);
 
   /* ---- 7. Logo rails: drift, swipe, drag ------------------------------
      Each rail is a scroller holding several identical copies of its set. The
