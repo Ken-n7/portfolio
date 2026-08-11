@@ -275,6 +275,7 @@
 
   if (pd && typeof pd.showModal === 'function') {
     var pdImg    = pd.querySelector('.pd-img');
+    var pdVideo  = pd.querySelector('.pd-video');
     var pdShot   = pd.querySelector('.pd-shot');
     var pdSide   = pd.querySelector('.pd-side');
     var pdText   = pd.querySelector('.pd-text');
@@ -347,7 +348,21 @@
         clone.remove();
         if (currentFly === anim) { currentFly = null; pd.classList.remove('is-flying'); }
       };
-      anim.finished.then(land).catch(land);   // .cancel() rejects; same cleanup
+
+      /* The clone carries the card's screenshot. Where the overlay holds a
+         demo instead, the thing underneath is different footage entirely, so
+         the swap has to be a fade — a straight cut reads as a glitch. */
+      if (!reverse && pdShot.classList.contains('is-video')) {
+        anim.finished.then(function () {
+          if (currentFly !== anim) return land();
+          pd.classList.remove('is-flying');
+          pdShot.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 220, easing: EASE });
+          var out = clone.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 200, easing: EASE, fill: 'both' });
+          out.finished.then(land).catch(land);
+        }).catch(land);
+      } else {
+        anim.finished.then(land).catch(land);
+      }   // .cancel() rejects; same cleanup
 
       return anim;
     }
@@ -426,13 +441,26 @@
       pd.classList.remove('is-emptied');
       pd.style.setProperty('--theme-color', card.style.getPropertyValue('--theme-color'));
 
+      /* A project with a demo opens straight into it — the screenshot has
+         already done its job on the card. */
+      var demo = card.dataset.demo;
+      pdVideo.hidden = !demo;
+      pdImg.hidden = !!demo;
+      if (demo) {
+        if (card.dataset.demoPoster) pdVideo.poster = card.dataset.demoPoster;
+        if (pdVideo.getAttribute('src') !== demo) pdVideo.setAttribute('src', demo);
+      } else {
+        pdVideo.removeAttribute('src');
+      }
+
       pdImg.src = img.currentSrc || img.src;
       pdImg.alt = img.alt;
       pdImg.width = img.width; pdImg.height = img.height;
       // A portrait shot or an app icon has to keep its shape here too.
       pdShot.className = 'pd-shot' +
-        (shot.classList.contains('is-portrait') ? ' is-portrait' : '') +
-        (shot.classList.contains('is-icon') ? ' is-icon' : '');
+        (demo ? ' is-video' : '') +
+        (!demo && shot.classList.contains('is-portrait') ? ' is-portrait' : '') +
+        (!demo && shot.classList.contains('is-icon') ? ' is-icon' : '');
 
       pdTitle.textContent  = card.querySelector('.project-name').textContent;
       pdKicker.textContent = card.querySelector('.project-kicker').textContent;
@@ -534,6 +562,9 @@
       document.body.classList.remove('pd-open');
       unlockScroll();
       pdImg.removeAttribute('src');
+      pdVideo.pause();
+      pdVideo.currentTime = 0;
+      pdVideo.removeAttribute('src');
       if (currentFly) { currentFly.cancel(); currentFly = null; }
       pd.querySelectorAll('.pd-fly').forEach(function (el) { el.remove(); });
       pd.classList.remove('is-flying');
@@ -672,10 +703,10 @@
        nudging scroll offsets forever is work nobody can see, and battery on a
        phone. */
     var inView = !('IntersectionObserver' in window);
-    var frame = null;
+    var railFrame = null;   // named apart from section 5's iframe: same function scope
 
     function tick(now) {
-      frame = null;
+      railFrame = null;
       var dt = Math.min((now - (tick.last || now)) / 1000, 0.05);  // cap after a tab switch
       tick.last = now;
 
@@ -691,14 +722,14 @@
         r.wrap();
       });
 
-      if (running()) frame = requestAnimationFrame(tick);
+      if (running()) railFrame = requestAnimationFrame(tick);
     }
 
     function running() { return inView && !document.hidden; }
 
     function sync() {
-      if (running() && !frame) { tick.last = performance.now(); frame = requestAnimationFrame(tick); }
-      if (!running() && frame) { cancelAnimationFrame(frame); frame = null; }
+      if (running() && !railFrame) { tick.last = performance.now(); railFrame = requestAnimationFrame(tick); }
+      if (!running() && railFrame) { cancelAnimationFrame(railFrame); railFrame = null; }
     }
 
     if ('IntersectionObserver' in window) {
