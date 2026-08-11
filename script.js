@@ -383,6 +383,23 @@
     /* The scrim ramps rather than snapping. On the way out it waits until the
        shot is already back in the grid, so the blur lifts off a page that is
        whole again. */
+    /* showModal alone doesn't stop the page behind from scrolling, but
+       overflow:hidden reclaims the scrollbar's strip and shifts the whole
+       layout. Measure what locking actually cost and give it straight back as
+       padding. Reads 0 wherever scrollbar-gutter or overlay scrollbars already
+       hold the space, so it costs nothing there. */
+    function lockScroll() {
+      var before = document.documentElement.clientWidth;
+      document.body.style.overflow = 'hidden';
+      var gained = document.documentElement.clientWidth - before;
+      if (gained > 0) document.body.style.paddingRight = gained + 'px';
+    }
+
+    function unlockScroll() {
+      document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
+    }
+
     var CLEAR = 'rgba(0, 0, 0, 0)';
     var BLURRED = 'blur(26px) saturate(112%)';
     var scrimAnim = null;
@@ -425,8 +442,7 @@
 
       pdText.scrollTop = 0;
       document.body.classList.add('pd-open');
-      // showModal alone doesn't stop the page behind from scrolling.
-      document.body.style.overflow = 'hidden';
+      lockScroll();
       pd.showModal();
       // Measured only now — .pd-shot has no box until the dialog is laid out.
       scrim(true);
@@ -509,7 +525,7 @@
     pd.addEventListener('close', function () {
       returnAll();
       document.body.classList.remove('pd-open');
-      document.body.style.overflow = '';
+      unlockScroll();
       pdImg.removeAttribute('src');
       if (currentFly) { currentFly.cancel(); currentFly = null; }
       pd.querySelectorAll('.pd-fly').forEach(function (el) { el.remove(); });
@@ -524,7 +540,11 @@
       closing = false;
       if (source) source.classList.remove('is-source');
       source = null;
-      if (opener && opener.focus) opener.focus();   // back where the visitor was
+      /* preventScroll because scroll-behavior is smooth: without it, focus
+         can glide the page to the card and that glide reads as a lurch right
+         as the overlay disappears. The card is always still on screen anyway —
+         the page was locked the whole time it was open. */
+      if (opener && opener.focus) opener.focus({ preventScroll: true });
       opener = null;
     });
   }
