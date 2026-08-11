@@ -963,6 +963,13 @@ body.pd-open .project-open { animation-play-state: paused; }
 
 .pd.is-flying .pd-shot { visibility: hidden; }
 
+/* Once the shot has flown home there is nothing left in here worth showing.
+   Without this the overlay's own copy of the image pops back into view at the
+   position it opened in and sits there for the whole length of the blur fade —
+   which reads as the picture jumping back before the dialog vanishes. */
+.pd.is-emptied .pd-grid,
+.pd.is-emptied .pd-close { visibility: hidden; }
+
 /* The card has left the grid, so it shouldn't still be sitting in it. */
 .project.is-source .project-open { opacity: 0; }
 

@@ -405,6 +405,7 @@
 
       opener = trigger;
       source = card;
+      pd.classList.remove('is-emptied');
       pd.style.setProperty('--theme-color', card.style.getPropertyValue('--theme-color'));
 
       pdImg.src = img.currentSrc || img.src;
@@ -437,6 +438,7 @@
     /* Abandon the close choreography and land immediately. */
     function snapShut() {
       closing = false;
+      pd.classList.remove('is-emptied');
       if (scrimAnim) { scrimAnim.cancel(); scrimAnim = null; }
       if (currentFly) { currentFly.cancel(); currentFly = null; }
       if (pd.open) pd.close();
@@ -459,7 +461,10 @@
 
         return anim.finished.catch(function () {}).then(function () {
           // The card is back in its slot before the blur starts lifting, so
-          // the grid is never seen with a hole in it.
+          // the grid is never seen with a hole in it. Blanking the panel in
+          // the same batch keeps the overlay's copy of the shot from painting
+          // again at the position it opened in.
+          pd.classList.add('is-emptied');
           if (source) source.classList.remove('is-source');
           return scrim(false);
         }).then(done);
@@ -509,6 +514,7 @@
       if (currentFly) { currentFly.cancel(); currentFly = null; }
       pd.querySelectorAll('.pd-fly').forEach(function (el) { el.remove(); });
       pd.classList.remove('is-flying');
+      pd.classList.remove('is-emptied');
       if (scrimAnim) { scrimAnim.cancel(); scrimAnim = null; }
       [pdTitle, pdKicker, pdText, pdSide].forEach(function (el) {
         if (!el) return;
