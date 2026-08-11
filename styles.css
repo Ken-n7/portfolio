@@ -808,6 +808,13 @@ body.pd-open .project-open { animation-play-state: paused; }
     inset 0 -170px 80px -60px rgba(6, 10, 20, 0.7);
 }
 
+/* The card is just the mark; the meta line belongs to the opened view, where
+   there is room for it. EVMC keeps its line because it says what the thing is
+   rather than when it was — but not the year. */
+.project-face .project-kicker { display: none; }
+#p-evmc .project-face .project-kicker { display: block; }
+#p-evmc .project-face .kicker-year { display: none; }
+
 /* Every card now shows its project's own mark, so the plain-text name is kept
    only as the button's accessible name. */
 .project-face .project-name {
