@@ -7,6 +7,20 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600&display=swap');
 
+/* Two faces borrowed from the projects themselves, so their titles are set the
+   way they are in the thing they belong to. Both are subset to the exact
+   letters they spell — a few KB each rather than a whole family. */
+@font-face {
+  font-family: 'Butcherman Subset';      /* ProbXcape's own title face */
+  src: url('brand/butcherman.woff2') format('woff2');
+  font-weight: 400; font-display: swap;
+}
+@font-face {
+  font-family: 'Inter Subset';           /* Sip & Savor sets its name in Inter 600 */
+  src: url('brand/inter-sip.woff2') format('woff2');
+  font-weight: 600; font-display: swap;
+}
+
 /* --------------------------------------------------------------------------
    1. Tokens
    -------------------------------------------------------------------------- */
@@ -975,6 +989,73 @@ body.pd-open .project-open { animation-play-state: paused; }
 
 .pd-enter { will-change: transform, opacity; }
 
+/* ---- Project wordmarks ------------------------------------------------
+   Four of the projects have a real logo or title treatment, so the overlay
+   shows that instead of setting the name in the site's own font. The <h3>
+   stays put underneath carrying the accessible name — the dialog is labelled
+   by it, and a logo is a picture, not a heading. */
+.pd.has-brand .pd-title {
+  position: absolute;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.pd-brand:empty { display: none; }
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.35rem;
+}
+
+/* One cap for every lockup, whatever shape it is, so a tall stacked logo and
+   a wide horizontal one carry the same weight in the layout. */
+.brand img {
+  width: auto;
+  max-width: min(100%, 20rem);
+  max-height: 3.4rem;
+  object-fit: contain;
+}
+
+.brand-swarm img { max-height: 6.5rem; }         /* stacked mark over wordmark */
+.brand-onehub img { max-height: 2.6rem; }
+
+.brand-probxcape {
+  font-family: 'Butcherman Subset', var(--font-heading), sans-serif;
+  font-size: clamp(1.9rem, 6vw, 2.9rem);
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+  color: var(--color-foreground);
+}
+
+/* The app's own header runs the mark at 50px against 20px text. Matching that
+   ratio keeps the lockup recognisable rather than just being the two pieces
+   sitting near each other. */
+.brand-sip { gap: 0.5rem; }
+.brand-sip .brand-mark { max-height: 3rem; }
+.brand-sip span {
+  font-family: 'Inter Subset', var(--font-body), sans-serif;
+  font-weight: 600;
+  font-size: clamp(1.2rem, 3.4vw, 1.5rem);
+  letter-spacing: -0.01em;
+  color: var(--color-foreground);
+}
+
+/* Artwork drawn for one ground can't be recoloured, so each of these ships
+   both versions and the theme picks. Declared three times for the same reason
+   the palette is: OS-light, explicit-light, and the dark default. */
+.brand .on-light { display: none; }
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) .brand .on-dark  { display: none; }
+  :root:not([data-theme="dark"]) .brand .on-light { display: block; }
+}
+:root[data-theme="light"] .brand .on-dark  { display: none; }
+:root[data-theme="light"] .brand .on-light { display: block; }
+
 /* The description gets its own scroller so a long one never pushes the shot,
    the stack or the buttons off screen. */
 .pd-text {
@@ -1092,6 +1173,7 @@ body.pd-open .project-open { animation-play-state: paused; }
 }
 .no-js .project-open:hover { transform: none; }
 .no-js .project-detail > * + * { margin-top: var(--space-sm); }
+.no-js .brand { display: none; }   /* the card already shows the name */
 /* The overlay never opens, so it must not reserve space either. */
 .no-js .pd { display: none !important; }
 

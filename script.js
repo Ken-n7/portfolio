@@ -278,6 +278,7 @@
     var pdShot   = pd.querySelector('.pd-shot');
     var pdSide   = pd.querySelector('.pd-side');
     var pdText   = pd.querySelector('.pd-text');
+    var pdBrand  = pd.querySelector('.pd-brand');
     var pdTitle  = pd.querySelector('.pd-title');
     var pdKicker = pd.querySelector('.pd-kicker');
     var pdClose  = pd.querySelector('.pd-close');
@@ -355,7 +356,7 @@
        panel assembles around the picture rather than appearing all at once. */
     function revealContent() {
       if (reduced) return;
-      [pdTitle, pdKicker, pdText, pdSide].forEach(function (el, i) {
+      [pdBrand, pdTitle, pdKicker, pdText, pdSide].forEach(function (el, i) {
         if (!el) return;
         el.classList.add('pd-enter');
         var a = el.animate(
@@ -371,7 +372,7 @@
        leaves rather than everything sliding away together. */
     function hideContent() {
       if (reduced) return Promise.resolve();
-      var anims = [pdSide, pdText, pdKicker, pdTitle].filter(Boolean).map(function (el, i) {
+      var anims = [pdSide, pdText, pdKicker, pdTitle, pdBrand].filter(Boolean).map(function (el, i) {
         el.classList.add('pd-enter');
         return el.animate(
           [{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'translateY(10px)' }],
@@ -435,6 +436,12 @@
 
       pdTitle.textContent  = card.querySelector('.project-name').textContent;
       pdKicker.textContent = card.querySelector('.project-kicker').textContent;
+
+      /* Four projects carry their own wordmark; the rest just use the title.
+         Lent in like everything else, so there is one copy of it. */
+      var brand = detail.querySelector('.brand');
+      pd.classList.toggle('has-brand', !!brand);
+      lend(brand, pdBrand);
 
       lend(detail.querySelector('.tags'), pdSide);
       lend(detail.querySelector('.project-links'), pdSide);
@@ -532,7 +539,7 @@
       pd.classList.remove('is-flying');
       pd.classList.remove('is-emptied');
       if (scrimAnim) { scrimAnim.cancel(); scrimAnim = null; }
-      [pdTitle, pdKicker, pdText, pdSide].forEach(function (el) {
+      [pdBrand, pdTitle, pdKicker, pdText, pdSide].forEach(function (el) {
         if (!el) return;
         el.getAnimations().forEach(function (a) { a.cancel(); });
         el.classList.remove('pd-enter');
