@@ -463,7 +463,9 @@
         (!demo && shot.classList.contains('is-icon') ? ' is-icon' : '');
 
       pdTitle.textContent  = card.querySelector('.project-name').textContent;
-      pdKicker.textContent = card.querySelector('.project-kicker').textContent;
+      var kicker = card.querySelector('.project-kicker');   // only EVMC still has one
+      pdKicker.textContent = kicker ? kicker.textContent : '';
+      pdKicker.hidden = !kicker;
 
       /* Four projects carry their own wordmark; the rest just use the title.
          Lent in like everything else, so there is one copy of it. */

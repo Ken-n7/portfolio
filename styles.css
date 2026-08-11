@@ -1045,7 +1045,7 @@ body.pd-open .project-open { animation-play-state: paused; }
 .pd-brand:empty { display: none; }
 
 .brand {
-  display: flex;
+  display: flex;   /* a span, not a <p> — it lives inside the card's button */
   align-items: center;
   gap: 0.6rem;
   margin-bottom: 0.35rem;
