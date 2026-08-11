@@ -314,7 +314,21 @@
   applyClamps();
   CLAMP_AT.addEventListener('change', applyClamps);
 
-  /* ---- 7. Hero underline draws itself in on load ---------------------- */
+  /* ---- 7. Park the logo marquees while they're off screen -------------
+     Four transform animations looping forever keep the compositor awake even
+     when nobody can see them, which costs battery on a phone. Stop them the
+     moment the block leaves the viewport. */
+
+  var rails = document.querySelector('.stack-rails');
+
+  if (rails && 'IntersectionObserver' in window) {
+    rails.classList.add('is-parked');
+    new IntersectionObserver(function (entries) {
+      rails.classList.toggle('is-parked', !entries[0].isIntersecting);
+    }, { rootMargin: '120px 0px' }).observe(rails);
+  }
+
+  /* ---- 8. Hero underline draws itself in on load ---------------------- */
 
   var accent = document.querySelector('.hero h1 .accent');
   if (accent && !reduced) {
