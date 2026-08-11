@@ -857,6 +857,11 @@ hr { display: none; } /* separators are handled by section rhythm */
   /* Not display:none — that stops <use> resolving in some engines. */
 }
 
+/* The cue above this section already contributes 4rem of air, and a rail is a
+   thin thing — the section's usual 6rem below it opened a canyon before the
+   contact cue. Let the cue's own padding do that side too. */
+#stack { padding-bottom: 0; }
+
 .stack-rails { display: grid; }
 
 .rail {
@@ -867,6 +872,7 @@ hr { display: none; } /* separators are handled by section rhythm */
   border-top: 1px solid var(--color-border);
 }
 .rail:first-child { border-top: 0; padding-top: 0; }
+.rail:last-child { padding-bottom: 0; }
 
 .rail-label {
   font-size: var(--text-xs);
@@ -893,6 +899,23 @@ hr { display: none; } /* separators are handled by section rhythm */
   animation-direction: var(--rail-dir, normal);
 }
 
+/* With JS the rail becomes a real scroller so it can be swiped and dragged,
+   and the drift is driven frame by frame instead of by the keyframes — the two
+   can't share a rail, since a transform and a scroll offset would fight. The
+   CSS animation above stays as the no-JS baseline. */
+.is-live .rail-viewport {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;              /* the fade is the affordance, not a bar */
+  -ms-overflow-style: none;
+  overscroll-behavior-x: contain;     /* don't let a flick trigger back-navigation */
+  cursor: grab;
+  touch-action: pan-x pan-y;
+}
+.is-live .rail-viewport::-webkit-scrollbar { display: none; }
+.is-live .rail-viewport.is-dragging { cursor: grabbing; user-select: none; }
+.is-live .rail-track { animation: none; }
+
 /* Three identical sets side by side; travelling exactly one set width — a
    third of the track — puts the second where the first began, so the loop has
    no seam. Two copies would be enough for the long rows but the six-chip rows
@@ -906,16 +929,16 @@ hr { display: none; } /* separators are handled by section rhythm */
   flex: none;
 }
 
+/* One set width per loop, which is a different fraction of the track depending
+   on how many copies that rail needed. */
 @keyframes rail-scroll {
   from { transform: translate3d(0, 0, 0); }
-  to   { transform: translate3d(-33.3333%, 0, 0); }
+  to   { transform: translate3d(var(--rail-shift, -33.3333%), 0, 0); }
 }
 
-/* Stop for anyone reading it — pointer or keyboard. JS also parks the whole
-   block whenever it scrolls out of view. */
+/* No-JS only — with JS running, the drift pauses in script.js instead. */
 .rail:hover .rail-track,
-.rail:focus-within .rail-track,
-.stack-rails.is-parked .rail-track { animation-play-state: paused; }
+.rail:focus-within .rail-track { animation-play-state: paused; }
 
 .logo {
   --brand-use: var(--brand-dark);
@@ -958,8 +981,11 @@ hr { display: none; } /* separators are handled by section rhythm */
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .rail-viewport {
+  /* Nothing drifts and nothing needs dragging — the whole set is on screen. */
+  .rail-viewport,
+  .is-live .rail-viewport {
     overflow: visible;
+    cursor: auto;
     -webkit-mask-image: none;
             mask-image: none;
   }
@@ -1085,8 +1111,8 @@ hr { display: none; } /* separators are handled by section rhythm */
   .site-header, .contact-actions, .cue { display: none; }
   .project, .logo, .contact-card { border: 1px solid #ccc; box-shadow: none; }
   .reveal { opacity: 1; transform: none; }
-  /* A marquee can't scroll on paper — unroll it and drop the duplicate set. */
-  .rail-viewport { overflow: visible; -webkit-mask-image: none; mask-image: none; }
+  /* A marquee can't scroll on paper — unroll it and drop the duplicate sets. */
+  .rail-viewport, .is-live .rail-viewport { overflow: visible; -webkit-mask-image: none; mask-image: none; }
   .rail-track { animation: none; display: block; width: auto; }
   .rail-track .rail-set[aria-hidden="true"] { display: none; }
   .rail-set { flex-wrap: wrap; padding-right: 0; }

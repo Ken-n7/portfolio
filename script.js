@@ -314,18 +314,171 @@
   applyClamps();
   CLAMP_AT.addEventListener('change', applyClamps);
 
-  /* ---- 7. Park the logo marquees while they're off screen -------------
-     Four transform animations looping forever keep the compositor awake even
-     when nobody can see them, which costs battery on a phone. Stop them the
-     moment the block leaves the viewport. */
+  /* ---- 7. Logo rails: drift, swipe, drag ------------------------------
+     Each rail is a scroller holding several identical copies of its set. The
+     drift is a scroll offset nudged once a frame rather than a CSS transform,
+     which is what lets a finger or a mouse grab it mid-flight: touch gets the
+     browser's own panning and momentum for free, and only the mouse needs
+     hand-rolled dragging. Whenever the offset leaves the middle band it jumps
+     back by exactly one set — identical pixels, so the seam is invisible, and
+     there is always a whole spare copy either side to drag into. */
 
-  var rails = document.querySelector('.stack-rails');
+  var railsBlock = document.querySelector('.stack-rails');
 
-  if (rails && 'IntersectionObserver' in window) {
-    rails.classList.add('is-parked');
-    new IntersectionObserver(function (entries) {
-      rails.classList.toggle('is-parked', !entries[0].isIntersecting);
-    }, { rootMargin: '120px 0px' }).observe(rails);
+  if (railsBlock && !reduced) {
+    var SPEED = 34;        // px per second — one pace for every rail
+    var FRICTION = 0.94;   // per frame decay on a mouse throw
+    var RESUME = 900;      // ms of stillness before the drift picks up again
+
+    var rails = Array.prototype.map.call(
+      railsBlock.querySelectorAll('.rail'),
+      function (rail) {
+        var view = rail.querySelector('.rail-viewport');
+        var track = rail.querySelector('.rail-track');
+        var r = {
+          view: view,
+          dir: /reverse/.test(track.style.getPropertyValue('--rail-dir')) ? -1 : 1,
+          setW: 0,
+          hover: false,
+          idleAt: 0,       // timestamp the visitor last let go
+          fling: 0,        // leftover mouse velocity, px/s
+          drag: null
+        };
+
+        r.measure = function () {
+          var set = rail.querySelector('.rail-set');
+          var w = set ? set.getBoundingClientRect().width : 0;
+          if (!w) return;
+          r.setW = w;
+          if (view.scrollLeft < w) view.scrollLeft = w;   // start in the middle band
+        };
+        r.measure();
+
+        /* Keep the offset inside [setW, 2·setW). Landing on the same pixels one
+           set over means nothing visibly moves. */
+        r.wrap = function () {
+          if (!r.setW) return;
+          var x = view.scrollLeft;
+          if (x >= r.setW * 2) view.scrollLeft = x - r.setW;
+          else if (x < r.setW) view.scrollLeft = x + r.setW;
+        };
+
+        view.addEventListener('mouseenter', function () { r.hover = true; });
+        view.addEventListener('mouseleave', function () { r.hover = false; });
+
+        /* Any contact stops the drift; it only resumes after a pause, so the
+           rail doesn't crawl out from under a finger that's still resting. */
+        function touched() { r.idleAt = performance.now(); r.fling = 0; }
+        view.addEventListener('scroll', function () { if (r.drag) return; r.wrap(); }, { passive: true });
+        view.addEventListener('touchstart', touched, { passive: true });
+        view.addEventListener('touchmove', touched, { passive: true });
+        view.addEventListener('touchend', touched, { passive: true });
+        view.addEventListener('wheel', touched, { passive: true });
+
+        /* Touch and pen already pan natively — hijacking them would cost the
+           browser's momentum and its vertical-scroll handoff. Mouse doesn't. */
+        view.addEventListener('pointerdown', function (e) {
+          if (e.pointerType !== 'mouse' || e.button !== 0) return;
+          r.drag = { x: e.clientX, from: view.scrollLeft, at: performance.now(), moved: false };
+          r.fling = 0;
+          view.setPointerCapture(e.pointerId);
+        });
+
+        view.addEventListener('pointermove', function (e) {
+          if (!r.drag) return;
+          var dx = e.clientX - r.drag.x;
+          if (!r.drag.moved && Math.abs(dx) > 3) {
+            r.drag.moved = true;
+            view.classList.add('is-dragging');
+          }
+          if (!r.drag.moved) return;
+          var now = performance.now();
+          var prev = view.scrollLeft;
+
+          /* Fold the target into the band *before* handing it over. Assigning
+             first and correcting after would let the browser clamp a fast flick
+             at the end of the scroller, and the rail would snag. Shifting the
+             drag origin by the same amount keeps the next delta honest. */
+          var target = r.drag.from - dx;
+          while (target >= r.setW * 2) { target -= r.setW; r.drag.from -= r.setW; }
+          while (target < r.setW)      { target += r.setW; r.drag.from += r.setW; }
+          view.scrollLeft = target;
+
+          var dt = now - r.drag.at;
+          var step = view.scrollLeft - prev;
+          // A wrap makes the raw step a whole set wide; that isn't real speed.
+          if (dt > 0 && Math.abs(step) < r.setW / 2) r.fling = step / dt * 1000;
+          r.drag.at = now;
+        });
+
+        function endDrag(e) {
+          if (!r.drag) return;
+          if (view.hasPointerCapture && e.pointerId != null &&
+              view.hasPointerCapture(e.pointerId)) view.releasePointerCapture(e.pointerId);
+          r.drag = null;
+          r.idleAt = performance.now();
+          view.classList.remove('is-dragging');
+        }
+        view.addEventListener('pointerup', endDrag);
+        view.addEventListener('pointercancel', endDrag);
+
+        return r;
+      }
+    );
+
+    /* Off screen or in a background tab the whole loop shuts down — four rails
+       nudging scroll offsets forever is work nobody can see, and battery on a
+       phone. */
+    var inView = !('IntersectionObserver' in window);
+    var frame = null;
+
+    function tick(now) {
+      frame = null;
+      var dt = Math.min((now - (tick.last || now)) / 1000, 0.05);  // cap after a tab switch
+      tick.last = now;
+
+      rails.forEach(function (r) {
+        if (!r.setW || r.drag) return;
+        if (r.fling) {
+          r.view.scrollLeft += r.fling * dt;
+          r.fling *= Math.pow(FRICTION, dt * 60);
+          if (Math.abs(r.fling) < 8) r.fling = 0;
+        } else if (!r.hover && now - r.idleAt > RESUME) {
+          r.view.scrollLeft += SPEED * dt * r.dir;
+        }
+        r.wrap();
+      });
+
+      if (running()) frame = requestAnimationFrame(tick);
+    }
+
+    function running() { return inView && !document.hidden; }
+
+    function sync() {
+      if (running() && !frame) { tick.last = performance.now(); frame = requestAnimationFrame(tick); }
+      if (!running() && frame) { cancelAnimationFrame(frame); frame = null; }
+    }
+
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        inView = entries[0].isIntersecting;
+        sync();
+      }, { rootMargin: '120px 0px' }).observe(railsBlock);
+    } else {
+      sync();
+    }
+
+    document.addEventListener('visibilitychange', sync);
+
+    var remeasure;
+    window.addEventListener('resize', function () {
+      clearTimeout(remeasure);
+      remeasure = setTimeout(function () { rails.forEach(function (r) { r.measure(); }); }, 150);
+    }, { passive: true });
+
+    // Only now, so a JS failure above leaves the CSS marquee running.
+    railsBlock.classList.add('is-live');
+    rails.forEach(function (r) { r.measure(); });
   }
 
   /* ---- 8. Hero underline draws itself in on load ---------------------- */
