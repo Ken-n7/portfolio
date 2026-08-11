@@ -339,7 +339,7 @@
                  width: r.width + 'px', height: r.height + 'px', borderRadius: radius };
       };
       var anim = clone.animate([frame(from, '20px'), frame(to, '14px')],
-        { duration: FLY_MS, easing: FLY_EASE, fill: 'both' });
+        { duration: reverse ? FLY_MS - 90 : FLY_MS, easing: FLY_EASE, fill: 'both' });
 
       currentFly = anim;
       var land = function () {
@@ -355,8 +355,7 @@
        panel assembles around the picture rather than appearing all at once. */
     function revealContent() {
       if (reduced) return;
-      var parts = [pdTitle, pdKicker, pdText, pdSide];
-      parts.forEach(function (el, i) {
+      [pdTitle, pdKicker, pdText, pdSide].forEach(function (el, i) {
         if (!el) return;
         el.classList.add('pd-enter');
         var a = el.animate(
@@ -365,6 +364,38 @@
         a.finished.then(function () { el.classList.remove('pd-enter'); })
                   .catch(function () { el.classList.remove('pd-enter'); });
       });
+    }
+
+    /* Closing runs the entrance backwards: the text goes first and only then
+       does the shot start travelling, so the panel empties before the picture
+       leaves rather than everything sliding away together. */
+    function hideContent() {
+      if (reduced) return Promise.resolve();
+      var anims = [pdSide, pdText, pdKicker, pdTitle].filter(Boolean).map(function (el, i) {
+        el.classList.add('pd-enter');
+        return el.animate(
+          [{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'translateY(10px)' }],
+          { duration: 165, delay: i * 38, easing: 'cubic-bezier(0.4, 0, 1, 1)', fill: 'both' });
+      });
+      return Promise.all(anims.map(function (a) { return a.finished.catch(function () {}); }));
+    }
+
+    /* The scrim ramps rather than snapping. On the way out it waits until the
+       shot is already back in the grid, so the blur lifts off a page that is
+       whole again. */
+    var CLEAR = 'rgba(0, 0, 0, 0)';
+    var BLURRED = 'blur(26px) saturate(112%)';
+    var scrimAnim = null;
+
+    function scrim(on) {
+      if (reduced) return Promise.resolve();
+      if (scrimAnim) scrimAnim.cancel();
+      var lit = getComputedStyle(pd).backgroundColor;   // resolves the live theme
+      var a = { backgroundColor: lit, backdropFilter: BLURRED, webkitBackdropFilter: BLURRED };
+      var b = { backgroundColor: CLEAR, backdropFilter: 'blur(0px)', webkitBackdropFilter: 'blur(0px)' };
+      scrimAnim = pd.animate(on ? [b, a] : [a, b],
+        { duration: on ? 360 : 290, easing: on ? EASE : 'cubic-bezier(0.33, 0, 0.5, 1)', fill: 'both' });
+      return scrimAnim.finished.catch(function () {});
     }
 
     function openProject(card, trigger) {
@@ -397,9 +428,18 @@
       document.body.style.overflow = 'hidden';
       pd.showModal();
       // Measured only now — .pd-shot has no box until the dialog is laid out.
+      scrim(true);
       fly(shot, pdShot, card, false);
       revealContent();
       pdClose.focus();
+    }
+
+    /* Abandon the close choreography and land immediately. */
+    function snapShut() {
+      closing = false;
+      if (scrimAnim) { scrimAnim.cancel(); scrimAnim = null; }
+      if (currentFly) { currentFly.cancel(); currentFly = null; }
+      if (pd.open) pd.close();
     }
 
     /* Fly it home before closing. The clone lives inside the dialog, so the
@@ -407,19 +447,40 @@
        the animation has to finish first. */
     function closeProject() {
       if (!pd.open || closing) return;
-      var shot = source && source.querySelector('.project-shot');
-      var anim = shot ? fly(pdShot, shot, source, true) : null;
-      if (!anim) { pd.close(); return; }
       closing = true;
+
       var done = function () { closing = false; if (pd.open) pd.close(); };
-      anim.finished.then(done).catch(done);
+
+      hideContent().then(function () {
+        if (!pd.open) return done();
+        var shot = source && source.querySelector('.project-shot');
+        var anim = shot ? fly(pdShot, shot, source, true) : null;
+        if (!anim) return scrim(false).then(done);
+
+        return anim.finished.catch(function () {}).then(function () {
+          // The card is back in its slot before the blur starts lifting, so
+          // the grid is never seen with a hole in it.
+          if (source) source.classList.remove('is-source');
+          return scrim(false);
+        }).then(done);
+      }).catch(done);
     }
 
     document.querySelectorAll('.project-open').forEach(function (btn) {
       btn.addEventListener('click', function () {
-        // Mid-close the dialog is still open; showModal would throw.
-        if (pd.open || closing) return;
-        openProject(btn.closest('.project'), btn);
+        var card = btn.closest('.project');
+        /* The close choreography runs about a second. Swallowing taps for that
+           long feels broken, so a click mid-close cuts it short instead. */
+        if (closing || pd.open) {
+          snapShut();
+          /* close() queues its event rather than firing it inline. Opening on
+             this tick would let that event land afterwards and hand the new
+             card's description and links straight back to the grid, leaving
+             the overlay empty. Wait a task. */
+          setTimeout(function () { openProject(card, btn); }, 0);
+          return;
+        }
+        openProject(card, btn);
       });
     });
 
@@ -448,6 +509,12 @@
       if (currentFly) { currentFly.cancel(); currentFly = null; }
       pd.querySelectorAll('.pd-fly').forEach(function (el) { el.remove(); });
       pd.classList.remove('is-flying');
+      if (scrimAnim) { scrimAnim.cancel(); scrimAnim = null; }
+      [pdTitle, pdKicker, pdText, pdSide].forEach(function (el) {
+        if (!el) return;
+        el.getAnimations().forEach(function (a) { a.cancel(); });
+        el.classList.remove('pd-enter');
+      });
       closing = false;
       if (source) source.classList.remove('is-source');
       source = null;

@@ -843,19 +843,20 @@ body.pd-open .project-open { animation-play-state: paused; }
   margin: 0;
   padding: 0;
   border: 0;
-  background: transparent;
+  /* The scrim and the blur live on the dialog itself, not on ::backdrop.
+     A pseudo-element can't be handed to the Web Animations API everywhere,
+     and closing has to ramp the blur down on its own beat — last, once the
+     shot is already home. */
+  background: var(--color-pd-scrim);
+  backdrop-filter: blur(26px) saturate(112%);
+  -webkit-backdrop-filter: blur(26px) saturate(112%);
   color: var(--color-foreground);
   overflow: hidden;
 }
 
-/* Blur alone isn't separation — the grid behind stays legible enough to
-   compete with the text on top, so the scrim carries most of the weight and
-   the blur just softens what's left. */
-.pd::backdrop {
-  background: var(--color-pd-scrim);
-  backdrop-filter: blur(26px) saturate(112%);
-  -webkit-backdrop-filter: blur(26px) saturate(112%);
-}
+/* Nothing to paint here — .pd covers the whole viewport and carries the
+   scrim itself. */
+.pd::backdrop { background: transparent; }
 
 .pd-close {
   position: absolute;
