@@ -1034,14 +1034,31 @@ body.pd-open .project-open { animation-play-state: paused; }
 .brand-words {
   display: flex;
   flex-direction: column;
+  min-width: 0;
   font-family: var(--font-heading);
-  font-weight: 800;
-  text-transform: uppercase;
-  line-height: 1.02;
+  font-weight: 700;
+  line-height: 1.12;
   color: var(--color-foreground);
 }
-.brand-words > span:first-child { font-size: clamp(1.05rem, 3vw, 1.3rem); letter-spacing: 0.13em; }
-.brand-words > span:last-child  { font-size: clamp(0.8rem, 2.3vw, 1rem);  letter-spacing: 0.235em; }
+.brand-words > span:first-child { font-size: clamp(1.05rem, 3vw, 1.35rem); letter-spacing: -0.01em; }
+.brand-sub {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: clamp(0.75rem, 2vw, 0.875rem);
+  letter-spacing: 0;
+  color: var(--color-muted-foreground);
+}
+
+/* Swarm sets its name in tracked caps over two lines; the rest are a name
+   with a tagline under it. */
+.brand-swarm .brand-words { font-weight: 800; text-transform: uppercase; line-height: 1.02; }
+.brand-swarm .brand-words > span:first-child { font-size: clamp(1.05rem, 3vw, 1.3rem); letter-spacing: 0.13em; }
+.brand-swarm .brand-words > span:last-child  { font-size: clamp(0.8rem, 2.3vw, 1rem);  letter-spacing: 0.235em; }
+
+/* The ledger's mark is a glyph in its sidebar, not a file. */
+.brand-glyph { width: 2rem; height: 2rem; flex: none; color: #10A074; }
+.brand-evmc .brand-mark   { max-height: 3rem; }
+.brand-citrus .brand-mark { max-height: 2.9rem; border-radius: 22%; }
 .brand-onehub img { max-height: 2.6rem; }
 
 .brand-probxcape {
