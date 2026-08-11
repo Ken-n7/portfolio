@@ -32,7 +32,7 @@
   --color-header:          rgba(15, 23, 42, 0.72);
   --color-header-solid:    rgba(15, 23, 42, 0.88);
   --color-scrim:           rgba(15, 23, 42, 0.78);
-  --color-pd-scrim:        rgba(9, 14, 28, 0.92);
+  --color-pd-scrim:        rgba(9, 14, 28, 0.66);
   --color-grad-a:          rgba(34, 197, 94, 0.10);
   --color-grad-b:          rgba(99, 102, 241, 0.12);
 
@@ -104,7 +104,7 @@
     --color-header:          rgba(246, 248, 251, 0.76);
     --color-header-solid:    rgba(246, 248, 251, 0.92);
     --color-scrim:           rgba(255, 255, 255, 0.86);
-    --color-pd-scrim:        rgba(240, 244, 250, 0.94);
+    --color-pd-scrim:        rgba(240, 244, 250, 0.74);
     --color-grad-a:          rgba(21, 128, 61, 0.08);
     --color-grad-b:          rgba(99, 102, 241, 0.10);
     --shadow-card:  0 1px 2px rgba(15,23,42,0.06), 0 10px 28px rgba(15,23,42,0.08);
@@ -131,7 +131,7 @@
   --color-header:          rgba(246, 248, 251, 0.76);
   --color-header-solid:    rgba(246, 248, 251, 0.92);
   --color-scrim:           rgba(255, 255, 255, 0.86);
-  --color-pd-scrim:        rgba(240, 244, 250, 0.94);
+  --color-pd-scrim:        rgba(240, 244, 250, 0.74);
   --color-grad-a:          rgba(21, 128, 61, 0.08);
   --color-grad-b:          rgba(99, 102, 241, 0.10);
   --shadow-card:  0 1px 2px rgba(15,23,42,0.06), 0 10px 28px rgba(15,23,42,0.08);
@@ -898,7 +898,7 @@ body.pd-open .project-open { animation-play-state: paused; }
 .pd-left { display: flex; flex-direction: column; min-width: 0; flex: 0 0 auto; }
 
 .pd-shot {
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 3 / 2;           /* same shape as the card it flies from */
   max-height: 26svh;             /* leave the description room on a phone */
   border-radius: var(--radius-md);
   flex: 0 0 auto;
@@ -943,6 +943,29 @@ body.pd-open .project-open { animation-play-state: paused; }
   filter: brightness(1.9);
   margin: 4px 0 var(--space-sm);
 }
+
+/* ---- Open transition -------------------------------------------------
+   The shot flies from where the card sits in the grid to where it lands in
+   the overlay. A clone does the travelling, because the real one is inside a
+   dialog in the top layer and the card is not — nothing can tween between
+   those two stacking contexts. Width and height are animated rather than
+   scaled: object-fit then re-crops each frame instead of stretching the
+   picture, which is what lets a grid tile become a different-sized panel
+   without distorting. */
+.pd-fly {
+  position: fixed;
+  z-index: 5;
+  margin: 0;
+  pointer-events: none;
+  will-change: width, height, top, left;
+}
+
+.pd.is-flying .pd-shot { visibility: hidden; }
+
+/* The card has left the grid, so it shouldn't still be sitting in it. */
+.project.is-source .project-open { opacity: 0; }
+
+.pd-enter { will-change: transform, opacity; }
 
 /* The description gets its own scroller so a long one never pushes the shot,
    the stack or the buttons off screen. */

@@ -283,6 +283,9 @@
     var pdClose  = pd.querySelector('.pd-close');
     var borrowed = [];      // [node, itsHome] so close can always undo the move
     var opener   = null;
+    var source   = null;    // the card it came from, so it can fly back
+    var closing  = false;
+    var currentFly = null;  // only ever one in the air
 
     function lend(node, into) {
       if (!node) return;
@@ -295,12 +298,82 @@
       borrowed.length = 0;
     }
 
+    /* Not the site's Expo.out here — at a third of the way through it has
+       already covered 96% of the distance, which reads as a snap rather than
+       a move. This curve eases in a little before it settles, so the shot
+       looks like it travels. */
+    var FLY_EASE = 'cubic-bezier(0.42, 0.02, 0.18, 1)';
+    var EASE = 'cubic-bezier(0.16, 1, 0.3, 1)';
+    var FLY_MS = 540;
+
+    /* The clone that travels. It starts exactly on top of the card, so the
+       first frame is indistinguishable from the grid, and lands exactly on
+       .pd-shot, so the last frame is indistinguishable from the overlay. */
+    function fly(fromEl, toEl, sourceCard, reverse) {
+      if (reduced) return null;
+      var from = fromEl.getBoundingClientRect();
+      var to = toEl.getBoundingClientRect();
+      if (!from.width || !to.width) return null;
+
+      // Esc pressed mid-open would otherwise leave two clones racing, and
+      // whichever finished first would clear the flags out from under the other.
+      if (currentFly) { currentFly.cancel(); currentFly = null; }
+      pd.querySelectorAll('.pd-fly').forEach(function (el) { el.remove(); });
+
+      var model = reverse ? toEl : fromEl;
+      var img = model.querySelector('img');
+      var clone = document.createElement('img');
+      clone.className = 'pd-fly';
+      clone.src = img.currentSrc || img.src;
+      clone.alt = '';
+      var cs = getComputedStyle(img);
+      clone.style.objectFit = cs.objectFit;
+      clone.style.objectPosition = cs.objectPosition;
+      clone.style.padding = cs.padding;
+      pd.appendChild(clone);
+      pd.classList.add('is-flying');
+      if (sourceCard) sourceCard.classList.add('is-source');
+
+      var frame = function (r, radius) {
+        return { top: r.top + 'px', left: r.left + 'px',
+                 width: r.width + 'px', height: r.height + 'px', borderRadius: radius };
+      };
+      var anim = clone.animate([frame(from, '20px'), frame(to, '14px')],
+        { duration: FLY_MS, easing: FLY_EASE, fill: 'both' });
+
+      currentFly = anim;
+      var land = function () {
+        clone.remove();
+        if (currentFly === anim) { currentFly = null; pd.classList.remove('is-flying'); }
+      };
+      anim.finished.then(land).catch(land);   // .cancel() rejects; same cleanup
+
+      return anim;
+    }
+
+    /* Everything that isn't the shot arrives just behind it, staggered, so the
+       panel assembles around the picture rather than appearing all at once. */
+    function revealContent() {
+      if (reduced) return;
+      var parts = [pdTitle, pdKicker, pdText, pdSide];
+      parts.forEach(function (el, i) {
+        if (!el) return;
+        el.classList.add('pd-enter');
+        var a = el.animate(
+          [{ opacity: 0, transform: 'translateY(14px)' }, { opacity: 1, transform: 'none' }],
+          { duration: 420, delay: 180 + i * 70, easing: EASE, fill: 'both' });
+        a.finished.then(function () { el.classList.remove('pd-enter'); })
+                  .catch(function () { el.classList.remove('pd-enter'); });
+      });
+    }
+
     function openProject(card, trigger) {
       var shot   = card.querySelector('.project-shot');
       var img    = shot.querySelector('img');
       var detail = card.querySelector('.project-detail');
 
       opener = trigger;
+      source = card;
       pd.style.setProperty('--theme-color', card.style.getPropertyValue('--theme-color'));
 
       pdImg.src = img.currentSrc || img.src;
@@ -323,13 +396,29 @@
       // showModal alone doesn't stop the page behind from scrolling.
       document.body.style.overflow = 'hidden';
       pd.showModal();
+      // Measured only now — .pd-shot has no box until the dialog is laid out.
+      fly(shot, pdShot, card, false);
+      revealContent();
       pdClose.focus();
     }
 
-    function closeProject() { if (pd.open) pd.close(); }
+    /* Fly it home before closing. The clone lives inside the dialog, so the
+       moment the dialog leaves the top layer the clone stops being painted —
+       the animation has to finish first. */
+    function closeProject() {
+      if (!pd.open || closing) return;
+      var shot = source && source.querySelector('.project-shot');
+      var anim = shot ? fly(pdShot, shot, source, true) : null;
+      if (!anim) { pd.close(); return; }
+      closing = true;
+      var done = function () { closing = false; if (pd.open) pd.close(); };
+      anim.finished.then(done).catch(done);
+    }
 
     document.querySelectorAll('.project-open').forEach(function (btn) {
       btn.addEventListener('click', function () {
+        // Mid-close the dialog is still open; showModal would throw.
+        if (pd.open || closing) return;
         openProject(btn.closest('.project'), btn);
       });
     });
@@ -344,11 +433,24 @@
       if (e.target === pd || e.target === pdGrid) closeProject();
     });
 
+    /* Esc closes a dialog natively and instantly, which would skip the flight
+       home. Take it over so both routes out look the same. */
+    pd.addEventListener('cancel', function (e) {
+      e.preventDefault();
+      closeProject();
+    });
+
     pd.addEventListener('close', function () {
       returnAll();
       document.body.classList.remove('pd-open');
       document.body.style.overflow = '';
       pdImg.removeAttribute('src');
+      if (currentFly) { currentFly.cancel(); currentFly = null; }
+      pd.querySelectorAll('.pd-fly').forEach(function (el) { el.remove(); });
+      pd.classList.remove('is-flying');
+      closing = false;
+      if (source) source.classList.remove('is-source');
+      source = null;
       if (opener && opener.focus) opener.focus();   // back where the visitor was
       opener = null;
     });
