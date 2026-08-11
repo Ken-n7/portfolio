@@ -808,6 +808,40 @@ body.pd-open .project-open { animation-play-state: paused; }
     inset 0 -170px 80px -60px rgba(6, 10, 20, 0.7);
 }
 
+/* Every card now shows its project's own mark, so the plain-text name is kept
+   only as the button's accessible name. */
+.project-face .project-name {
+  position: absolute;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* The card ground is the inset shadow — always dark, whatever the theme — so
+   the lockup ignores the palette and stays light, and always takes the
+   dark-ground artwork. */
+.project-face .brand { margin-bottom: 0.15rem; }
+.project-face .brand,
+.project-face .brand-words,
+.project-face .brand-probxcape,
+.project-face .brand-sip span { color: #FFFFFF; }
+.project-face .brand-sub { color: rgba(255, 255, 255, 0.72); }
+.project-face .brand img { max-height: 2.2rem; }
+.project-face .brand-glyph { width: 1.8rem; height: 1.8rem; }
+/* The wash under the text can't be trusted where a screenshot is bright —
+   Sip's white martini vanished into its own cocktail photos. */
+.project-face .brand img,
+.project-face .brand-glyph { filter: drop-shadow(0 1px 6px rgba(6, 10, 20, 0.95)); }
+.project-face .brand-words > span:first-child { font-size: clamp(0.95rem, 2vw, 1.2rem); }
+.project-face .brand-probxcape { font-size: clamp(1.5rem, 3.4vw, 2.1rem); }
+.project-face .brand-sip span { font-size: clamp(1rem, 2.2vw, 1.25rem); }
+.project-face .brand .on-light { display: none; }
+.project-face .brand .on-dark  { display: block; }
+:root[data-theme="light"] .project-face .brand .on-light { display: none; }
+:root[data-theme="light"] .project-face .brand .on-dark  { display: block; }
+
 .project-name {
   font-family: var(--font-heading);
   font-size: clamp(1.1rem, 2.2vw, var(--text-xl));

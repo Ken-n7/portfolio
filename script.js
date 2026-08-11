@@ -467,7 +467,7 @@
 
       /* Four projects carry their own wordmark; the rest just use the title.
          Lent in like everything else, so there is one copy of it. */
-      var brand = detail.querySelector('.brand');
+      var brand = card.querySelector('.brand');
       pd.classList.toggle('has-brand', !!brand);
       lend(brand, pdBrand);
 
