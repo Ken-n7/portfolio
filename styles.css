@@ -361,6 +361,20 @@ hr { display: none; } /* separators are handled by section rhythm */
   background: var(--color-header-solid);
 }
 
+/* How far down the page you are, drawn on the header's own bottom edge — no
+   extra element and no layout. Scaled rather than sized, so the browser can
+   keep it on the compositor and it never triggers a reflow while scrolling.
+   At the top --scroll is 0, which makes it invisible without a second rule. */
+.site-header::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 -1px;
+  height: 2px;
+  background: var(--color-accent);
+  transform: scaleX(var(--scroll, 0));
+  transform-origin: left center;
+}
+
 .header-inner {
   position: relative;
   display: flex;

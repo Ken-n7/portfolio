@@ -34,21 +34,38 @@
     });
   }
 
-  /* ---- 2. Header border appears once you leave the top ---------------- */
+  /* ---- 2. Header border, and the progress bar under it ----------------- */
 
   var header = document.querySelector('.site-header');
+  var docEl = document.documentElement;
   var ticking = false;
+  var travel = 0;          // how far the page can actually scroll
+
+  /* Measured on load and resize rather than on every frame: reading
+     scrollHeight during a scroll forces a layout, and the overlay's scroll
+     lock collapses it — which moved the bar while the page had not. */
+  function measure() {
+    if (document.body.style.overflow === 'hidden') return;   // overlay open
+    travel = docEl.scrollHeight - docEl.clientHeight;
+  }
 
   function onScroll() {
     if (ticking) return;
     ticking = true;
     window.requestAnimationFrame(function () {
       header.setAttribute('data-scrolled', window.scrollY > 8 ? 'true' : 'false');
+      /* A page shorter than the viewport has nothing to report, so the bar
+         stays at zero rather than sitting permanently full. */
+      header.style.setProperty('--scroll',
+        travel > 0 ? Math.min(1, window.scrollY / travel).toFixed(4) : '0');
       ticking = false;
     });
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', function () { measure(); onScroll(); });
+  window.addEventListener('load', function () { measure(); onScroll(); });
+  measure();
   onScroll();
 
   /* ---- 3. Theme toggle ------------------------------------------------ */
