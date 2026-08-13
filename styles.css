@@ -437,8 +437,9 @@ hr { display: none; } /* separators are handled by section rhythm */
 
 .hero {
   /* No bottom padding — the following .section supplies its own top padding,
-     and stacking both leaves a dead gap under the intro. */
-  padding-block: clamp(3.5rem, 11vw, 7.5rem) 0;
+     and stacking both leaves a dead gap under the intro. The top is measured
+     from under a 69px sticky header, so it needs less than it looks. */
+  padding-block: clamp(2rem, 6vw, 4.5rem) 0;
 }
 
 .hero h1 {
@@ -1174,10 +1175,6 @@ body.pd-open .project-open { animation-play-state: paused; }
   /* Not display:none — that stops <use> resolving in some engines. */
 }
 
-/* The cue above this section already contributes 4rem of air, and a rail is a
-   thin thing — the section's usual 6rem below it opened a canyon before the
-   contact cue. Let the cue's own padding do that side too. */
-#stack { padding-bottom: 0; }
 
 .stack-rails { display: grid; }
 
@@ -1409,7 +1406,7 @@ body.pd-open .project-open { animation-play-state: paused; }
   .hero-mono { grid-template-columns: 1fr; gap: var(--space-md); }
 }
 /* ===== Part: scroll-cue =================================================== */
-.cue { padding-block: var(--space-xl); }
+.cue { padding-block: var(--space-lg); }
 .cue-inner {
   display: flex; align-items: center; gap: var(--space-sm);
 }
@@ -1433,6 +1430,10 @@ body.pd-open .project-open { animation-play-state: paused; }
   50%      { transform: translateY(3px);  opacity: 1; }
 }
 .cue + .section { padding-top: 0; }
+/* A cue is a divider, so it wants roughly equal air on both sides. The section
+   above already contributes a full 6rem, which pushed the rule far from the
+   thing it introduces — halve that side and let the cue's own padding do it. */
+.section:has(+ .cue) { padding-bottom: var(--space-lg); }
 @media (prefers-reduced-motion: reduce) { .cue-arrow { animation: none; } }
 
 /* --------------------------------------------------------------------------
