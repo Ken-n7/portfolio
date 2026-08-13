@@ -372,7 +372,6 @@ hr { display: none; } /* separators are handled by section rhythm */
 }
 
 .site-nav a:hover { color: var(--color-foreground); background: var(--color-muted); }
-.site-nav a[aria-current="true"] { color: var(--color-accent); }
 
 /* Theme toggle — shows the mode you'd switch *to*. */
 .theme-toggle {
@@ -430,108 +429,6 @@ hr { display: none; } /* separators are handled by section rhythm */
     letter-spacing: -0.01em;
     color: var(--color-foreground);
   }
-}
-
-/* --------------------------------------------------------------------------
-   4b. Mobile menu
-   Below 40rem the links move into a dropdown anchored to the right of the
-   header. Above it, nothing changes — a hamburger on a wide screen just hides
-   navigation that has room to be visible.
-   -------------------------------------------------------------------------- */
-
-.nav-toggle { display: none; }
-
-@media (max-width: 40rem) {
-  .nav-toggle {
-    display: inline-flex;
-    align-items: center;
-    justify-content: flex-end;
-    /* 44px of tap area, but nothing drawn around the lines. */
-    width: 44px;
-    height: 44px;
-    padding: 0;
-    border: 0;
-    background: none;
-    color: var(--color-foreground);
-    cursor: pointer;
-    transition: color var(--dur-fast) var(--ease-out-expo);
-  }
-  .nav-toggle:hover { color: var(--color-accent); }
-  .nav-toggle svg { width: 24px; height: 24px; }
-  .nav-toggle .icon-close { display: none; }
-  .nav-toggle[aria-expanded="true"] .icon-open { display: none; }
-  .nav-toggle[aria-expanded="true"] .icon-close { display: block; }
-
-  .site-nav {
-    position: absolute;
-    top: calc(100% + 8px);
-    right: var(--space-md);
-    left: auto;
-    min-width: 12rem;
-    padding: var(--space-2xs);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    /* Opaque, not the header's translucent fill — page text showing through a
-       menu makes it unreadable. */
-    background: var(--color-surface);
-    box-shadow: var(--shadow-lift);
-    /* closed state — kept in the DOM so the links stay findable */
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-6px);
-    transition: opacity var(--dur-fast) var(--ease-out-expo),
-                transform var(--dur-fast) var(--ease-out-expo),
-                visibility var(--dur-fast);
-  }
-
-  .site-header.nav-open .site-nav {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-  }
-
-  .site-nav ul {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 2px;
-  }
-
-  .site-nav li { display: flex; }
-
-  .site-nav a,
-  .site-nav .theme-toggle {
-    width: 100%;
-    justify-content: flex-start;
-    gap: var(--space-2xs);
-    min-height: 44px;
-    padding-inline: var(--space-sm);
-    border: 0;
-    border-radius: var(--radius-sm);
-  }
-
-  /* Theme control sits last in the menu, under a divider. */
-  .site-nav li:has(.theme-toggle) {
-    order: 99;
-    margin-top: var(--space-2xs);
-    padding-top: var(--space-2xs);
-    border-top: 1px solid var(--color-border);
-  }
-
-  .site-nav .theme-toggle::after {
-    content: "Light mode";
-    font-family: var(--font-body);
-    font-size: var(--text-sm);
-  }
-  :root[data-theme="light"] .site-nav .theme-toggle::after { content: "Dark mode"; }
-  @media (prefers-color-scheme: light) {
-    :root:not([data-theme="dark"]) .site-nav .theme-toggle::after { content: "Dark mode"; }
-  }
-
-  .nav-cta { justify-content: flex-start !important; }
-}
-
-@media (max-width: 40rem) and (prefers-reduced-motion: reduce) {
-  .site-nav { transition: none; }
 }
 
 /* --------------------------------------------------------------------------
