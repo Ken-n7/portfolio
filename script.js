@@ -431,6 +431,23 @@
 
   if (plate && !reduced && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
     var tiltFrame = 0;
+    var arrival = 0;
+
+    /* Read from the stylesheet so the two live in one place. */
+    var ARRIVE = parseFloat(getComputedStyle(plate).getPropertyValue('--dur-arrive')) || 520;
+
+    /* The highlight rests on the far side of the plate, so on entry it crosses
+       to meet the pointer instead of appearing under it. Once it has had time
+       to arrive, the lag drops to the tracking speed. */
+    plate.addEventListener('pointerenter', function () {
+      plate.classList.remove('is-tracking');
+      plate.classList.add('is-arriving');
+      clearTimeout(arrival);
+      arrival = setTimeout(function () {
+        plate.classList.remove('is-arriving');
+        plate.classList.add('is-tracking');
+      }, ARRIVE);
+    });
 
     plate.addEventListener('pointermove', function (e) {
       if (tiltFrame) return;                 // one update per frame, no more
@@ -447,14 +464,15 @@
            and the plate reads as a gimmick instead of a surface. */
         plate.style.setProperty('--ry', ((x - 0.5) * 6).toFixed(2) + 'deg');
         plate.style.setProperty('--rx', ((0.5 - y) * 4).toFixed(2) + 'deg');
-        plate.classList.add('is-tilting');
       });
     });
 
     plate.addEventListener('pointerleave', function () {
       if (tiltFrame) { cancelAnimationFrame(tiltFrame); tiltFrame = 0; }
-      /* Drop the class first so the eased transition carries it back flat. */
-      plate.classList.remove('is-tilting');
+      clearTimeout(arrival);
+      /* Both classes off, so the transition falls back to the slow settle. */
+      plate.classList.remove('is-arriving');
+      plate.classList.remove('is-tracking');
       plate.style.removeProperty('--rx');
       plate.style.removeProperty('--ry');
       plate.style.removeProperty('--mx');

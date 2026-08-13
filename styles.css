@@ -102,6 +102,7 @@
   --dur-mid:  260ms;
   --dur-slow: 420ms;
   --dur-settle: 640ms;   /* the contact plate easing back to rest */
+  --dur-arrive: 520ms;   /* ...crossing the plate to meet the pointer */
   /* Expo.out covers 90% of its distance in the first fifth of the duration,
      which is right for a UI element arriving and wrong for a heavy plate
      settling — it lands before the sheen has moved. This one is even. */
@@ -1342,7 +1343,7 @@ body.pd-open .project-open { animation-play-state: paused; }
    are swapped, not animated, so the highlight used to jump straight back to
    its resting spot the moment the pointer left while the tilt eased. Browsers
    without @property still get the eased tilt, just an instant sheen. */
-@property --mx { syntax: "<percentage>"; inherits: true; initial-value: 18%; }
+@property --mx { syntax: "<percentage>"; inherits: true; initial-value: 82%; }
 @property --my { syntax: "<percentage>"; inherits: true; initial-value: -6%; }
 @property --rx { syntax: "<angle>"; inherits: true; initial-value: 0deg; }
 @property --ry { syntax: "<angle>"; inherits: true; initial-value: 0deg; }
@@ -1356,14 +1357,22 @@ body.pd-open .project-open { animation-play-state: paused; }
   transform: perspective(1100px) rotateX(var(--rx)) rotateY(var(--ry));
   /* Slower than the site's --dur-slow on purpose: this is a plate settling,
      and 420ms still reads as a snap at this distance. */
-  transition: transform var(--dur-settle) var(--ease-settle),
-              --mx var(--dur-settle) var(--ease-settle),
-              --my var(--dur-settle) var(--ease-settle);
+  /* One transition, three speeds. --follow is set by the classes below; with
+     neither of them the settle applies, which is the leave case. */
+  transition: transform var(--follow, var(--dur-settle)) var(--ease-settle),
+              --mx var(--follow, var(--dur-settle)) var(--ease-settle),
+              --my var(--follow, var(--dur-settle)) var(--ease-settle);
 }
 
-/* While the pointer is on it the transform tracks directly — easing here
-   would lag the cursor and read as sluggish rather than smooth. */
-.contact-card.reveal.is-tilting { transition: none; }
+/* Arriving: the highlight is somewhere else entirely when the pointer lands,
+   so it travels across the plate to meet it rather than teleporting. Every
+   move retargets, so it keeps chasing the cursor the whole way. */
+.contact-card.reveal.is-arriving { --follow: var(--dur-arrive); }
+
+/* Caught up: no duration at all, so the highlight is exactly under the
+   pointer. Any lag here reads as the sheen dragging behind rather than
+   sitting on the surface. */
+.contact-card.reveal.is-tracking { --follow: 0s; }
 
 /* The specular highlight. Parked top-centre so it still reads as lit before
    anything has moved, and on touch, where it never will. */
@@ -1371,7 +1380,7 @@ body.pd-open .project-open { animation-play-state: paused; }
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(48% 66% at var(--mx) var(--my),
+  background: radial-gradient(30% 44% at var(--mx) var(--my),
                               var(--metal-sheen), transparent 70%);
   pointer-events: none;
 }
