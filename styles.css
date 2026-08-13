@@ -1343,8 +1343,8 @@ body.pd-open .project-open { animation-play-state: paused; }
    are swapped, not animated, so the highlight used to jump straight back to
    its resting spot the moment the pointer left while the tilt eased. Browsers
    without @property still get the eased tilt, just an instant sheen. */
-@property --mx { syntax: "<percentage>"; inherits: true; initial-value: 82%; }
-@property --my { syntax: "<percentage>"; inherits: true; initial-value: -6%; }
+@property --mx { syntax: "<percentage>"; inherits: true; initial-value: 100%; }
+@property --my { syntax: "<percentage>"; inherits: true; initial-value: 0%; }
 @property --rx { syntax: "<angle>"; inherits: true; initial-value: 0deg; }
 @property --ry { syntax: "<angle>"; inherits: true; initial-value: 0deg; }
 
