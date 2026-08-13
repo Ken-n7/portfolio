@@ -50,6 +50,20 @@
   --color-grad-a:          rgba(34, 197, 94, 0.10);
   --color-grad-b:          rgba(99, 102, 241, 0.12);
 
+  /* Brushed metal — the contact card is the only thing wearing it. */
+  --metal-base:    #1A2233;
+  --metal-hi:      rgba(226, 240, 255, 0.09);
+  --metal-lo:      rgba(0, 0, 0, 0.30);
+  --metal-grain-a: rgba(226, 240, 255, 0.024);
+  --metal-grain-b: rgba(0, 0, 0, 0.032);
+  --metal-lip:     rgba(226, 240, 255, 0.14);
+  --metal-lip-lo:  rgba(0, 0, 0, 0.38);
+  --metal-edge:    rgba(148, 163, 184, 0.24);
+  --metal-sheen:   rgba(214, 234, 255, 0.24);
+  /* The sheen lifts the plate to ~rgb(70,84,98) under the pointer, where
+     --color-muted-foreground would only reach 3:1. This holds 5.2:1. */
+  --metal-text:    #CBD5E1;
+
   /* Type */
   --font-heading: 'Archivo', 'Segoe UI', system-ui, -apple-system, sans-serif;
   --font-body:    'Space Grotesk', 'Segoe UI', system-ui, -apple-system, sans-serif;
@@ -124,6 +138,18 @@
     --shadow-card:  0 1px 2px rgba(15,23,42,0.06), 0 10px 28px rgba(15,23,42,0.08);
     --shadow-lift:  0 2px 4px rgba(15,23,42,0.08), 0 22px 50px rgba(15,23,42,0.14);
     --shadow-media: 0 10px 26px rgba(15,23,42,0.18);
+
+    --metal-base:    #E7ECF2;
+    --metal-hi:      rgba(255, 255, 255, 0.92);
+    --metal-lo:      rgba(15, 23, 42, 0.11);
+    --metal-grain-a: rgba(255, 255, 255, 0.55);
+    --metal-grain-b: rgba(15, 23, 42, 0.03);
+    --metal-lip:     rgba(255, 255, 255, 0.95);
+    --metal-lip-lo:  rgba(15, 23, 42, 0.13);
+    --metal-edge:    rgba(15, 23, 42, 0.17);
+    --metal-sheen:   rgba(255, 255, 255, 0.95);
+  --metal-text:    var(--color-muted-foreground);   /* 6.9:1 already */
+    --metal-text:    var(--color-muted-foreground);   /* 6.9:1 already */
   }
 }
 
@@ -151,6 +177,17 @@
   --shadow-card:  0 1px 2px rgba(15,23,42,0.06), 0 10px 28px rgba(15,23,42,0.08);
   --shadow-lift:  0 2px 4px rgba(15,23,42,0.08), 0 22px 50px rgba(15,23,42,0.14);
   --shadow-media: 0 10px 26px rgba(15,23,42,0.18);
+
+  --metal-base:    #E7ECF2;
+  --metal-hi:      rgba(255, 255, 255, 0.92);
+  --metal-lo:      rgba(15, 23, 42, 0.11);
+  --metal-grain-a: rgba(255, 255, 255, 0.55);
+  --metal-grain-b: rgba(15, 23, 42, 0.03);
+  --metal-lip:     rgba(255, 255, 255, 0.95);
+  --metal-lip-lo:  rgba(15, 23, 42, 0.13);
+  --metal-edge:    rgba(15, 23, 42, 0.17);
+  --metal-sheen:   rgba(255, 255, 255, 0.95);
+  --metal-text:    var(--color-muted-foreground);   /* 6.9:1 already */
 }
 
 /* --------------------------------------------------------------------------
@@ -1258,17 +1295,58 @@ body.pd-open .project-open { animation-play-state: paused; }
    9. Contact
    -------------------------------------------------------------------------- */
 
+/* A machined plate: fine brush grain running off-axis, a broad falloff from
+   the lit corner to the shaded one, and a milled lip top and bottom. The
+   grain is drawn, not an image — an 8px repeating gradient tiles for free. */
 .contact-card {
   position: relative;
   padding: clamp(2rem, 6vw, 4rem);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--metal-edge);
   border-radius: var(--radius-lg);
   background:
+    repeating-linear-gradient(101deg,
+      var(--metal-grain-a) 0 1px,
+      var(--metal-grain-b) 1px 2px,
+      transparent 2px 4px),
+    linear-gradient(152deg, var(--metal-hi), transparent 34%),
+    linear-gradient(152deg, transparent 58%, var(--metal-lo)),
     radial-gradient(120% 140% at 8% 0%, var(--color-grad-a), transparent 58%),
-    radial-gradient(110% 130% at 100% 100%, var(--color-grad-b), transparent 55%),
-    var(--color-surface);
+    var(--metal-base);
+  box-shadow:
+    inset 0 1px 0 var(--metal-lip),
+    inset 0 -1px 0 var(--metal-lip-lo),
+    var(--shadow-card);
   overflow: hidden;
 }
+
+/* Tilt is set from script.js; the default is flat, so with JS off the card is
+   simply a still plate rather than a broken one.
+   The card is also a .reveal, and `.reveal.is-visible` sets its own transform
+   to slide the card in — so this has to outrank that pair to survive the
+   entrance. Both classes are named rather than relying on source order. */
+.contact-card.reveal.is-visible {
+  transform: perspective(1100px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform var(--dur-slow) var(--ease-out-expo);
+}
+
+/* While the pointer is on it the transform tracks directly — easing here
+   would lag the cursor and read as sluggish rather than smooth. */
+.contact-card.reveal.is-tilting { transition: none; }
+
+/* The specular highlight. Parked top-centre so it still reads as lit before
+   anything has moved, and on touch, where it never will. */
+.contact-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(48% 66% at var(--mx, 50%) var(--my, -10%),
+                              var(--metal-sheen), transparent 70%);
+  transition: opacity var(--dur-slow) var(--ease-out-expo);
+  pointer-events: none;
+}
+
+/* Above the sheen, or the highlight washes over the type. */
+.contact-card > * { position: relative; z-index: 1; }
 
 .contact-card h2 {
   font-size: clamp(1.75rem, 4.5vw, 2.75rem);
@@ -1278,7 +1356,7 @@ body.pd-open .project-open { animation-play-state: paused; }
 
 .contact-card p {
   max-width: 54ch;
-  color: var(--color-muted-foreground);
+  color: var(--metal-text);
 }
 
 .contact-actions {
@@ -1351,6 +1429,9 @@ body.pd-open .project-open { animation-play-state: paused; }
   .project-open:hover { transform: none; }
   body::before, body::after { animation: none; }
   .hero h1 .accent { background-size: 100% 2px; }
+  /* The plate keeps its finish; it just stops moving. script.js checks the
+     same setting and never binds, so nothing sets --rx / --ry either. */
+  .contact-card.reveal.is-visible { transform: none; }
 
 }
 

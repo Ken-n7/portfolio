@@ -51,7 +51,7 @@
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-  /* ---- 4. Theme toggle ------------------------------------------------ */
+  /* ---- 3. Theme toggle ------------------------------------------------ */
 
   var toggle = document.getElementById('theme-toggle');
   var systemDark = window.matchMedia('(prefers-color-scheme: dark)');
@@ -89,7 +89,7 @@
     if (!saved) applyTheme(e.matches ? 'dark' : 'light');
   });
 
-  /* ---- 5. Project detail overlay --------------------------------------
+  /* ---- 4. Project detail overlay --------------------------------------
      The card is the trigger; its .project-detail block is *moved* into the
      dialog on open and moved home on close. Moving rather than cloning keeps
      one copy of every node, so there is never a clone that can drift out of
@@ -413,12 +413,52 @@
     });
   }
 
-  /* ---- 6. Hero underline draws itself in on load ---------------------- */
+  /* ---- 5. Hero underline draws itself in on load ---------------------- */
 
   var accent = document.querySelector('.hero h1 .accent');
   if (accent && !reduced) {
     requestAnimationFrame(function () { accent.style.setProperty('--u', '100%'); });
   } else if (accent) {
     accent.style.setProperty('--u', '100%');
+  }
+
+  /* ---- 6. The contact plate catches the light -------------------------
+     Sheen and tilt both follow the pointer. Fine pointers only: a finger
+     would leave the highlight stranded wherever it happened to lift, and
+     the tilt would fight the scroll. */
+
+  var plate = document.querySelector('.contact-card');
+
+  if (plate && !reduced && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    var tiltFrame = 0;
+
+    plate.addEventListener('pointermove', function (e) {
+      if (tiltFrame) return;                 // one update per frame, no more
+      var px = e.clientX, py = e.clientY;
+      tiltFrame = requestAnimationFrame(function () {
+        tiltFrame = 0;
+        /* Measured inside the frame so a move never forces a sync layout. */
+        var r = plate.getBoundingClientRect();
+        var x = (px - r.left) / r.width;
+        var y = (py - r.top) / r.height;
+        plate.style.setProperty('--mx', (x * 100).toFixed(1) + '%');
+        plate.style.setProperty('--my', (y * 100).toFixed(1) + '%');
+        /* Small angles on purpose. Past about 4deg the type starts to skew
+           and the plate reads as a gimmick instead of a surface. */
+        plate.style.setProperty('--ry', ((x - 0.5) * 6).toFixed(2) + 'deg');
+        plate.style.setProperty('--rx', ((0.5 - y) * 4).toFixed(2) + 'deg');
+        plate.classList.add('is-tilting');
+      });
+    });
+
+    plate.addEventListener('pointerleave', function () {
+      if (tiltFrame) { cancelAnimationFrame(tiltFrame); tiltFrame = 0; }
+      /* Drop the class first so the eased transition carries it back flat. */
+      plate.classList.remove('is-tilting');
+      plate.style.removeProperty('--rx');
+      plate.style.removeProperty('--ry');
+      plate.style.removeProperty('--mx');
+      plate.style.removeProperty('--my');
+    });
   }
 })();
