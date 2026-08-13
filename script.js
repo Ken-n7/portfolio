@@ -154,122 +154,11 @@
     if (!saved) applyTheme(e.matches ? 'dark' : 'light');
   });
 
-  /* ---- 5. Video player ------------------------------------------------
-     Two source kinds: a file in this repo plays in <video>; anything remote
-     (Google Drive, YouTube) has to go through an <iframe>, because those
-     hosts don't serve a raw file that <video> can stream.               */
-
-  var lightbox = document.getElementById('video-lightbox');
-
-  if (lightbox && typeof lightbox.showModal === 'function') {
-    var vid = lightbox.querySelector('.lightbox-video');
-    var frame = lightbox.querySelector('.lightbox-frame');
-    var vidError = lightbox.querySelector('.lightbox-error');
-    var closeBtn = lightbox.querySelector('.lightbox-close');
-    var lastFocus = null;
-
-    var triggers = Array.prototype.slice.call(document.querySelectorAll('[data-video]'));
-
-    function isRemote(src) { return /^https?:/i.test(src); }
-
-    /* Accepts any shape of share link and returns the embeddable one. */
-    function embedUrl(src) {
-      if (/drive\.google\.com/i.test(src)) {
-        var id = (src.match(/\/file\/d\/([^/?#]+)/) || src.match(/[?&]id=([^&#]+)/) || [])[1];
-        return id ? 'https://drive.google.com/file/d/' + id + '/preview' : src;
-      }
-      var yt = src.match(/(?:youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]{6,})/i);
-      if (yt) return 'https://www.youtube.com/embed/' + yt[1] + '?rel=0';
-      return src;
-    }
-
-    function openVideo(src, title) {
-      lastFocus = document.activeElement;
-      vidError.hidden = true;
-      lightbox.setAttribute('aria-label', title || 'Video player');
-
-      if (isRemote(src)) {
-        vid.hidden = true;
-        frame.hidden = false;
-        frame.setAttribute('title', title || 'Video');
-        frame.src = embedUrl(src);
-      } else {
-        frame.hidden = true;
-        frame.removeAttribute('src');
-        vid.hidden = false;
-        if (vid.getAttribute('src') !== src) vid.setAttribute('src', src);
-      }
-
-      lightbox.showModal();
-
-      if (!isRemote(src)) {
-        var playing = vid.play();
-        if (playing && playing.catch) playing.catch(function () { /* autoplay blocked — controls are there */ });
-      }
-    }
-
-    function stopPlayback() {
-      vid.pause();
-      vid.currentTime = 0;
-      // An iframe has no pause API, so the src has to go or Drive keeps playing
-      // with the dialog shut.
-      if (frame.getAttribute('src')) frame.removeAttribute('src');
-    }
-
-    function closeVideo() {
-      stopPlayback();
-      if (lightbox.open) lightbox.close();
-    }
-
-    triggers.forEach(function (t) {
-      t.addEventListener('click', function () {
-        openVideo(t.dataset.video, t.dataset.videoTitle);
-      });
-    });
-
-    closeBtn.addEventListener('click', closeVideo);
-
-    lightbox.addEventListener('click', function (e) {
-      if (e.target === lightbox) closeVideo();
-    });
-
-    lightbox.addEventListener('close', function () {
-      stopPlayback();
-      if (lastFocus && lastFocus.focus) lastFocus.focus();
-    });
-
-    /* Clicking into a cross-origin player hands focus to Google's document,
-       and Esc goes there instead of closing this dialog. Take focus back as
-       soon as the pointer returns to our own chrome, so Esc works again. */
-    lightbox.addEventListener('mousemove', function (e) {
-      if (e.target !== frame && document.activeElement === frame) closeBtn.focus();
-    });
-
-    vid.addEventListener('error', function () {
-      vid.hidden = true;
-      vidError.hidden = false;
-    });
-
-    /* Local files are probed so a missing one shows no button at all. Remote
-       hosts can't be probed (CORS), so those triggers just show. */
-    triggers.forEach(function (t) {
-      var src = t.dataset.video;
-      if (!src) return;
-      if (isRemote(src) || location.protocol === 'file:' || !window.fetch) {
-        t.hidden = false;
-        return;
-      }
-      fetch(src, { method: 'HEAD' })
-        .then(function (r) { if (r.ok) t.hidden = false; })
-        .catch(function () { /* absent — leave the trigger hidden */ });
-    });
-  }
-
-  /* ---- 6. Project detail overlay --------------------------------------
+  /* ---- 5. Project detail overlay --------------------------------------
      The card is the trigger; its .project-detail block is *moved* into the
      dialog on open and moved home on close. Moving rather than cloning keeps
-     one copy of every node, so the video trigger keeps the listener that
-     section 5 already gave it and nothing can drift out of step.        */
+     one copy of every node, so there is never a clone that can drift out of
+     step with the card it came from.                                    */
 
   var pd = document.getElementById('project-dialog');
 
@@ -589,7 +478,7 @@
     });
   }
 
-  /* ---- 7. Logo rails: drift, swipe, drag ------------------------------
+  /* ---- 6. Logo rails: drift, swipe, drag ------------------------------
      Each rail is a scroller holding several identical copies of its set. The
      drift is a scroll offset nudged once a frame rather than a CSS transform,
      which is what lets a finger or a mouse grab it mid-flight: touch gets the
@@ -756,7 +645,7 @@
     rails.forEach(function (r) { r.measure(); });
   }
 
-  /* ---- 8. Hero underline draws itself in on load ---------------------- */
+  /* ---- 7. Hero underline draws itself in on load ---------------------- */
 
   var accent = document.querySelector('.hero h1 .accent');
   if (accent && !reduced) {

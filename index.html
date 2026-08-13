@@ -595,21 +595,6 @@
     </div>
   </dialog>
 
-  <!-- Video player. A local file plays in <video>; a Drive or YouTube link
-       goes through the <iframe>, since neither serves a raw streamable file. -->
-  <dialog id="video-lightbox" class="lightbox" aria-label="Video player">
-    <button type="button" class="lightbox-close" aria-label="Close video">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
-    </button>
-    <video class="lightbox-video" controls playsinline preload="metadata"
-           poster="previews/swarm-demo-poster.jpg"
-           controlsList="nodownload noplaybackrate" disablePictureInPicture hidden></video>
-    <iframe class="lightbox-frame" title="Video" hidden
-            allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
-            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-    <p class="lightbox-error" hidden>That video couldn't be loaded.</p>
-  </dialog>
-
   <script src="script.js" defer></script>
 </body>
 </html>

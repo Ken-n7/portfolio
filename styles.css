@@ -1603,9 +1603,7 @@ body.pd-open .project-open { animation-play-state: paused; }
 @media (prefers-reduced-motion: reduce) { .cue-arrow { animation: none; } }
 
 /* --------------------------------------------------------------------------
-   14. Video player
-   Triggers are hidden until script.js confirms the file exists, so a missing
-   video shows nothing rather than a button that fails.
+   14. Screen-reader only
    -------------------------------------------------------------------------- */
 
 .sr-only {
@@ -1617,94 +1615,6 @@ body.pd-open .project-open { animation-play-state: paused; }
   white-space: nowrap;
 }
 
-/* Play badge over the card preview */
-
-.project:hover
-
-/* "Watch demo", sitting in the same row as GitHub / Live site */
-.link-video {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  min-height: 32px;
-  padding: 0;
-  border: 0;
-  background: none;
-  font-family: var(--font-body);
-  font-size: var(--text-sm);
-  font-weight: 500;
-  color: var(--color-muted-foreground);
-  cursor: pointer;
-  transition: color var(--dur-fast) var(--ease-out-expo);
-}
-.link-video:hover { color: var(--color-accent); }
-.link-video svg { width: 15px; height: 15px; flex: none; }
-
-/* The dialog */
-.lightbox {
-  width: min(92vw, 1000px);
-  max-height: 88vh;
-  padding: 0;
-  border: 1px solid var(--color-border-strong);
-  border-radius: var(--radius-md);
-  background: #000;
-  color: var(--color-foreground);
-  overflow: visible;
-}
-
-.lightbox::backdrop {
-  background: rgba(8, 12, 22, 0.82);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-}
-
-.lightbox-video {
-  display: block;
-  width: 100%;
-  max-height: 88vh;
-  border-radius: calc(var(--radius-md) - 1px);
-  background: #000;
-}
-
-.lightbox-close {
-  position: absolute;
-  top: -14px; right: -14px;
-  width: 40px; height: 40px;
-  display: grid; place-items: center;
-  border: 1px solid var(--color-border-strong);
-  border-radius: 50%;
-  background: var(--color-surface);
-  color: var(--color-foreground);
-  cursor: pointer;
-  transition: background var(--dur-fast) var(--ease-out-expo);
-}
-.lightbox-close:hover { background: var(--color-muted); }
-.lightbox-close svg { width: 18px; height: 18px; }
-
-/* An iframe has no intrinsic size, so it needs the ratio stated. */
-.lightbox-frame {
-  display: block;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  max-height: 88vh;
-  border: 0;
-  border-radius: calc(var(--radius-md) - 1px);
-  background: #000;
-}
-
-.lightbox-error {
-  padding: var(--space-lg);
-  text-align: center;
-  color: var(--color-muted-foreground);
-}
-
-@media (max-width: 34rem) {
-  .lightbox-close { top: -10px; right: -10px; width: 36px; height: 36px; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-}
-
 /* --------------------------------------------------------------------------
    15. Touch sizing
    Pointer-coarse only, so desktop spacing is untouched.
@@ -1712,7 +1622,6 @@ body.pd-open .project-open { animation-play-state: paused; }
 
 @media (pointer: coarse) {
   .project-links a,
-  .link-video,
   .footer-inner .to-top,
   .brand {
     min-height: 44px;
