@@ -1,0 +1,34 @@
+{
+  "first_pass": {
+    "input_i": "-17.97",
+    "input_tp": "-1.08",
+    "input_lra": "3.70",
+    "input_thresh": "-28.82",
+    "output_i": "-16.05",
+    "output_tp": "-1.50",
+    "output_lra": "3.50",
+    "output_thresh": "-26.90",
+    "normalization_type": "dynamic",
+    "target_offset": "0.05"
+  },
+  "second_pass": {
+    "input_i": "-17.97",
+    "input_tp": "-1.08",
+    "input_lra": "3.70",
+    "input_thresh": "-28.82",
+    "output_i": "-16.00",
+    "output_tp": "-1.50",
+    "output_lra": "3.40",
+    "output_thresh": "-26.85",
+    "normalization_type": "dynamic",
+    "target_offset": "0.00"
+  },
+  "bed": "Original additive-synthesis chords; no third-party music or cloned voice.",
+  "voice": "Kokoro v1.0 af_heart, speed 0.97, full precision model",
+  "final_encoded_aac": {
+    "integrated_lufs": -16.02,
+    "true_peak_dbtp": -1.49,
+    "loudness_range_lu": 3.4
+  },
+  "decode_errors": 0
+}

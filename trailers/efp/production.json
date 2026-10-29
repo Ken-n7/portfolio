@@ -1,0 +1,51 @@
+{
+  "title": "EFP Supply Chain — Consignment Ledger",
+  "duration_seconds": 102,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "fps": 24,
+  "video": "H.264 / yuv420p / faststart",
+  "audio": "AAC / stereo / 48000 Hz / 192 kbps",
+  "file_bytes": 6433806,
+  "source_app": "https://github.com/Ken-n7/consignment-ledger",
+  "source_revision": "4d5c4f74e0d8c9005f7ebc1061cc0d271a80a9cf",
+  "capture": "Real application screenshots, isolated SQLite sample records; cached public dependencies; no external browser requests. Editorial titles, dissolves, and burned captions.",
+  "narration": {
+    "synthetic": true,
+    "model": "Kokoro v1.0 full precision",
+    "voice": "af_heart",
+    "speed": 0.97,
+    "cloned_voice": false,
+    "weights_license": "Apache-2.0",
+    "runtime_license": "MIT",
+    "model_sha256": "beb0d1848dee9a49da392cc3df26958d46cfa35d321edf434f52949153f0df3a",
+    "voices_sha256": "bca610b8308e8d99f32e6fe4197e7ec01679264efed0cac9140fe9c29f1fbf7d"
+  },
+  "music": "Original additive-synthesis chord bed; ducked under narration.",
+  "captions": "Burned English phrase captions, embedded mov_text, and external WebVTT. Phrase timing estimated from generated paragraph durations.",
+  "final_audio": {
+    "integrated_lufs": -16.02,
+    "true_peak_dbtp": -1.49,
+    "loudness_range_lu": 3.4
+  },
+  "research": [
+    "https://huggingface.co/hexgrad/Kokoro-82M",
+    "https://github.com/thewh1teagle/kokoro-onnx",
+    "https://github.com/OHF-Voice/piper1-gpl",
+    "https://ffmpeg.org/ffmpeg-filters.html#loudnorm",
+    "https://pillow.readthedocs.io/en/stable/",
+    "https://playwright.dev/"
+  ],
+  "verification": {
+    "full_av_decode_errors": 0,
+    "browser_report": "player-verification.json",
+    "audio_report": "audio-report.json"
+  },
+  "typography": {
+    "surrounding_text": "Liberation Sans regular and bold",
+    "application_window": "Commissioner retained; window pixels verified unchanged in all 8 review frames",
+    "scope": "Font change only; original composition, colors, text, transitions and audio retained"
+  }
+}

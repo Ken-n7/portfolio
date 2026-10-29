@@ -1,0 +1,140 @@
+[
+  {
+    "id": "intro",
+    "eyebrow": "EFP SUPPLY CHAIN",
+    "title": "Every delivery.\nEvery unit.\nAccounted for.",
+    "subtitle": "Consignment Ledger",
+    "tag": "A project walkthrough by John Kenneth Cañete",
+    "narration": "When fresh produce leaves the warehouse, the work is only half done. On consignment, a delivery is not yet a sale. E F P Supply Chain keeps those numbers connected.",
+    "captions": [
+      "When fresh produce leaves the warehouse, the work is only half done.",
+      "On consignment, a delivery is not yet a sale.",
+      "EFP Supply Chain keeps those numbers connected."
+    ],
+    "start": 0,
+    "duration": 13.0,
+    "voice_start": 1.1,
+    "voice_duration": 10.943583333333333
+  },
+  {
+    "id": "dashboard",
+    "eyebrow": "01 / THE BIG PICTURE",
+    "title": "Start with\nwhat needs\nattention.",
+    "subtitle": "A live view of warehouse activity",
+    "tag": "Stock • Expiry • Pending reconciliation",
+    "narration": "The dashboard brings stock levels, upcoming expiry dates, and unresolved discrepancies into one view. Deliveries by branch and recent movements show where the stock is going.",
+    "captions": [
+      "The dashboard brings stock levels, upcoming expiry dates,",
+      "and unresolved discrepancies into one view.",
+      "Deliveries by branch and recent movements show where the stock is going."
+    ],
+    "start": 13.0,
+    "duration": 12.791666666666666,
+    "voice_start": 0.55,
+    "voice_duration": 11.428958333333334
+  },
+  {
+    "id": "batches",
+    "eyebrow": "02 / TRACE THE STOCK",
+    "title": "Know the batch.\nWatch the\nexpiry date.",
+    "subtitle": "Products linked to production batches",
+    "tag": "Batch numbers • Dates • Remaining quantities",
+    "narration": "Each production batch has its own number and expiry date. Remaining quantities stay visible, so staff can check which batch is available before recording the next delivery.",
+    "captions": [
+      "Each production batch has its own number and expiry date.",
+      "Remaining quantities stay visible, so staff can check",
+      "which batch is available before recording the next delivery."
+    ],
+    "start": 25.791666666666664,
+    "duration": 11.875,
+    "voice_start": 0.55,
+    "voice_duration": 10.518291666666666
+  },
+  {
+    "id": "movements",
+    "eyebrow": "03 / RECORD THE JOURNEY",
+    "title": "Stock in.\nDelivery out.\nLoss recorded.",
+    "subtitle": "One history of warehouse stock changes",
+    "tag": "Product • Branch • Batch • Receipt reference",
+    "narration": "Production adds stock. Deliveries reduce it. Warehouse and transit losses are recorded separately. Every movement keeps the product, quantity, and responsible user together, with delivery references where needed.",
+    "captions": [
+      "Production adds stock. Deliveries reduce it.",
+      "Warehouse and transit losses are recorded separately.",
+      "Every movement keeps the product, quantity, and responsible user together,",
+      "with delivery references where needed."
+    ],
+    "start": 37.666666666666664,
+    "duration": 14.75,
+    "voice_start": 0.55,
+    "voice_duration": 13.397458333333333
+  },
+  {
+    "id": "reconciliation",
+    "eyebrow": "04 / CLOSE THE GAP",
+    "title": "Delivered\nisn’t the same\nas sold.",
+    "subtitle": "Compare branch sales against deliveries",
+    "tag": "15 delivered − 13 sold = 2 to resolve",
+    "narration": "Reconciliation compares the delivery with the branch's reported sales. Fifteen delivered and thirteen sold leaves two units to resolve. Accounting can document a write off or correct an entry, keeping the reason on record.",
+    "captions": [
+      "Reconciliation compares the delivery with the branch’s reported sales.",
+      "Fifteen delivered and thirteen sold leaves two units to resolve.",
+      "Accounting can document a write-off or correct an entry,",
+      "keeping the reason on record."
+    ],
+    "start": 52.416666666666664,
+    "duration": 15.416666666666666,
+    "voice_start": 0.55,
+    "voice_duration": 14.043958333333334
+  },
+  {
+    "id": "summary",
+    "eyebrow": "05 / SEE THE PATTERN",
+    "title": "From individual\ndeliveries to\nthe wider view.",
+    "subtitle": "Consignment summaries and reports",
+    "tag": "Compare products • Compare branches • Review results",
+    "narration": "The consignment summary groups delivered and sold quantities by product and branch. Reports turn that movement history into figures the team can review together.",
+    "captions": [
+      "The consignment summary groups delivered and sold quantities",
+      "by product and branch.",
+      "Reports turn that movement history into figures the team can review together."
+    ],
+    "start": 67.83333333333333,
+    "duration": 11.416666666666666,
+    "voice_start": 0.55,
+    "voice_duration": 10.04375
+  },
+  {
+    "id": "audit",
+    "eyebrow": "06 / KEEP RESPONSIBILITY CLEAR",
+    "title": "The right tools.\nFor the\nright people.",
+    "subtitle": "Roles for warehouse, sales, and accounting",
+    "tag": "Role-based access • A recorded audit trail",
+    "narration": "Warehouse, sales, and accounting have different permissions. The audit log records who changed what, making stock decisions easier to trace when questions come up.",
+    "captions": [
+      "Warehouse, sales, and accounting have different permissions.",
+      "The audit log records who changed what,",
+      "making stock decisions easier to trace when questions come up."
+    ],
+    "start": 79.25,
+    "duration": 11.708333333333334,
+    "voice_start": 0.55,
+    "voice_duration": 10.355666666666666
+  },
+  {
+    "id": "outro",
+    "eyebrow": "EFP SUPPLY CHAIN",
+    "title": "Less guesswork.\nA clearer\nstock story.",
+    "subtitle": "Consignment Ledger",
+    "tag": "Django 5 • Python • MySQL • Bootstrap 5 • Docker",
+    "narration": "From warehouse intake to branch sales, E F P Supply Chain gives every stock movement a place in the ledger. Built with Django and My S Q L.",
+    "captions": [
+      "From warehouse intake to branch sales,",
+      "EFP Supply Chain gives every stock movement a place in the ledger.",
+      "Built with Django and MySQL."
+    ],
+    "start": 90.95833333333333,
+    "duration": 11.041666666666666,
+    "voice_start": 0.55,
+    "voice_duration": 9.688291666666666
+  }
+]

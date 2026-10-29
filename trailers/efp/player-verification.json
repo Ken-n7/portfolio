@@ -1,0 +1,40 @@
+[
+  {
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "src": "http://127.0.0.1:8767/previews/efp-presentation.mp4?v=4",
+    "duration": 102,
+    "width": 1920,
+    "height": 1080,
+    "muted": false,
+    "volume": 1,
+    "currentTime": 54.937923,
+    "paused": false,
+    "error": null,
+    "hasAudio": true,
+    "decodedFrames": 166,
+    "closesCleanly": true,
+    "errors": []
+  },
+  {
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "src": "http://127.0.0.1:8767/previews/efp-presentation.mp4?v=4",
+    "duration": 102,
+    "width": 1920,
+    "height": 1080,
+    "muted": false,
+    "volume": 1,
+    "currentTime": 54.914775,
+    "paused": false,
+    "error": null,
+    "hasAudio": true,
+    "decodedFrames": 166,
+    "closesCleanly": true,
+    "errors": []
+  }
+]

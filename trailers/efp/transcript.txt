@@ -1,0 +1,26 @@
+EFP Supply Chain — Consignment Ledger
+Synthetic narration: Kokoro v1.0 / af_heart
+
+00:00 — EFP SUPPLY CHAIN
+When fresh produce leaves the warehouse, the work is only half done. On consignment, a delivery is not yet a sale. E F P Supply Chain keeps those numbers connected.
+
+00:13 — 01 / THE BIG PICTURE
+The dashboard brings stock levels, upcoming expiry dates, and unresolved discrepancies into one view. Deliveries by branch and recent movements show where the stock is going.
+
+00:25 — 02 / TRACE THE STOCK
+Each production batch has its own number and expiry date. Remaining quantities stay visible, so staff can check which batch is available before recording the next delivery.
+
+00:37 — 03 / RECORD THE JOURNEY
+Production adds stock. Deliveries reduce it. Warehouse and transit losses are recorded separately. Every movement keeps the product, quantity, and responsible user together, with delivery references where needed.
+
+00:52 — 04 / CLOSE THE GAP
+Reconciliation compares the delivery with the branch's reported sales. Fifteen delivered and thirteen sold leaves two units to resolve. Accounting can document a write off or correct an entry, keeping the reason on record.
+
+01:07 — 05 / SEE THE PATTERN
+The consignment summary groups delivered and sold quantities by product and branch. Reports turn that movement history into figures the team can review together.
+
+01:19 — 06 / KEEP RESPONSIBILITY CLEAR
+Warehouse, sales, and accounting have different permissions. The audit log records who changed what, making stock decisions easier to trace when questions come up.
+
+01:30 — EFP SUPPLY CHAIN
+From warehouse intake to branch sales, E F P Supply Chain gives every stock movement a place in the ledger. Built with Django and My S Q L.
