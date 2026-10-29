@@ -1,11 +1,17 @@
 /* ===================================================================   John Kenneth Cañete — Portfolio
    Style:      Modern Dark (Cinema Mobile)
-   Palette:    Developer Tool / IDE  — "code dark + run green"
-   Type:       Archivo (headings) + Space Grotesk (body)
+   Palette:    Charcoal + sage page, with original project component palettes
+   Type:       Commissioner (headings + body)
    Source:     design-system/ken-portfolio/MASTER.md
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600&display=swap');
+@font-face {
+  font-family: 'Commissioner';
+  src: url('fonts/commissioner.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
 
 /* Display faces borrowed from the projects themselves, so their titles are set the
    way they are in the thing they belong to. Each is subset to the exact
@@ -75,8 +81,8 @@
   --metal-text:    #CBD5E1;
 
   /* Type */
-  --font-heading: 'Archivo', 'Segoe UI', system-ui, -apple-system, sans-serif;
-  --font-body:    'Space Grotesk', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-heading: 'Commissioner', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-body:    'Commissioner', 'Segoe UI', system-ui, -apple-system, sans-serif;
   --font-mono:    ui-monospace, 'SF Mono', 'Cascadia Code', Menlo, monospace;
 
   --text-xs:   0.8125rem;
@@ -205,6 +211,72 @@
   --metal-text:    var(--color-muted-foreground);   /* 6.9:1 already */
 }
 
+/* Page chrome has its own palette so project cards, stack chips, the detail
+   dialog, and the contact plate retain their existing component colours. */
+:root {
+  --page-background: var(--color-background);
+  --page-foreground: var(--color-foreground);
+  --page-secondary: var(--color-muted-foreground);
+  --page-border: var(--color-border);
+  --page-border-strong: var(--color-border-strong);
+  --page-accent: var(--color-accent);
+  --page-accent-hover: var(--color-accent-hover);
+  --page-on-accent: var(--color-on-accent);
+  --page-muted: var(--color-muted);
+  --page-header: var(--color-header);
+  --page-header-solid: var(--color-header-solid);
+  --page-glow-a: var(--color-glow-a);
+  --page-glow-b: var(--color-glow-b);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --page-background: #171918;
+    --page-foreground: #ECEEEB;
+    --page-secondary: #A5ABA5;
+    --page-border: rgb(236 238 235 / 0.12);
+    --page-border-strong: rgb(236 238 235 / 0.24);
+    --page-accent: #B2C9A5;
+    --page-accent-hover: #C5D8BB;
+    --page-on-accent: #192117;
+    --page-muted: #282D28;
+    --page-header: rgb(23 25 24 / 0.78);
+    --page-header-solid: rgb(23 25 24 / 0.94);
+    --page-glow-a: rgb(178 201 165 / 0.035);
+    --page-glow-b: rgb(236 238 235 / 0.02);
+  }
+}
+
+:root[data-theme="dark"] {
+  --page-background: #171918;
+  --page-foreground: #ECEEEB;
+  --page-secondary: #A5ABA5;
+  --page-border: rgb(236 238 235 / 0.12);
+  --page-border-strong: rgb(236 238 235 / 0.24);
+  --page-accent: #B2C9A5;
+  --page-accent-hover: #C5D8BB;
+  --page-on-accent: #192117;
+  --page-muted: #282D28;
+  --page-header: rgb(23 25 24 / 0.78);
+  --page-header-solid: rgb(23 25 24 / 0.94);
+  --page-glow-a: rgb(178 201 165 / 0.035);
+  --page-glow-b: rgb(236 238 235 / 0.02);
+}
+
+:where(.site-header, .hero, .cue, .site-footer) {
+  --color-foreground: var(--page-foreground);
+  --color-muted-foreground: var(--page-secondary);
+  --color-border: var(--page-border);
+  --color-border-strong: var(--page-border-strong);
+  --color-accent: var(--page-accent);
+  --color-accent-hover: var(--page-accent-hover);
+  --color-on-accent: var(--page-on-accent);
+  --color-muted: var(--page-muted);
+  --color-header: var(--page-header);
+  --color-header-solid: var(--page-header-solid);
+  color: var(--color-foreground);
+}
+
 /* --------------------------------------------------------------------------
    2. Reset & base
    -------------------------------------------------------------------------- */
@@ -223,12 +295,13 @@ html {
 
 body {
   margin: 0;
-  background-color: var(--color-background);
+  background-color: var(--page-background);
   color: var(--color-foreground);
   font-family: var(--font-body);
   font-size: var(--text-base);
   line-height: 1.65;
-  font-weight: 300;
+  font-weight: 400;
+  font-optical-sizing: auto;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
@@ -246,13 +319,13 @@ body::after {
 body::before {
   width: 46vw; height: 46vw;
   top: -14vw; left: -10vw;
-  background: var(--color-glow-a);
+  background: var(--page-glow-a);
   animation: drift-a 26s ease-in-out infinite alternate;
 }
 body::after {
   width: 40vw; height: 40vw;
   top: 32vh; right: -14vw;
-  background: var(--color-glow-b);
+  background: var(--page-glow-b);
   animation: drift-b 32s ease-in-out infinite alternate;
 }
 
@@ -342,14 +415,6 @@ hr { display: none; } /* separators are handled by section rhythm */
   color: var(--color-muted-foreground);
 }
 
-.eyebrow::before {
-  content: "";
-  width: 7px; height: 7px;
-  border-radius: 50%;
-  background: var(--color-accent);
-  box-shadow: 0 0 0 4px var(--color-accent-soft);
-}
-
 /* --------------------------------------------------------------------------
    4. Header / nav — frosted glass, sticky
    -------------------------------------------------------------------------- */
@@ -391,8 +456,12 @@ hr { display: none; } /* separators are handled by section rhythm */
   align-items: center;
   justify-content: space-between;
   gap: var(--space-sm);
-  min-height: 4.25rem;
+  min-height: 5rem;
 }
+
+.site-header .brand { gap: 0.8rem; }
+.site-header .brand .handle { padding-left: 0.8rem; border-left: 1px solid var(--color-border-strong); }
+.site-nav { flex: none; }
 
 .brand {
   display: inline-flex;
@@ -502,95 +571,118 @@ hr { display: none; } /* separators are handled by section rhythm */
    -------------------------------------------------------------------------- */
 
 .hero {
-  /* No bottom padding — the following .section supplies its own top padding,
-     and stacking both leaves a dead gap under the intro. The top is measured
-     from under a 69px sticky header, so it needs less than it looks. */
-  padding-block: clamp(2rem, 6vw, 4.5rem) 0;
+  padding-block: clamp(2rem, 5vw, 4.5rem) clamp(2.5rem, 5vw, 4.5rem);
+}
+
+.hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  margin-bottom: clamp(2rem, 4vw, 3.5rem);
+}
+
+.hero-meta .eyebrow { font-size: 0.6875rem; letter-spacing: 0.1em; }
+.hero-meta .eyebrow span { color: var(--color-border-strong); margin-inline: 0.25rem; }
+
+.availability {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 44px;
+  font-size: var(--text-xs);
+  color: var(--color-muted-foreground);
+}
+.availability:hover { color: var(--color-accent); }
+.availability > span:last-child { margin-left: 0.4rem; }
+.status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--color-accent); }
+
+.hero-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr);
+  align-items: end;
+  gap: clamp(2rem, 5vw, 5rem);
 }
 
 .hero h1 {
-  font-size: var(--text-hero);
-  font-weight: 800;
-  max-width: 20ch;
-  margin-block: var(--space-md) 0;
+  margin: 0;
+  max-width: none;
+  font-weight: 650;
+  letter-spacing: -0.065em;
+  line-height: 1.02;
+  text-wrap: initial;
 }
 
-.hero h1 .accent {
-  color: var(--color-accent);
-  /* underline that draws itself in on load */
-  background-image: linear-gradient(var(--color-accent), var(--color-accent));
-  background-repeat: no-repeat;
-  background-position: 0 100%;
-  background-size: var(--u, 0%) 2px;
-  transition: background-size 900ms var(--ease-out-expo) 500ms;
+.hero-greeting {
+  display: block;
+  margin-bottom: 0.25em;
+  font-size: clamp(2.5rem, 5.2vw, 4.5rem);
 }
+
+.hero-title { display: block; font-size: clamp(3.5rem, 7.3vw, 6.5rem); white-space: nowrap; }
+.hero-emphasis { color: var(--color-accent); }
+.hero-aside { padding-bottom: 0.25rem; }
 
 .hero-lead {
-  max-width: 60ch;
-  margin-top: var(--space-md);
-  font-size: var(--text-lg);
+  max-width: 36ch;
+  font-size: var(--text-base);
+  line-height: 1.75;
   color: var(--color-muted-foreground);
 }
 
-.hero-facts {
+.hero-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-md) var(--space-lg);
-  margin-top: var(--space-lg);
-  padding-block: var(--space-md);
-  /* Rules top and bottom fence the facts off as their own band and give the
-     intro a definite end, so the space before the grid reads as a break
-     rather than as nothing. */
-  border-top: 1px solid var(--color-border);
-  border-bottom: 1px solid var(--color-border);
+  gap: var(--space-md);
+  margin-top: var(--space-md);
 }
-
-.hero-facts li {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  min-width: 9rem;
-}
-
-.hero-facts dt, .fact-label {
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--color-muted-foreground);
-}
-
-.fact-value { font-size: var(--text-sm); font-weight: 500; }
-
-.fact-value.available {
+.hero-actions a {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-2xs);
-  color: var(--color-accent);
+  gap: 0.75rem;
+  min-height: 44px;
+  font-size: var(--text-sm);
+}
+.hero-work-link { border-bottom: 1px solid var(--color-accent); font-weight: 600; }
+.hero-work-link span { color: var(--color-accent); }
+.hero-socials { display: flex; align-items: center; gap: 0.25rem; }
+.hero-source-link { width: 44px; justify-content: center; color: var(--color-muted-foreground); }
+.hero-source-link svg { width: 20px; height: 20px; flex: none; }
+.hero-actions a:hover { color: var(--color-accent); }
+
+@media (max-width: 52rem) {
+  .hero-layout { grid-template-columns: 1fr; gap: var(--space-lg); }
+  .hero-greeting { font-size: clamp(2.5rem, 7vw, 4rem); }
+  .hero-title { font-size: clamp(3.5rem, 10vw, 6rem); }
+  .hero-lead { max-width: 48ch; }
+  .site-header .brand .handle { padding-left: 0; border: 0; }
 }
 
-/* Five facts in a single column eats the whole screen on a phone — pair
-   them up instead. */
-@media (max-width: 40rem) {
-  .hero-facts {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--space-md) var(--space-sm);
-  }
-  .hero-facts li { min-width: 0; }
+@media (max-width: 46rem) {
+  .hero { padding-block: 1rem 0.75rem; }
+  .hero-meta { margin-bottom: 0.75rem; }
+  .hero-layout { gap: 1rem; }
+  .hero-greeting { margin-bottom: 0.2em; font-size: clamp(1.5rem, 6.2vw, 2rem); }
+  .hero-title { font-size: clamp(2.5rem, 10vw, 3rem); }
+  .hero-aside { padding-bottom: 0; }
+  .hero-lead { font-size: var(--text-sm); line-height: 1.6; }
+  .hero-detail { display: none; }
+  .hero-actions { margin-top: 0.5rem; }
+  .hero + .cue { padding-block: 1.25rem; }
 }
 
-.pulse {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: var(--color-accent);
-  animation: pulse 2.4s ease-in-out infinite;
+@media (max-width: 30rem) {
+  .header-inner { min-height: 4.5rem; gap: 0.25rem; }
+  .site-nav ul { gap: 0.125rem; }
+  .site-nav a { padding-inline: 0.5rem; font-size: var(--text-xs); }
+  .site-header .brand .handle { font-size: var(--text-sm); }
+  .site-nav .nav-cta { padding-inline: 0.75rem !important; }
+  .hero-meta .eyebrow { font-size: 0.625rem; }
+  .availability { font-size: 0.75rem; gap: 0.375rem; }
 }
 
-@keyframes pulse {
-  0%, 100% { box-shadow: 0 0 0 0 var(--color-accent-soft); }
-  50%      { box-shadow: 0 0 0 6px transparent; }
-}
+@media (max-width: 23rem) { .site-nav .nav-section { padding-inline: 0.375rem; } }
 
 /* --------------------------------------------------------------------------
    6. Buttons
@@ -1477,6 +1569,8 @@ body.pd-open .project-open { animation-play-state: paused; }
 
 .footer-inner a:hover { color: var(--color-accent); }
 .footer-inner .to-top { display: inline-flex; align-items: center; gap: 6px; }
+.footer-note { font-size: var(--text-xs); }
+@media (max-width: 46rem) { .footer-note { display: none; } }
 
 /* --------------------------------------------------------------------------
    11. Scroll reveal — 1-2 elements per view, staggered
@@ -1538,58 +1632,25 @@ body.pd-open .project-open { animation-play-state: paused; }
   .logo svg { color: #000; }
 }
 
-/* ===== Variant: monogram ================================================== */
-.hero-mono {
-  display: grid;
-  gap: var(--space-lg);
-  align-items: start;
-}
-/* The second column only exists when the photo area does, so commenting the
-   mark out of the HTML collapses this to a single column with no CSS edit.
-   Browsers without :has() get the single-column layout, which is the state
-   we're in anyway. */
-.hero-mono:has(.mono-mark) {
-  grid-template-columns: auto minmax(0, 1fr);
-}
-.mono-mark {
-  width: clamp(6rem, 13vw, 11rem);
-  aspect-ratio: 1;
-  display: grid; place-items: center;
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--color-border-strong);
-  background:
-    radial-gradient(120% 120% at 20% 10%, var(--color-grad-a), transparent 62%),
-    radial-gradient(120% 120% at 90% 90%, var(--color-grad-b), transparent 60%),
-    var(--color-surface);
-  box-shadow: var(--shadow-card);
-}
-.mono-mark span {
-  font-family: var(--font-heading);
-  font-weight: 800;
-  font-size: clamp(2.25rem, 5.5vw, 4.5rem);
-  letter-spacing: -0.06em;
-  color: var(--color-foreground);
-}
-.mono-copy h1 { max-width: 18ch; }
-
-@media (max-width: 46rem) {
-  .hero-mono { grid-template-columns: 1fr; gap: var(--space-md); }
-}
 /* ===== Part: scroll-cue =================================================== */
 .cue { padding-block: var(--space-lg); }
 .cue-inner {
   display: flex; align-items: center; gap: var(--space-sm);
 }
+.cue-index { font: 0.6875rem var(--font-mono); color: var(--color-accent); }
 .cue-line {
   flex: 1; height: 1px;
-  background: linear-gradient(to right, transparent, var(--color-border-strong), transparent);
+  background: var(--color-border);
 }
 .cue-text {
   font-family: var(--font-mono); font-size: var(--text-xs);
-  letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--color-muted-foreground);
+  font-weight: 500; line-height: 1.65;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--color-foreground);
   white-space: nowrap;
 }
+.cue-note { font-size: var(--text-xs); color: var(--color-muted-foreground); }
+@media (max-width: 30rem) { .cue-note { display: none; } }
 .cue-arrow {
   width: 16px; height: 16px; flex: none;
   color: var(--color-accent);

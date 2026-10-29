@@ -86,7 +86,7 @@
     }
     // Keep the browser UI (mobile address bar) in step with the page.
     var meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute('content', theme === 'dark' ? '#0F172A' : '#F6F8FB');
+    if (meta) meta.setAttribute('content', theme === 'dark' ? '#171918' : '#F6F8FB');
   }
 
   if (toggle) {
