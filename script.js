@@ -297,11 +297,12 @@
       pdImg.src = img.currentSrc || img.src;
       pdImg.alt = img.alt;
       pdImg.width = img.width; pdImg.height = img.height;
-      // A portrait shot or an app icon has to keep its shape here too.
+      // Portrait shots, icons, and designed covers keep their full composition.
       pdShot.className = 'pd-shot' +
         (demo ? ' is-video' : '') +
         (!demo && shot.classList.contains('is-portrait') ? ' is-portrait' : '') +
-        (!demo && shot.classList.contains('is-icon') ? ' is-icon' : '');
+        (!demo && shot.classList.contains('is-icon') ? ' is-icon' : '') +
+        (!demo && shot.classList.contains('is-cover') ? ' is-cover' : '');
 
       pdTitle.textContent  = card.querySelector('.project-name').textContent;
       var kicker = card.querySelector('.project-kicker');   // only EVMC still has one

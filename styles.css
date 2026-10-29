@@ -851,6 +851,13 @@ body.pd-open .project-open { animation-play-state: paused; }
   filter: drop-shadow(var(--shadow-media));
 }
 
+/* Designed cover art keeps its full composition, including text near the
+   edges. The cream ground belongs to INTEGRID's artwork in either theme. */
+.project-shot.is-cover,
+.pd-shot.is-cover { background: #FFF6E5; }
+.project-shot.is-cover img,
+.pd-shot.is-cover .pd-img { object-fit: contain; }
+
 .project-shot.is-icon img {
   width: auto;
   height: 68%;
