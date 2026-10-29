@@ -1,0 +1,147 @@
+{
+  "title": "INTEGRID \u2014 In Action",
+  "app": "https://integrid-phi.vercel.app/",
+  "source_revision": "bfb9d2b2ffafd8d2d0c945cf65f263da217aad7e",
+  "video": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "seconds": 45.2,
+    "frames": 1356,
+    "codec": "H.264 / AAC"
+  },
+  "scenes": [
+    {
+      "id": 0,
+      "shot": "relax-solve",
+      "trim": 0,
+      "duration": 6.4,
+      "x": 1130,
+      "side": 1,
+      "title": "Find the missing number",
+      "offset": 0
+    },
+    {
+      "id": 1,
+      "shot": "clue",
+      "trim": 0,
+      "duration": 6.4,
+      "x": 150,
+      "side": -1,
+      "title": "Learn the signs. Solve the grid.",
+      "offset": 6.2
+    },
+    {
+      "id": 2,
+      "shot": "finish",
+      "trim": 3.9,
+      "duration": 4.8,
+      "x": 1130,
+      "side": 1,
+      "title": "Clear the grid. Celebrate the win.",
+      "offset": 12.4
+    },
+    {
+      "id": 3,
+      "shot": "expert",
+      "trim": 0,
+      "duration": 8,
+      "x": 150,
+      "side": -1,
+      "title": "A bigger grid. A new challenge.",
+      "offset": 17.0
+    },
+    {
+      "id": 4,
+      "shot": "battle",
+      "trim": 0,
+      "duration": 9.6,
+      "x": 400,
+      "side": -1,
+      "title": "Team up. Race the grid.",
+      "offset": 24.8
+    },
+    {
+      "id": 5,
+      "shot": "modes",
+      "trim": 0,
+      "duration": 4.8,
+      "x": 150,
+      "side": -1,
+      "title": "Choose your adventure.",
+      "offset": 34.2
+    },
+    {
+      "id": 6,
+      "shot": "landing",
+      "trim": 0,
+      "duration": 6.4,
+      "x": 1130,
+      "side": 1,
+      "title": "INTEGRID In Action",
+      "offset": 38.800000000000004
+    }
+  ],
+  "capture_notes": [
+    "Real app controls and puzzle logic; isolated dev build with Supabase environment values undefined.",
+    "React development StrictMode removed from the isolated harness to match production effect lifecycles.",
+    "Existing ?unlock preview switch exposes levels without publishing progress.",
+    "Classroom BroadcastChannel messages are relayed across separate browser contexts to simulate independent devices.",
+    "Touch indicators and sound-event logging are editorial capture aids.",
+    "Game viewport 430\u00d7900 CSS pixels is cropped from the padded capture canvas.",
+    "Original gameplay speed retained. Short tails freeze the last frame instead of showing subsequent navigation.",
+    "Native sound cue timings were logged during capture, then mixed with the existing app music."
+  ],
+  "tools": [
+    "Playwright / Chromium",
+    "Native app controls and puzzle engine",
+    "HTML/CSS motion plates",
+    "Nunito Variable and native game artwork",
+    "FFmpeg / ffprobe",
+    "NumPy / SciPy",
+    "Pillow review contact sheet"
+  ],
+  "music": {
+    "title": "Puzzle Game 3 (Looping)",
+    "artist": "Eric Matyas",
+    "source": "https://soundimage.org/puzzle-music/",
+    "license": "https://soundimage.org/sample-page/",
+    "attribution": "Music by Eric Matyas / www.soundimage.org",
+    "edits": "Excerpted, faded, and briefly ducked for the native level-completion sound."
+  },
+  "sound_effects": [
+    {
+      "source": "public/sounds/puzzle-kit.wav",
+      "credit": "Original game feedback rendered with FluidSynth and GeneralUser GS 2.0.3 by S. Christian Collins",
+      "instrument_license": "https://www.schristiancollins.com/generaluser.php"
+    },
+    {
+      "source": "public/sounds/level-win.wav",
+      "credit": "Level win by Tuudurt / freesound_community",
+      "url": "https://pixabay.com/sound-effects/musical-level-win-6416/",
+      "license": "https://pixabay.com/service/license-summary/"
+    }
+  ],
+  "native_sound_cues": 39,
+  "audio_target": {
+    "lufs": -16,
+    "true_peak": -2
+  },
+  "website_asset": "previews/integrid-trailer.mp4",
+  "master_bytes": 11148632,
+  "web_bytes": 6377217,
+  "verification": {
+    "decoded_master_and_web_without_errors": true,
+    "web_audio_integrated_lufs": -16.03,
+    "web_audio_true_peak_dbtp": -2.33,
+    "browser_viewports": [
+      1440,
+      390
+    ],
+    "unmuted_playback_advanced": true,
+    "close_pauses_and_clears_source": true,
+    "approved_card_cover_preserved": true,
+    "browser_console_errors": 0,
+    "web_sha256": "34f321709113cefc2d7ae0d4bec2c9eddd7fff6ee389948d385b19fc96a682b2"
+  }
+}
