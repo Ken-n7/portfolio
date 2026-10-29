@@ -1,6 +1,6 @@
 /* ===================================================================   John Kenneth Cañete — Portfolio
    Style:      Modern Dark (Cinema Mobile)
-   Palette:    Charcoal + sage page, with original project component palettes
+   Palette:    Charcoal + sage, with original project card palettes
    Type:       Commissioner (headings + body)
    Source:     design-system/ken-portfolio/MASTER.md
    ========================================================================== */
@@ -67,18 +67,17 @@
   --color-grad-b:          rgba(99, 102, 241, 0.12);
 
   /* Brushed metal — the contact card is the only thing wearing it. */
-  --metal-base:    #1A2233;
-  --metal-hi:      rgba(226, 240, 255, 0.09);
+  --metal-base:    #242824;
+  --metal-hi:      rgba(236, 238, 235, 0.09);
   --metal-lo:      rgba(0, 0, 0, 0.30);
-  --metal-grain-a: rgba(226, 240, 255, 0.024);
+  --metal-grain-a: rgba(236, 238, 235, 0.024);
   --metal-grain-b: rgba(0, 0, 0, 0.032);
-  --metal-lip:     rgba(226, 240, 255, 0.14);
+  --metal-lip:     rgba(236, 238, 235, 0.14);
   --metal-lip-lo:  rgba(0, 0, 0, 0.38);
-  --metal-edge:    rgba(148, 163, 184, 0.24);
-  --metal-sheen:   rgba(214, 234, 255, 0.24);
-  /* The sheen lifts the plate to ~rgb(70,84,98) under the pointer, where
-     --color-muted-foreground would only reach 3:1. This holds 5.2:1. */
-  --metal-text:    #CBD5E1;
+  --metal-edge:    rgba(178, 201, 165, 0.24);
+  --metal-sheen:   rgba(226, 238, 219, 0.18);
+  /* Keep the description readable over the moving highlight. */
+  --metal-text:    #CBD2C8;
 
   /* Type */
   --font-heading: 'Commissioner', 'Segoe UI', system-ui, -apple-system, sans-serif;
@@ -211,12 +210,15 @@
   --metal-text:    var(--color-muted-foreground);   /* 6.9:1 already */
 }
 
-/* Page chrome has its own palette so project cards, stack chips, the detail
-   dialog, and the contact plate retain their existing component colours. */
+/* Shared page, stack, and contact colours. Project cards and their detail
+   dialog retain the original palette and project-specific brand colours. */
 :root {
   --page-background: var(--color-background);
   --page-foreground: var(--color-foreground);
   --page-secondary: var(--color-muted-foreground);
+  --page-surface: var(--color-surface);
+  --page-surface-raised: var(--color-surface-raised);
+  --page-grad-a: var(--color-grad-a);
   --page-border: var(--color-border);
   --page-border-strong: var(--color-border-strong);
   --page-accent: var(--color-accent);
@@ -234,6 +236,9 @@
     --page-background: #171918;
     --page-foreground: #ECEEEB;
     --page-secondary: #A5ABA5;
+    --page-surface: #232723;
+    --page-surface-raised: #2D322C;
+    --page-grad-a: rgb(178 201 165 / 0.08);
     --page-border: rgb(236 238 235 / 0.12);
     --page-border-strong: rgb(236 238 235 / 0.24);
     --page-accent: #B2C9A5;
@@ -251,6 +256,9 @@
   --page-background: #171918;
   --page-foreground: #ECEEEB;
   --page-secondary: #A5ABA5;
+  --page-surface: #232723;
+  --page-surface-raised: #2D322C;
+  --page-grad-a: rgb(178 201 165 / 0.08);
   --page-border: rgb(236 238 235 / 0.12);
   --page-border-strong: rgb(236 238 235 / 0.24);
   --page-accent: #B2C9A5;
@@ -263,9 +271,12 @@
   --page-glow-b: rgb(236 238 235 / 0.02);
 }
 
-:where(.site-header, .hero, .cue, .site-footer) {
+:where(.site-header, .hero, .cue, .site-footer, #stack, #contact) {
   --color-foreground: var(--page-foreground);
   --color-muted-foreground: var(--page-secondary);
+  --color-surface: var(--page-surface);
+  --color-surface-raised: var(--page-surface-raised);
+  --color-grad-a: var(--page-grad-a);
   --color-border: var(--page-border);
   --color-border-strong: var(--page-border-strong);
   --color-accent: var(--page-accent);
