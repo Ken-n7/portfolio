@@ -322,6 +322,7 @@
       document.body.classList.add('pd-open');
       lockScroll();
       pd.showModal();
+      if (demo) pdVideo.load();
       // Measured only now — .pd-shot has no box until the dialog is laid out.
       scrim(true);
       fly(shot, pdShot, card, false);
@@ -406,8 +407,8 @@
       unlockScroll();
       pdImg.removeAttribute('src');
       pdVideo.pause();
-      pdVideo.currentTime = 0;
       pdVideo.removeAttribute('src');
+      pdVideo.load();
       if (currentFly) { currentFly.cancel(); currentFly = null; }
       pd.querySelectorAll('.pd-fly').forEach(function (el) { el.remove(); });
       pd.classList.remove('is-flying');

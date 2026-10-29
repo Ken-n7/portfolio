@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>John Kenneth Cañete — Developer Portfolio</title>
-  <meta name="description" content="Hi, I'm Ken. This is my portfolio — I build things for the web. Have a look at my projects." />
+  <meta name="description" content="Hi, I'm Ken. This is my portfolio — I build stuff. Have a look at my projects." />
   <meta name="author" content="John Kenneth Cañete" />
   <meta name="theme-color" content="#0F172A" />
 
@@ -17,18 +17,18 @@
   <meta property="og:locale" content="en_US" />
   <meta property="og:url" content="https://ken-n7.github.io/portfolio/" />
   <meta property="og:title" content="John Kenneth Cañete — Developer Portfolio" />
-  <meta property="og:description" content="Hi, I'm Ken. This is my portfolio — I build things for the web. Have a look at my projects." />
+  <meta property="og:description" content="Hi, I'm Ken. This is my portfolio — I build stuff. Have a look at my projects." />
   <meta property="og:image" content="https://ken-n7.github.io/portfolio/previews/share-card.jpg" />
   <meta property="og:image:type" content="image/jpeg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="John Kenneth Cañete — I build things for the web. Open to work." />
+  <meta property="og:image:alt" content="John Kenneth Cañete — I build stuff. Open to work." />
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="John Kenneth Cañete — Developer Portfolio" />
-  <meta name="twitter:description" content="Hi, I'm Ken. This is my portfolio — I build things for the web. Have a look at my projects." />
+  <meta name="twitter:description" content="Hi, I'm Ken. This is my portfolio — I build stuff. Have a look at my projects." />
   <meta name="twitter:image" content="https://ken-n7.github.io/portfolio/previews/share-card.jpg" />
-  <meta name="twitter:image:alt" content="John Kenneth Cañete — I build things for the web. Open to work." />
+  <meta name="twitter:image:alt" content="John Kenneth Cañete — I build stuff. Open to work." />
 
   <script type="application/ld+json">
   {
@@ -47,7 +47,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css?v=game-titles-1" />
 
   <script>
     // Runs before first paint so a saved light theme never flashes dark.
@@ -125,7 +125,7 @@
             Hi, I'm Ken. This is my <span class="accent">portfolio</span>.
           </h1>
           <p class="hero-lead reveal" style="--reveal-delay: 200ms">
-            I build things for the web. Have a look around.
+            I build stuff. Have a look around.
           </p>
           <ul class="hero-facts reveal" style="--reveal-delay: 260ms">
             <li><span class="fact-label">Based in</span><span class="fact-value">Philippines</span></li>
@@ -138,16 +138,35 @@
     <div class="cue reveal">
       <div class="wrap cue-inner">
         <span class="cue-line" aria-hidden="true"></span>
-        <p class="cue-text">Some personal builds</p>
+        <p class="cue-text">Some Builds</p>
         <svg class="cue-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
         <span class="cue-line" aria-hidden="true"></span>
       </div>
     </div>
 
-    <section id="work" class="section" aria-label="Some personal builds">
+    <section id="work" class="section" aria-label="Some Builds">
       <div class="wrap">
         <div class="work-grid">
-          <article class="project reveal" id="p-escape-room" style="--theme-color: 265 45% 32%">
+          <article class="project reveal" id="p-lakbayin" style="--theme-color: 152 45% 30%"
+                   data-demo="previews/lakbayin-trailer.mp4?v=optimized-r2" data-demo-poster="previews/lakbayin-cover.webp">
+            <button type="button" class="project-open" aria-haspopup="dialog" aria-label="View Lakbayin project">
+              <span class="project-shot">
+                <img src="previews/lakbayin-cover.webp" width="1280" height="720" loading="lazy" decoding="async" alt="Lakbayin trailer title screen with gold Baybayin lettering over a pixel art island and the tagline Hanapin. Isulat. Ipanalo." />
+              </span>
+              <span class="project-face">
+                <span class="brand brand-lakbayin" aria-hidden="true">Lakbayin</span>
+                <span class="project-name">Lakbayin</span>
+                <span class="project-kicker">Multiplayer · Baybayin</span>
+              </span>
+            </button>
+            <div class="project-detail" hidden>
+              <p class="project-desc">Two teams explore the same procedurally generated island, find monks holding Filipino words, and write those words in Baybayin. Correct answers have to be carried back to a hidden monastery before they count. Built in Godot with online rooms, practice mode, and a Python game server. A project for the DOST Level Up 3.0 game development challenge.</p>
+              <ul class="tags"><li>Godot</li><li>GDScript</li><li>Python</li><li>FastAPI</li><li>SQLite</li></ul>
+              <div class="project-links"><a href="https://github.com/Ken-n7/lakbayin" target="_blank" rel="noopener noreferrer">View source <span aria-hidden="true">↗</span></a></div>
+            </div>
+          </article>
+          <article class="project reveal" id="p-escape-room" style="--theme-color: 265 45% 32%"
+                   data-demo="previews/probxcape-trailer.mp4?v=2-optimized-r2" data-demo-poster="previews/probxcape.jpg">
             <button type="button" class="project-open" aria-haspopup="dialog">
               <span class="project-shot">
                 <img src="previews/probxcape.jpg" width="1500" height="938" loading="lazy" decoding="async" alt="ProbXcape title screen — a dark 3D school corridor lit by a flickering ceiling light, with Log in, Sign up and Guest options" />
@@ -253,6 +272,25 @@
               </div>
             </div>
           </article>
+          <article class="project reveal" id="p-integrid" style="--theme-color: 34 75% 35%">
+            <button type="button" class="project-open" aria-haspopup="dialog" aria-label="View INTEGRID project">
+              <span class="project-shot is-portrait">
+                <img src="previews/integrid.webp" width="430" height="900" loading="lazy" decoding="async" alt="INTEGRID landing screen with an integer crossword, the In Action title, and a Let's Start button" />
+              </span>
+              <span class="project-face">
+                <span class="brand brand-integrid" aria-hidden="true">INTEGRID</span>
+                <span class="project-name">INTEGRID</span>
+                <span class="project-kicker">Educational game · Integer crosswords</span>
+              </span>
+            </button>
+            <div class="project-detail" hidden>
+              <p class="project-desc">An integer crossword adventure for Grade 7 learners. Fill the missing numbers in connected equations, use clues to understand sign rules, and earn coins for hints. Relax mode introduces the puzzles, Expert adds timed rankings, and Battle lets groups race on a shared grid. A separate teacher dashboard manages student codes, tracks progress, and exports results for classroom research. Built as an installable web app with offline solo play.</p>
+              <ul class="tags"><li>React</li><li>TypeScript</li><li>Vite</li><li>Supabase</li><li>PWA</li></ul>
+              <div class="project-links"><a class="is-live" href="https://integrid-phi.vercel.app" target="_blank" rel="noopener noreferrer">Try it live <span aria-hidden="true">↗</span></a></div>
+            </div>
+          </article>
+
+
           <!-- Parked: EVMC, One HUb and Citrus. The work section shows the four
                strongest builds only. Delete the comment markers to bring any of
                them back — the markup, styles and JS all still expect them. -->
@@ -458,6 +496,6 @@
     </div>
   </dialog>
 
-  <script src="script.js" defer></script>
+  <script src="script.js?v=video-optimized-2" defer></script>
 </body>
 </html>

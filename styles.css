@@ -7,8 +7,8 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600&display=swap');
 
-/* Two faces borrowed from the projects themselves, so their titles are set the
-   way they are in the thing they belong to. Both are subset to the exact
+/* Display faces borrowed from the projects themselves, so their titles are set the
+   way they are in the thing they belong to. Each is subset to the exact
    letters they spell — a few KB each rather than a whole family. */
 @font-face {
   font-family: 'Butcherman Subset';      /* ProbXcape's own title face */
@@ -19,6 +19,16 @@
   font-family: 'Inter Subset';           /* Sip & Savor sets its name in Inter 600 */
   src: url('brand/inter-sip.woff2') format('woff2');
   font-weight: 600; font-display: swap;
+}
+@font-face {
+  font-family: 'Portfolio Lakbayin';
+  src: url('brand/lakbayin.woff2') format('woff2');
+  font-weight: 400; font-display: swap;
+}
+@font-face {
+  font-family: 'Portfolio INTEGRID';
+  src: url('brand/integrid.woff2') format('woff2');
+  font-weight: 900; font-display: swap;
 }
 
 /* --------------------------------------------------------------------------
@@ -1065,6 +1075,31 @@ body.pd-open .project-open { animation-play-state: paused; }
   letter-spacing: 0.02em;
   color: var(--color-foreground);
 }
+
+/* The games' native title faces and colours, carried into both the card and
+   opened project. INTEGRID's cream edge keeps its brown ink readable over
+   the card's dark image wash. */
+.brand.brand-lakbayin {
+  font-family: 'Portfolio Lakbayin', cursive;
+  font-weight: 400;
+  font-size: clamp(1.9rem, 6vw, 2.9rem);
+  line-height: 1.25;
+  letter-spacing: 0;
+  color: #F1E2BD;
+  text-shadow: 3px 3px 0 rgb(0 0 0 / 60%);
+}
+.brand.brand-integrid {
+  font-family: 'Portfolio INTEGRID', ui-rounded, sans-serif;
+  font-weight: 900;
+  font-size: clamp(1.9rem, 6vw, 2.9rem);
+  line-height: 1.05;
+  letter-spacing: 0.01em;
+  color: #7A3B0C;
+  text-shadow: -1px -1px 0 #FFF7E8, 1px -1px 0 #FFF7E8,
+    -1px 1px 0 #FFF7E8, 1px 1px 0 #FFF7E8;
+}
+.project-face .brand-lakbayin,
+.project-face .brand-integrid { font-size: clamp(1.5rem, 3.4vw, 2.1rem); }
 
 /* The app's own header runs the mark at 50px against 20px text. Matching that
    ratio keeps the lockup recognisable rather than just being the two pieces
