@@ -1,0 +1,29 @@
+{
+  "hero": {
+    "source": "previews/lakbayin-trailer.mp4",
+    "time_seconds": 30,
+    "output": "previews/lakbayin-gameplay.webp",
+    "changes": "Frame extraction only; no generated or drawn image"
+  },
+  "swarm": {
+    "source": "previews/swarm-demo.mp4",
+    "time_seconds": 43,
+    "crop": [
+      430,
+      32,
+      420,
+      688
+    ],
+    "output": "previews/swarm-upload.webp",
+    "changes": "Crop the existing recording to its actual upload panel"
+  },
+  "project_summaries": {
+    "p-lakbayin": "Explore an island, learn Baybayin, and race another team.",
+    "p-escape-room": "A probability lesson inside a school-corridor horror game.",
+    "p-integrid": "Integer crosswords with solo play and classroom battles.",
+    "p-consignment-ledger": "Tracks consignment stock from warehouse deliveries to branch sales.",
+    "p-sip-and-savor": "Find recipes and cocktails from the ingredients you have.",
+    "p-swarm-gallery": "An event photo gallery that works over a local network."
+  },
+  "layout": "Lakbayin appears once as the interactive hero; five remaining projects use two pairs around a full-width Consignment Ledger feature."
+}

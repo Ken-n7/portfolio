@@ -1,30 +1,25 @@
 {
+  "iteration": 2,
   "hero": {
     "reviewer": "fresh-context subagent",
     "verdict": "ship",
-    "changes_requested": 0
+    "changes_requested": 0,
+    "evidence": "Actual gameplay and interactive project caption reviewed at 1280×800, 1440×900, 1920×1080 and 375×812."
   },
   "finish": {
     "reviewer": "fresh-context subagent",
-    "verdict": "fix",
-    "findings": [
-      {
-        "issue": "Mobile Stack navigation hidden",
-        "status": "resolved",
-        "evidence": "Link restored; visible and within mobile viewport in functional checks and final Hallmark capture"
-      },
-      {
-        "issue": "Email icon reads as filled square",
-        "status": "resolved",
-        "evidence": "Stroke-only SVG fill reset; actual fill=none and stroke matches button text color in browser checks"
-      }
-    ],
+    "verdict": "ship",
+    "changes_requested": 0,
     "original_did_better": [
-      "Mobile Stack navigation",
-      "Recognizable email envelope"
+      "Lakbayin title artwork had greater prominence. Original asset and video poster remain."
     ],
-    "gap": "none"
+    "gap": "none",
+    "evidence": "Desktop folds, 1440 full page and 375 full page reviewed. Summaries and actions legible; all six projects appear once."
   },
+  "previous_iteration_fixes": [
+    "Mobile Stack navigation restored",
+    "Stroke-only email envelope restored"
+  ],
   "sweep": {
     "floor_failures": 0,
     "open_reflex": 0,
@@ -34,6 +29,12 @@
     ],
     "dismissed": [
       "49: project previews use short explicit aria-labels; inner project metadata is structured content"
-    ]
+    ],
+    "kept": {
+      "links": "18/18",
+      "script_hooks": "28/28",
+      "headings": "7/7",
+      "figures": "2/2"
+    }
   }
 }

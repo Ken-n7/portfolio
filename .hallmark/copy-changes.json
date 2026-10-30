@@ -94,5 +94,61 @@
     "before": "I'm open to work. Easiest way to reach me is email.",
     "after": "I’m open to work. Easiest way to reach me is email.",
     "reason": "Typographic apostrophes; original facts retained"
+  },
+  {
+    "iteration": 2,
+    "element": "Hero project action",
+    "before": "Explore my builds",
+    "after": "More projects",
+    "reason": "The featured project now opens directly from the hero; this link continues to the five remaining projects."
+  },
+  {
+    "iteration": 2,
+    "element": "p-lakbayin .project-summary",
+    "before": null,
+    "after": "Explore an island, learn Baybayin, and race another team.",
+    "reason": "Short summary derived from the existing project description; the complete original description remains in its dialog and without JavaScript."
+  },
+  {
+    "iteration": 2,
+    "element": "p-escape-room .project-summary",
+    "before": null,
+    "after": "A probability lesson inside a school-corridor horror game.",
+    "reason": "Short summary derived from the existing project description; the complete original description remains in its dialog and without JavaScript."
+  },
+  {
+    "iteration": 2,
+    "element": "p-integrid .project-summary",
+    "before": null,
+    "after": "Integer crosswords with solo play and classroom battles.",
+    "reason": "Short summary derived from the existing project description; the complete original description remains in its dialog and without JavaScript."
+  },
+  {
+    "iteration": 2,
+    "element": "p-consignment-ledger .project-summary",
+    "before": null,
+    "after": "Tracks consignment stock from warehouse deliveries to branch sales.",
+    "reason": "Short summary derived from the existing project description; the complete original description remains in its dialog and without JavaScript."
+  },
+  {
+    "iteration": 2,
+    "element": "p-sip-and-savor .project-summary",
+    "before": null,
+    "after": "Find recipes and cocktails from the ingredients you have.",
+    "reason": "Short summary derived from the existing project description; the complete original description remains in its dialog and without JavaScript."
+  },
+  {
+    "iteration": 2,
+    "element": "p-swarm-gallery .project-summary",
+    "before": null,
+    "after": "An event photo gallery that works over a local network.",
+    "reason": "Short summary derived from the existing project description; the complete original description remains in its dialog and without JavaScript."
+  },
+  {
+    "iteration": 2,
+    "element": "Project preview action labels",
+    "before": null,
+    "after": "Watch demo (five existing video projects); View project (Sip & Savor)",
+    "reason": "Identify what the existing project preview buttons open; no new destination or handler."
   }
 ]

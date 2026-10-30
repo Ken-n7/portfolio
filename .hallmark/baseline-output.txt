@@ -1,37 +1,5 @@
-render tier: 10 screenshots in /tmp/portfolio-hallmark/.hallmark/before (1280x800, 1440x900, 1920x1080 folds; 1440 and 375 full pages)
-  FAIL 7a x7 styles.css:912 pure #fff: color: #FFFFFF (.project-face .brand, .project-face …; styles.css:934 pure #fff: color: #FFFFFF (.project-name) | fix: Tint the base toward the anchor hue
-  FAIL 15 styles.css:791 .project-open transitions box-shadow while :focus-visible sets … | fix: Rings appear instantly: transition the hover property only, or draw the ring with a property that is not transitioned
-  FAIL 19 index.html:8 dash "—" in copy | fix: A comma, a colon, a full stop or parentheses; never a dash
-  FAIL 24a x9 styles.css:1 +4 more raw spacing lengths with a matching --space-* token in …; styles.css:585 padding-block: clamp(2rem, 5vw, 4.5rem) cl… on .hero where --sp… | fix: Use the tokens
-  FAIL 34 x2 styles.css:317 overflow-x: hidden on body (breaks sticky); styles.css:970 width: 100vw on .pd (scrollbar overflow) | fix: Use overflow-x: clip on both html and body, never hidden
-  FAIL 40 x2 http://127.0.0.1:4177/:1 [1280px] computed contrast 1.83:1 < 3:1 on span.brand.brand-int…; index.html:1 [1280px] computed contrast 1.83:1 < 3:1 on span.brand.brand-int… | fix: Raise the contrast to threshold
-  FAIL 48 x41 index.html:397 inline-style colour literal #777BB4; index.html:398 inline-style colour literal #3776AB | fix: Lift the value into the token block
-  FAIL 62 styles.css:1598 .reveal is hidden at rest (opacity: 0) and depends on a script … | fix: Visible by default: scope the hidden state under a .js class the script adds, or animate from visible with @starting-style
-  FAIL 63 x10 index.html:177 middle-dot meta string "ProbXcape ProbXcape 3D Game · EdTech · …; index.html:181 middle-dot meta string "ProbXcape ProbXcape 3D Game · EdTech · … | fix: Line breaks, columns or hairlines; one dot in a byline at most
-  FAIL 67 x7 styles.css:418 .eyebrow: uppercase tracked 0.14em at 13px in a label role; styles.css:597 .hero-meta .eyebrow: letter-spaced tracked 0.1em at 11px in a l… | fix: Labels, captions, table heads, nav links and meta are the body face (or the theme's label face), a step smaller, sentence case, untracked
-  FAIL 76 index.html:487 an <img> with no source | fix: Give it the real image, make it a data-slot placeholder, or remove it
-  REFLEX 7b x11 styles.css:140 pure #fff: --color-surface: #FFFFFF (:root:not([data-theme="dar…; styles.css:150 pure #fff: --color-on-accent: #FFFFFF (:root:not([data-theme="d… | fix: Tint the base toward the anchor hue
-  REFLEX 24b x5 styles.css:1288 gap: 6px (off the 4px scale) on .tags; styles.css:1292 padding: 3px 10px (off the 4px scale) on .tags li | fix: Use the 4px spacing scale
-  REFLEX 26b styles.css:1 no :disabled styling anywhere | fix: All eight states; guard: not a form control, no aria-disabled anywhere
-  REFLEX 28b index.html:488 video without poster | fix: Add a poster frame; guard: below the fold and not the LCP
-  REFLEX 37 styles.css:1202 5 font families: commissioner, butcherman subset, portfolio lak… | fix: Drop the extra family; three is the ceiling
-  REFLEX 39b x2 http://127.0.0.1:4177/:1 [1440px] control height outside 44 to 52px: button.project-open…; index.html:1 [1440px] control height outside 44 to 52px: button.project-open… | fix: Marketing controls stand 44 to 52px; app UI 32 to 40px with a 44px hit target
-  REFLEX 44c x2 http://127.0.0.1:4177/:1 [1440px] hero ends at 451px of a 900px screen; index.html:1 [1440px] hero ends at 451px of a 900px screen | fix: Fill the first screen with the visual or the headline, not with copy
-  REFLEX 59 x2 http://127.0.0.1:4177/:1 [1440px] smallest gap between sections is 40px (gaps: 102, 40, …; index.html:1 [1440px] smallest gap between sections is 40px (gaps: 102, 40, … | fix: 120px or more between sections, by the --section-gap steps
-  REFLEX 64 x4 styles.css:422 monospace label voice on .eyebrow; styles.css:952 monospace label voice on .project-kicker | fix: Labels in the body face, a step smaller, sentence case; mono only for code and figures
-  REFLEX 77 x2 http://127.0.0.1:4177/:1 [1440px] 3 thin sections: "BUILDS" (100% wide, no mass); "STACK…; index.html:1 [1440px] 3 thin sections: "BUILDS" (100% wide, no mass); "STACK… | fix: Widen the body to ten of twelve columns and give it mass: a visual 300px tall or more, a set of three across, rows, or a statement (layout.md § 4 and § 5)
-  REFLEX 78 x2 http://127.0.0.1:4177/:1 [1440px] section heads render at 13px under a 32px hero head; index.html:1 [1440px] section heads render at 13px under a 32px hero head | fix: h2 at --text-section (about 52px at 1440), item titles at --text-title (layout.md § 2)
-  WARN 11 styles.css:837 image transforms on hover (.project-open:hover .project-shot im… | fix: Imagery sits still; give the container the feedback
-  WARN 29 x3 styles.css:327 blurred orb: filter blur(120px) on the positioned body::before,…; styles.css:438 glass panel: backdrop-filter blur over a translucent white on .… | fix: Delete the wash; a surface is paper or ground, not a light show
-  WARN 40 styles.css:310 1.01:1 < 4.5:1 on body | fix: Raise the contrast to threshold
-  WARN 41 styles.css:1 accent fills a surface but --color-accent-ink is undefined | fix: Define and apply --color-accent-ink
-  WARN 49 x6 index.html:159 long clickable label "Lakbayin Lakbayin Multiplayer · Bay…" wit…; index.html:177 long clickable label "ProbXcape ProbXcape 3D Game · EdTec…" wit… | fix: Shorten the label or set nowrap
-  WARN 58 index.html:127 hero paragraph runs 19 words | fix: One sentence, twelve words or fewer
-  WARN 74 x5 styles.css:48 default Tailwind palette #0F172A on --color-background; styles.css:52 default Tailwind palette #F8FAFC on --color-foreground | fix: Mix the colour for this page in OKLCH; a stock swatch is the AI look
-  WARN F1 index.html:123 straight quote in prose x9 (first: Hi, I'm Ken.) | fix: Use typographic quotes: “ ” ’
-  WARN F4 styles.css:742 2 filled primary-button recipes: .nav-cta + .btn-primary | fix: One filled primary per page; demote the rest to outline/quiet variants
-  WARN F19 x2 http://127.0.0.1:4177/:1 [1440px] 4 font weights in running use (400, 500, 600, 700); index.html:1 [1440px] 4 font weights in running use (400, 500, 600, 700) | fix: Three weights at most, display and body together, picked as extremes
-  WARN F24 styles.css:789 a hairline border under a wide soft shadow on .project-open | fix: Commit to one: a defined edge, or elevation by shadow
-  WARN render index.html:1 the shots show a fallback: fonts or stylesheets did not load (c… | fix: Recapture when the host answers or the path is right; never review or sign off a fallback face
-sloplint: 82 FAIL, 33 REFLEX, 24 WARN across 2 file(s) and 1 URL(s), grouped by gate; every line is in .hallmark/before.txt.
+render tier: 10 screenshots in /home/ken/Workspace/portfolio/.hallmark/before (1280x800, 1440x900, 1920x1080 folds; 1440 and 375 full pages)
+  WAIVED 39b x2 http://127.0.0.1:4177/:1 [1440px] control height outside 44 to 52px: button.project-open…; index.html:1 [1440px] control height outside 44 to 52px: button.project-open… | fix: Marketing controls stand 44 to 52px; app UI 32 to 40px with a 44px hit target
+  DISMISSED 49 x6 index.html:129 long clickable label "Lakbayin Lakbayin Multiplayer Bayba…" wit…; index.html:146 long clickable label "ProbXcape ProbXcape 3D Game EdTech …" wit… | fix: Shorten the label or set nowrap
+sloplint: 0 FAIL, 0 WARN, 2 WAIVED, 6 DISMISSED across 4 file(s) and 1 URL(s), grouped by gate; every line is in .hallmark/before.txt.
 before: recorded 18 links, 0 fields, 0 handlers, 0 test hooks, 26 script hooks and 2 rendered page(s) in .hallmark/before.json; --kept checks a redesign against it
