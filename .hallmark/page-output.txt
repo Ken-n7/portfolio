@@ -1,0 +1,14 @@
+render tier: 10 screenshots in /tmp/portfolio-hallmark/.hallmark/shots (1280x800, 1440x900, 1920x1080 folds; 1440 and 375 full pages)
+http://127.0.0.1:4177/
+  WAIVED 39b :1 [1440px] control height outside 44 to 52px: button.project-open 555px, button.project-open 415px, button.project-open 4…
+index.html
+  WAIVED 39b :1 [1440px] control height outside 44 to 52px: button.project-open 555px, button.project-open 415px, button.project-open 4…
+  DISMISSED 49 :129 long clickable label "Lakbayin Lakbayin Multiplayer Bayba…" without nowrap
+  DISMISSED 49 :146 long clickable label "ProbXcape ProbXcape 3D Game EdTech …" without nowrap
+  DISMISSED 49 :174 long clickable label "SipAndSavor Sip &amp; Savor Web App…" without nowrap
+  DISMISSED 49 :202 long clickable label "Swarm Gallery Swarm Gallery Full-st…" without nowrap
+  DISMISSED 49 :226 long clickable label "EFP Supply Chain Consignment Ledger…" without nowrap
+  DISMISSED 49 :244 long clickable label "INTEGRID INTEGRID Educational game …" without nowrap
+sloplint: 0 FAIL, 0 WARN, 2 WAIVED, 6 DISMISSED across 4 file(s) and 1 URL(s).
+kept: links 18/18, script hooks 28/28, headings 6/7 (1 dropped on record), figures 1/1; before 82 FAIL, 33 REFLEX, now 0 FAIL, 0 REFLEX
+compare: .hallmark/compare.html shows before and after side by side

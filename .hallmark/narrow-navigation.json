@@ -1,0 +1,21 @@
+{
+  "width": 320,
+  "overflow": false,
+  "links": [
+    {
+      "text": "Builds",
+      "visible": true,
+      "fits": true
+    },
+    {
+      "text": "Stack",
+      "visible": true,
+      "fits": true
+    },
+    {
+      "text": "Contact",
+      "visible": true,
+      "fits": true
+    }
+  ]
+}

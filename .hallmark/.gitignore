@@ -1,0 +1,10 @@
+shots/
+before/
+before.json
+before.txt
+compare.html
+build-redesign.py
+write-tokens.py
+verify.cjs
+platform-colors.json
+salt

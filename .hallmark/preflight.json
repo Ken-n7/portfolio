@@ -1,0 +1,28 @@
+{
+  "scanned": "2026-10-30",
+  "findings": {
+    "fonts": "Commissioner variable body and headings; project-specific brand subsets (styles.css:9-39, 90-92)",
+    "palette": "Charcoal #171918 and sage #B2C9A5 with light-mode palette (styles.css:234-274)",
+    "motion": "Vanilla IntersectionObserver and Web Animations project dialogs (script.js:12-33, 111-430)",
+    "spacing": "CSS custom property scale (styles.css:99-117)",
+    "framework": "Static HTML/CSS/JS; one route, / (index.html:1, script.js:1)"
+  },
+  "preserve": [
+    "All 6 active projects, screenshots and videos",
+    "Project names, descriptions, facts, technologies and links",
+    "Dialog, theme toggle, navigation anchors and no-JavaScript access",
+    "Established charcoal/sage palette and Commissioner font"
+  ],
+  "introduce": [
+    "Full composition redesign",
+    "Hallmark token scaffold and visual checks",
+    "Clear hierarchy centered on actual project work"
+  ],
+  "route_inventory": [
+    {
+      "route": "/",
+      "file": "index.html",
+      "kind": "page"
+    }
+  ]
+}

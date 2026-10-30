@@ -1,1721 +1,190 @@
-/* ===================================================================   John Kenneth Cañete — Portfolio
-   Style:      Modern Dark (Cinema Mobile)
-   Palette:    Charcoal + sage, with original project card palettes
-   Type:       Commissioner (headings + body)
-   Source:     design-system/ken-portfolio/MASTER.md
-   ========================================================================== */
-
-@font-face {
-  font-family: 'Commissioner';
-  src: url('fonts/commissioner.woff2') format('woff2');
-  font-style: normal;
-  font-weight: 100 900;
-  font-display: swap;
-}
-
-/* Display faces borrowed from the projects themselves, so their titles are set the
-   way they are in the thing they belong to. Each is subset to the exact
-   letters they spell — a few KB each rather than a whole family. */
-@font-face {
-  font-family: 'Butcherman Subset';      /* ProbXcape's own title face */
-  src: url('brand/butcherman.woff2') format('woff2');
-  font-weight: 400; font-display: swap;
-}
-@font-face {
-  font-family: 'Inter Subset';           /* Sip & Savor sets its name in Inter 600 */
-  src: url('brand/inter-sip.woff2') format('woff2');
-  font-weight: 600; font-display: swap;
-}
-@font-face {
-  font-family: 'Portfolio Lakbayin';
-  src: url('brand/lakbayin.woff2') format('woff2');
-  font-weight: 400; font-display: swap;
-}
-@font-face {
-  font-family: 'Portfolio INTEGRID';
-  src: url('brand/integrid.woff2') format('woff2');
-  font-weight: 900; font-display: swap;
-}
-
-/* --------------------------------------------------------------------------
-   1. Tokens
-   -------------------------------------------------------------------------- */
-
-:root {
-  /* Color — dark is primary. Never pure #000 (OLED smear).
-     Every colour the page paints is declared here; nothing downstream
-     hardcodes a hex, so the light theme below only has to restate this block. */
-  --color-background:      #0F172A;
-  --color-surface:         #1B2336;
-  --color-surface-raised:  #222C42;
-  --color-muted:           #272F42;
-  --color-foreground:      #F8FAFC;
-  --color-muted-foreground:#94A3B8;
-  --color-border:          rgba(148, 163, 184, 0.14);
-  --color-border-strong:   rgba(148, 163, 184, 0.28);
-  --color-accent:          #22C55E;
-  --color-accent-hover:    #16A34A;
-  --color-accent-soft:     rgba(34, 197, 94, 0.12);
-  --color-on-accent:       #0F172A;
-  --color-glow-a:          rgba(34, 197, 94, 0.16);
-  --color-glow-b:          rgba(99, 102, 241, 0.18);
-  --color-header:          rgba(15, 23, 42, 0.72);
-  --color-header-solid:    rgba(15, 23, 42, 0.88);
-  --color-scrim:           rgba(15, 23, 42, 0.78);
-  --color-pd-scrim:        rgba(9, 14, 28, 0.66);
-  --color-grad-a:          rgba(34, 197, 94, 0.10);
-  --color-grad-b:          rgba(99, 102, 241, 0.12);
-
-  /* Brushed metal — the contact card is the only thing wearing it. */
-  --metal-base:    #242824;
-  --metal-hi:      rgba(236, 238, 235, 0.09);
-  --metal-lo:      rgba(0, 0, 0, 0.30);
-  --metal-grain-a: rgba(236, 238, 235, 0.024);
-  --metal-grain-b: rgba(0, 0, 0, 0.032);
-  --metal-lip:     rgba(236, 238, 235, 0.14);
-  --metal-lip-lo:  rgba(0, 0, 0, 0.38);
-  --metal-edge:    rgba(178, 201, 165, 0.24);
-  --metal-sheen:   rgba(226, 238, 219, 0.18);
-  /* Keep the description readable over the moving highlight. */
-  --metal-text:    #CBD2C8;
-
-  /* Type */
-  --font-heading: 'Commissioner', 'Segoe UI', system-ui, -apple-system, sans-serif;
-  --font-body:    'Commissioner', 'Segoe UI', system-ui, -apple-system, sans-serif;
-  --font-mono:    ui-monospace, 'SF Mono', 'Cascadia Code', Menlo, monospace;
-
-  --text-xs:   0.8125rem;
-  --text-sm:   0.9375rem;
-  --text-base: 1rem;
-  --text-lg:   1.125rem;
-  --text-xl:   1.375rem;
-  --text-2xl:  1.75rem;
-  --text-3xl:  2.25rem;
-  --text-hero: clamp(2.25rem, 6vw, 4.25rem);
-
-  /* Space — density 4/10 (standard, 16-64px) */
-  --space-2xs: 0.5rem;
-  --space-xs:  0.75rem;
-  --space-sm:  1rem;
-  --space-md:  1.5rem;
-  --space-lg:  2.5rem;
-  --space-xl:  4rem;
-  --space-2xl: 6rem;
-
-  --radius-sm: 8px;
-  --radius-md: 14px;
-  --radius-lg: 20px;
-  --radius-pill: 999px;
-
-  --shadow-card: 0 1px 2px rgba(0,0,0,0.3), 0 12px 32px rgba(0,0,0,0.28);
-  --shadow-lift: 0 2px 4px rgba(0,0,0,0.3), 0 24px 56px rgba(0,0,0,0.42);
-  --shadow-media: 0 12px 32px rgba(0,0,0,0.45);
-
-  /* Motion — Expo.out, 150-450ms */
-  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-  --dur-fast: 160ms;
-  --dur-mid:  260ms;
-  --dur-slow: 420ms;
-  --dur-settle: 640ms;   /* the contact plate easing back to rest */
-  --dur-arrive: 520ms;   /* ...crossing the plate to meet the pointer */
-  /* Expo.out covers 90% of its distance in the first fifth of the duration,
-     which is right for a UI element arriving and wrong for a heavy plate
-     settling — it lands before the sheen has moved. This one is even. */
-  --ease-settle: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-
-  --maxw: 1140px;
-}
-
-/* --------------------------------------------------------------------------
-   1b. Light theme
-   The bright green reads at only ~2.2:1 on a light ground, so the accent
-   darkens to #15803D (4.8:1) wherever it carries text. Declared twice on
-   purpose: once for people whose OS says light, once for the explicit
-   toggle — so the button can override the OS in both directions.
-   -------------------------------------------------------------------------- */
-
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]) {
-    --color-background:      #F6F8FB;
-    --color-surface:         #FFFFFF;
-    --color-surface-raised:  #F1F5F9;
-    --color-muted:           #EEF2F7;
-    --color-foreground:      #0F172A;
-    --color-muted-foreground:#4A5A70;
-    --color-border:          rgba(15, 23, 42, 0.12);
-    --color-border-strong:   rgba(15, 23, 42, 0.26);
-    --color-accent:          #15803D;
-    --color-accent-hover:    #166534;
-    --color-accent-soft:     rgba(21, 128, 61, 0.14);
-    --color-on-accent:       #FFFFFF;
-    --color-glow-a:          rgba(34, 197, 94, 0.16);
-    --color-glow-b:          rgba(99, 102, 241, 0.14);
-    --color-header:          rgba(246, 248, 251, 0.76);
-    --color-header-solid:    rgba(246, 248, 251, 0.92);
-    --color-scrim:           rgba(255, 255, 255, 0.86);
-    --color-pd-scrim:        rgba(240, 244, 250, 0.74);
-    --color-grad-a:          rgba(21, 128, 61, 0.08);
-    --color-grad-b:          rgba(99, 102, 241, 0.10);
-    --shadow-card:  0 1px 2px rgba(15,23,42,0.06), 0 10px 28px rgba(15,23,42,0.08);
-    --shadow-lift:  0 2px 4px rgba(15,23,42,0.08), 0 22px 50px rgba(15,23,42,0.14);
-    --shadow-media: 0 10px 26px rgba(15,23,42,0.18);
-
-    --metal-base:    #E7ECF2;
-    --metal-hi:      rgba(255, 255, 255, 0.92);
-    --metal-lo:      rgba(15, 23, 42, 0.11);
-    --metal-grain-a: rgba(255, 255, 255, 0.55);
-    --metal-grain-b: rgba(15, 23, 42, 0.03);
-    --metal-lip:     rgba(255, 255, 255, 0.95);
-    --metal-lip-lo:  rgba(15, 23, 42, 0.13);
-    --metal-edge:    rgba(15, 23, 42, 0.17);
-    --metal-sheen:   rgba(255, 255, 255, 0.95);
-    --metal-text:    var(--color-muted-foreground);   /* 6.9:1 already */
-  }
-}
-
-:root[data-theme="light"] {
-  --color-background:      #F6F8FB;
-  --color-surface:         #FFFFFF;
-  --color-surface-raised:  #F1F5F9;
-  --color-muted:           #EEF2F7;
-  --color-foreground:      #0F172A;
-  --color-muted-foreground:#4A5A70;
-  --color-border:          rgba(15, 23, 42, 0.12);
-  --color-border-strong:   rgba(15, 23, 42, 0.26);
-  --color-accent:          #15803D;
-  --color-accent-hover:    #166534;
-  --color-accent-soft:     rgba(21, 128, 61, 0.14);
-  --color-on-accent:       #FFFFFF;
-  --color-glow-a:          rgba(34, 197, 94, 0.16);
-  --color-glow-b:          rgba(99, 102, 241, 0.14);
-  --color-header:          rgba(246, 248, 251, 0.76);
-  --color-header-solid:    rgba(246, 248, 251, 0.92);
-  --color-scrim:           rgba(255, 255, 255, 0.86);
-  --color-pd-scrim:        rgba(240, 244, 250, 0.74);
-  --color-grad-a:          rgba(21, 128, 61, 0.08);
-  --color-grad-b:          rgba(99, 102, 241, 0.10);
-  --shadow-card:  0 1px 2px rgba(15,23,42,0.06), 0 10px 28px rgba(15,23,42,0.08);
-  --shadow-lift:  0 2px 4px rgba(15,23,42,0.08), 0 22px 50px rgba(15,23,42,0.14);
-  --shadow-media: 0 10px 26px rgba(15,23,42,0.18);
-
-  --metal-base:    #E7ECF2;
-  --metal-hi:      rgba(255, 255, 255, 0.92);
-  --metal-lo:      rgba(15, 23, 42, 0.11);
-  --metal-grain-a: rgba(255, 255, 255, 0.55);
-  --metal-grain-b: rgba(15, 23, 42, 0.03);
-  --metal-lip:     rgba(255, 255, 255, 0.95);
-  --metal-lip-lo:  rgba(15, 23, 42, 0.13);
-  --metal-edge:    rgba(15, 23, 42, 0.17);
-  --metal-sheen:   rgba(255, 255, 255, 0.95);
-  --metal-text:    var(--color-muted-foreground);   /* 6.9:1 already */
-}
-
-/* Shared page, stack, and contact colours. Project cards and their detail
-   dialog retain the original palette and project-specific brand colours. */
-:root {
-  --page-background: var(--color-background);
-  --page-foreground: var(--color-foreground);
-  --page-secondary: var(--color-muted-foreground);
-  --page-surface: var(--color-surface);
-  --page-surface-raised: var(--color-surface-raised);
-  --page-grad-a: var(--color-grad-a);
-  --page-border: var(--color-border);
-  --page-border-strong: var(--color-border-strong);
-  --page-accent: var(--color-accent);
-  --page-accent-hover: var(--color-accent-hover);
-  --page-on-accent: var(--color-on-accent);
-  --page-muted: var(--color-muted);
-  --page-header: var(--color-header);
-  --page-header-solid: var(--color-header-solid);
-  --page-glow-a: var(--color-glow-a);
-  --page-glow-b: var(--color-glow-b);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --page-background: #171918;
-    --page-foreground: #ECEEEB;
-    --page-secondary: #A5ABA5;
-    --page-surface: #232723;
-    --page-surface-raised: #2D322C;
-    --page-grad-a: rgb(178 201 165 / 0.08);
-    --page-border: rgb(236 238 235 / 0.12);
-    --page-border-strong: rgb(236 238 235 / 0.24);
-    --page-accent: #B2C9A5;
-    --page-accent-hover: #C5D8BB;
-    --page-on-accent: #192117;
-    --page-muted: #282D28;
-    --page-header: rgb(23 25 24 / 0.78);
-    --page-header-solid: rgb(23 25 24 / 0.94);
-    --page-glow-a: rgb(178 201 165 / 0.035);
-    --page-glow-b: rgb(236 238 235 / 0.02);
-  }
-}
-
-:root[data-theme="dark"] {
-  --page-background: #171918;
-  --page-foreground: #ECEEEB;
-  --page-secondary: #A5ABA5;
-  --page-surface: #232723;
-  --page-surface-raised: #2D322C;
-  --page-grad-a: rgb(178 201 165 / 0.08);
-  --page-border: rgb(236 238 235 / 0.12);
-  --page-border-strong: rgb(236 238 235 / 0.24);
-  --page-accent: #B2C9A5;
-  --page-accent-hover: #C5D8BB;
-  --page-on-accent: #192117;
-  --page-muted: #282D28;
-  --page-header: rgb(23 25 24 / 0.78);
-  --page-header-solid: rgb(23 25 24 / 0.94);
-  --page-glow-a: rgb(178 201 165 / 0.035);
-  --page-glow-b: rgb(236 238 235 / 0.02);
-}
-
-:where(.site-header, .hero, .cue, .site-footer, #stack, #contact) {
-  --color-foreground: var(--page-foreground);
-  --color-muted-foreground: var(--page-secondary);
-  --color-surface: var(--page-surface);
-  --color-surface-raised: var(--page-surface-raised);
-  --color-grad-a: var(--page-grad-a);
-  --color-border: var(--page-border);
-  --color-border-strong: var(--page-border-strong);
-  --color-accent: var(--page-accent);
-  --color-accent-hover: var(--page-accent-hover);
-  --color-on-accent: var(--page-on-accent);
-  --color-muted: var(--page-muted);
-  --color-header: var(--page-header);
-  --color-header-solid: var(--page-header-solid);
-  color: var(--color-foreground);
-}
-
-/* --------------------------------------------------------------------------
-   2. Reset & base
-   -------------------------------------------------------------------------- */
-
-*, *::before, *::after { box-sizing: border-box; }
-
-/* A class-level `display` beats the UA's [hidden] rule on specificity, so any
-   component that sets display would ignore the attribute without this. */
-[hidden] { display: none !important; }
-
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 6rem;
-  -webkit-text-size-adjust: 100%;
-}
-
-body {
-  margin: 0;
-  background-color: var(--page-background);
-  color: var(--color-foreground);
-  font-family: var(--font-body);
-  font-size: var(--text-base);
-  line-height: 1.65;
-  font-weight: 400;
-  font-optical-sizing: auto;
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
-}
-
-/* Ambient light blobs — slow oscillation, sits behind everything. */
-body::before,
-body::after {
-  content: "";
-  position: fixed;
-  z-index: -1;
-  border-radius: 50%;
-  filter: blur(120px);
-  pointer-events: none;
-}
-body::before {
-  width: 46vw; height: 46vw;
-  top: -14vw; left: -10vw;
-  background: var(--page-glow-a);
-  animation: drift-a 26s ease-in-out infinite alternate;
-}
-body::after {
-  width: 40vw; height: 40vw;
-  top: 32vh; right: -14vw;
-  background: var(--page-glow-b);
-  animation: drift-b 32s ease-in-out infinite alternate;
-}
-
-@keyframes drift-a {
-  from { transform: translate3d(0, 0, 0); }
-  to   { transform: translate3d(6vw, 8vh, 0); }
-}
-@keyframes drift-b {
-  from { transform: translate3d(0, 0, 0); }
-  to   { transform: translate3d(-7vw, -6vh, 0); }
-}
-
-h1, h2, h3, h4 {
-  font-family: var(--font-heading);
-  font-weight: 700;
-  line-height: 1.12;
-  letter-spacing: -0.025em;
-  margin: 0;
-  text-wrap: balance;
-}
-
-p { margin: 0; }
-
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-a {
-  color: var(--color-foreground);
-  text-decoration: none;
-  transition: color var(--dur-fast) var(--ease-out-expo);
-}
-
-ul { margin: 0; padding: 0; list-style: none; }
-
-hr { display: none; } /* separators are handled by section rhythm */
-
-/* Visible focus for keyboard users — never removed. */
-:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 3px;
-  border-radius: var(--radius-sm);
-}
-
-::selection {
-  background: var(--color-accent);
-  color: var(--color-on-accent);
-}
-
-.skip-link {
-  position: absolute;
-  left: var(--space-sm);
-  top: -100px;
-  z-index: 100;
-  padding: var(--space-xs) var(--space-sm);
-  background: var(--color-accent);
-  color: var(--color-on-accent);
-  border-radius: var(--radius-sm);
-  font-weight: 600;
-  transition: top var(--dur-mid) var(--ease-out-expo);
-}
-.skip-link:focus { top: var(--space-sm); }
-
-/* --------------------------------------------------------------------------
-   3. Layout primitives
-   -------------------------------------------------------------------------- */
-
-.wrap {
-  width: 100%;
-  max-width: var(--maxw);
-  margin-inline: auto;
-  padding-inline: var(--space-md);
-}
-
-.section { padding-block: var(--space-2xl); }
-
-.eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2xs);
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--color-muted-foreground);
-}
-
-/* --------------------------------------------------------------------------
-   4. Header / nav — frosted glass, sticky
-   -------------------------------------------------------------------------- */
-
-.site-header {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  background: var(--color-header);
-  backdrop-filter: blur(16px) saturate(1.4);
-  -webkit-backdrop-filter: blur(16px) saturate(1.4);
-  border-bottom: 1px solid transparent;
-  transition: border-color var(--dur-mid) var(--ease-out-expo),
-              background var(--dur-mid) var(--ease-out-expo);
-}
-
-.site-header[data-scrolled="true"] {
-  border-bottom-color: var(--color-border);
-  background: var(--color-header-solid);
-}
-
-/* How far down the page you are, drawn on the header's own bottom edge — no
-   extra element and no layout. Scaled rather than sized, so the browser can
-   keep it on the compositor and it never triggers a reflow while scrolling.
-   At the top --scroll is 0, which makes it invisible without a second rule. */
-.site-header::after {
-  content: "";
-  position: absolute;
-  inset: auto 0 -1px;
-  height: 2px;
-  background: var(--color-accent);
-  transform: scaleX(var(--scroll, 0));
-  transform-origin: left center;
-}
-
-.header-inner {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-sm);
-  min-height: 5rem;
-}
-
-.site-header .brand { gap: 0.8rem; }
-.site-header .brand .handle { padding-left: 0.8rem; border-left: 1px solid var(--color-border-strong); }
-.site-nav { flex: none; }
-
-.brand {
-  display: inline-flex;
-  align-items: baseline;
-  gap: var(--space-2xs);
-  font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: var(--text-base);
-  letter-spacing: -0.02em;
-  white-space: nowrap;           /* never let the name stack */
-  min-width: 0;
-  flex: 0 1 auto;
-  /* nowrap alone overflows the flex item and paints over the nav — these two
-     make it yield instead. */
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.brand .handle {
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  font-weight: 400;
-  color: var(--color-muted-foreground);
-  white-space: nowrap;
-}
-
-.site-nav ul {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2xs);
-}
-
-.site-nav a {
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;              /* touch target */
-  padding-inline: var(--space-xs);
-  border-radius: var(--radius-sm);
-  font-size: var(--text-sm);
-  color: var(--color-muted-foreground);
-  transition: color var(--dur-fast) var(--ease-out-expo),
-              background var(--dur-fast) var(--ease-out-expo);
-}
-
-.site-nav a:hover { color: var(--color-foreground); background: var(--color-muted); }
-
-/* Theme toggle — shows the mode you'd switch *to*. */
-.theme-toggle {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;                  /* touch target */
-  padding: 0;
-  border: 1px solid transparent;
-  border-radius: var(--radius-sm);
-  background: transparent;
-  color: var(--color-muted-foreground);
-  cursor: pointer;
-  transition: color var(--dur-fast) var(--ease-out-expo),
-              background var(--dur-fast) var(--ease-out-expo);
-}
-
-.theme-toggle:hover {
-  color: var(--color-foreground);
-  background: var(--color-muted);
-}
-
-.theme-toggle svg { width: 18px; height: 18px; }
-
-/* Dark theme active → offer the sun. Light theme active → offer the moon. */
-.theme-toggle .icon-sun  { display: block; }
-.theme-toggle .icon-moon { display: none; }
-
-:root[data-theme="light"] .theme-toggle .icon-sun  { display: none; }
-:root[data-theme="light"] .theme-toggle .icon-moon { display: block; }
-
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]) .theme-toggle .icon-sun  { display: none; }
-  :root:not([data-theme="dark"]) .theme-toggle .icon-moon { display: block; }
-}
-
-.nav-cta {
-  color: var(--color-on-accent) !important;
-  background: var(--color-accent);
-  font-weight: 600;
-  padding-inline: var(--space-sm) !important;
-}
-.nav-cta:hover { background: var(--color-accent-hover) !important; }
-
-/* Below 46rem the handle stands in for the name entirely. */
-@media (max-width: 46rem) {
-  .brand { align-items: center; }
-  .brand .brand-name { display: none; }
-  .brand .handle {
-    display: inline;
-    font-family: var(--font-mono);
-    font-size: var(--text-base);
-    font-weight: 600;
-    letter-spacing: -0.01em;
-    color: var(--color-foreground);
-  }
-}
-
-/* --------------------------------------------------------------------------
-   5. Hero
-   -------------------------------------------------------------------------- */
-
-.hero {
-  padding-block: clamp(2rem, 5vw, 4.5rem) clamp(2.5rem, 5vw, 4.5rem);
-}
-
-.hero-meta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-sm);
-  margin-bottom: clamp(2rem, 4vw, 3.5rem);
-}
-
-.hero-meta .eyebrow { font-size: 0.6875rem; letter-spacing: 0.1em; }
-.hero-meta .eyebrow span { color: var(--color-border-strong); margin-inline: 0.25rem; }
-
-.availability {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  min-height: 44px;
-  font-size: var(--text-xs);
-  color: var(--color-muted-foreground);
-}
-.availability:hover { color: var(--color-accent); }
-.availability > span:last-child { margin-left: 0.4rem; }
-.status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--color-accent); }
-
-.hero-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr);
-  align-items: end;
-  gap: clamp(2rem, 5vw, 5rem);
-}
-
-.hero h1 {
-  margin: 0;
-  max-width: none;
-  font-weight: 650;
-  letter-spacing: -0.065em;
-  line-height: 1.02;
-  text-wrap: initial;
-}
-
-.hero-greeting {
-  display: block;
-  margin-bottom: 0.25em;
-  font-size: clamp(2.5rem, 5.2vw, 4.5rem);
-}
-
-.hero-title { display: block; font-size: clamp(3.5rem, 7.3vw, 6.5rem); white-space: nowrap; }
-.hero-emphasis { color: var(--color-accent); }
-.hero-aside { padding-bottom: 0.25rem; }
-
-.hero-lead {
-  max-width: 36ch;
-  font-size: var(--text-base);
-  line-height: 1.75;
-  color: var(--color-muted-foreground);
-}
-
-.hero-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-md);
-  margin-top: var(--space-md);
-}
-.hero-actions a {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.75rem;
-  min-height: 44px;
-  font-size: var(--text-sm);
-}
-.hero-work-link { border-bottom: 1px solid var(--color-accent); font-weight: 600; }
-.hero-work-link span { color: var(--color-accent); }
-.hero-socials { display: flex; align-items: center; gap: 0.25rem; }
-.hero-source-link { width: 44px; justify-content: center; color: var(--color-muted-foreground); }
-.hero-source-link svg { width: 20px; height: 20px; flex: none; }
-.hero-actions a:hover { color: var(--color-accent); }
-
-@media (max-width: 52rem) {
-  .hero-layout { grid-template-columns: 1fr; gap: var(--space-lg); }
-  .hero-greeting { font-size: clamp(2.5rem, 7vw, 4rem); }
-  .hero-title { font-size: clamp(3.5rem, 10vw, 6rem); }
-  .hero-lead { max-width: 48ch; }
-  .site-header .brand .handle { padding-left: 0; border: 0; }
-}
-
-@media (max-width: 46rem) {
-  .hero { padding-block: 1rem 0.75rem; }
-  .hero-meta { margin-bottom: 0.75rem; }
-  .hero-layout { gap: 1rem; }
-  .hero-greeting { margin-bottom: 0.2em; font-size: clamp(1.5rem, 6.2vw, 2rem); }
-  .hero-title { font-size: clamp(2.5rem, 10vw, 3rem); }
-  .hero-aside { padding-bottom: 0; }
-  .hero-lead { font-size: var(--text-sm); line-height: 1.6; }
-  .hero-detail { display: none; }
-  .hero-actions { margin-top: 0.5rem; }
-  .hero + .cue { padding-block: 1.25rem; }
-}
-
-@media (max-width: 30rem) {
-  .header-inner { min-height: 4.5rem; gap: 0.25rem; }
-  .site-nav ul { gap: 0.125rem; }
-  .site-nav a { padding-inline: 0.5rem; font-size: var(--text-xs); }
-  .site-header .brand .handle { font-size: var(--text-sm); }
-  .site-nav .nav-cta { padding-inline: 0.75rem !important; }
-  .hero-meta .eyebrow { font-size: 0.625rem; }
-  .availability { font-size: 0.75rem; gap: 0.375rem; }
-}
-
-@media (max-width: 23rem) { .site-nav .nav-section { padding-inline: 0.375rem; } }
-
-/* --------------------------------------------------------------------------
-   6. Buttons
-   -------------------------------------------------------------------------- */
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-2xs);
-  min-height: 44px;
-  padding: 0 var(--space-md);
-  border: 1px solid transparent;
-  border-radius: var(--radius-pill);
-  font-family: var(--font-body);
-  font-size: var(--text-sm);
-  font-weight: 600;
-  cursor: pointer;
-  transition: transform var(--dur-fast) var(--ease-out-expo),
-              background var(--dur-fast) var(--ease-out-expo),
-              border-color var(--dur-fast) var(--ease-out-expo),
-              color var(--dur-fast) var(--ease-out-expo);
-}
-
-.btn:active { transform: scale(0.97); }
-
-.btn { max-width: 100%; }
-
-/* The contact email is longer than a narrow screen is wide. Wrapping it broke
-   the address across two lines — ".com" stranded under the rest — so it scales
-   down to fit on one line instead. Capped at --text-sm so wider phones keep
-   the normal size. */
-@media (max-width: 30rem) {
-  .contact-actions { flex-direction: column; align-items: stretch; }
-  .contact-actions .btn {
-    width: 100%;
-    height: auto;
-    min-height: 44px;
-    padding: 0.6rem var(--space-xs);
-    white-space: nowrap;
-    font-size: min(var(--text-sm), 3.5vw);
-  }
-}
-
-.btn-primary {
-  background: var(--color-accent);
-  color: var(--color-on-accent);
-}
+/* Hallmark · shape: Portfolio Grid · genre: editorial · theme: brand · redesign: full · draw: 0d5869 · job: hire
+ * paper: charcoal and cool light paper · accent: sage · display: Commissioner · body: Commissioner · hero: Stage · nav: quiet edge bar · footer: letter close · signature: Lakbayin's actual Baybayin island at first sight
+ * axes: dark/grotesk-sans/cool · posture: restrained · modes: light+dark · contrast: pass · fold: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P4 H4 E4 S5 R4 V4 · weakest: R, removed floating frames, glow, tracked captions and repeated ordinal cues */
+/* Hallmark · waive 39b · six existing project-open buttons contain real screenshot previews · their full clickable media areas preserve the portfolio's original accessible project controls */
+/* Hallmark · dismissed 49 · project preview buttons have short explicit aria-labels; their titles and metadata are structured content, not a wrapping text-button label */
+/* Hallmark · reworded "Hi, I'm Ken. I build stuff." to "Web apps. Multiplayer games." · Gate 19 replaces the generic opener with the work already named by the portfolio */
+/* Hallmark · hero-review: subagent · ship · no changes requested */
+/* Hallmark · finish-review: subagent · fix · 2 findings · 2 resolved · gap: none */
+
+@import url("./tokens.css");
+@import url("./base.css");
+
+@font-face { font-family: 'Commissioner'; src: url('fonts/commissioner.woff2') format('woff2'); font-style: normal; font-weight: 100 900; font-display: swap; }
+html { scroll-behavior: smooth; color-scheme: light dark; }
+body { font-weight: var(--font-body-weight); }
+button, a { -webkit-tap-highlight-color: transparent; }
+button { color: inherit; }
+button:disabled, button[aria-disabled="true"], a[aria-disabled="true"] { opacity: .5; cursor: not-allowed; pointer-events: none; }
+button[aria-busy="true"] { cursor: progress; }
+button:active, .btn:active { transform: translateY(1px); }
+a:focus-visible, button:focus-visible, summary:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 4px; }
+a:hover { text-decoration-color: var(--color-accent); }
+.logo-sprite { position: absolute; width: 0; height: 0; overflow: clip; pointer-events: none; }
+svg { width: 24px; height: 24px; flex-shrink: 0; }
+svg[fill="none"] { fill: none; }
+.btn svg[fill="none"] { stroke: currentColor; color: inherit; }
+.wrap { width: 100%; max-width: var(--container); padding-inline: var(--gutter); margin-inline: auto; }
+.skip-link { position: fixed; z-index: var(--z-tooltip); inset-inline-start: var(--space-md); inset-block-start: var(--space-md); padding: var(--space-sm) var(--space-md); background: var(--color-accent); color: var(--color-accent-ink); transform: translateY(-200%); }
+.skip-link:focus-visible { transform: none; }
+.visually-hidden, .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.site-header { position: relative; z-index: var(--z-sticky-nav); background: var(--color-paper); }
+.header-inner { min-height: var(--header-height); display: flex; align-items: center; justify-content: space-between; gap: var(--space-lg); }
+.site-header .brand { display: flex; align-items: center; gap: var(--space-lg); text-decoration: none; font-size: var(--text-md); font-weight: 700; }
+.handle { color: var(--color-muted); font-size: var(--text-sm); font-weight: 400; }
+.site-nav ul { display: flex; align-items: center; list-style: none; gap: var(--space-32); padding: 0; margin: 0; }
+.site-nav a { display: flex; align-items: center; min-height: var(--control-height); text-decoration: none; font-size: var(--text-sm); white-space: nowrap; }
+.site-nav a:hover, .site-nav a[aria-current] { text-decoration: underline; text-underline-offset: .3em; }
+.theme-toggle { display: grid; place-items: center; width: var(--control-height); height: var(--control-height); border: 0; background: transparent; color: var(--color-muted); cursor: pointer; }
+.theme-toggle:hover { color: var(--color-ink); }
+.theme-toggle svg { width: 20px; height: 20px; }
+.icon-moon { display: none; }
+:root[data-theme="light"] .icon-sun { display: none; }
+:root[data-theme="light"] .icon-moon { display: block; }
+@media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) .icon-sun { display: none; } :root:not([data-theme="dark"]) .icon-moon { display: block; } }
+.hero { min-height: calc(100svh - var(--header-height)); display: flex; align-items: center; padding-block: var(--space-2xl); }
+.intro-layout { display: grid; grid-template-columns: minmax(0,.82fr) minmax(0,1.18fr); gap: var(--space-2xl); align-items: center; }
+.intro-copy { min-width: 0; }
+.hero h1 { font-size: var(--text-display); line-height: 1.04; letter-spacing: var(--tracking-display); max-width: 12ch; }
+.hero-lead { max-width: 32ch; margin-top: var(--space-32); color: var(--color-muted); font-size: var(--text-lead); line-height: 1.5; }
+.hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-lg); margin-top: var(--space-xl); }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-sm); min-height: var(--control-height); padding: var(--space-sm) var(--space-lg); border: 1px solid transparent; border-radius: var(--radius-pill); text-decoration: none; font-size: var(--text-md); font-weight: 700; white-space: nowrap; transition: background-color var(--dur-short) var(--ease-out); }
+.btn-primary { background: var(--color-accent); color: var(--color-accent-ink); }
 .btn-primary:hover { background: var(--color-accent-hover); }
-
-.btn-ghost {
-  background: transparent;
-  color: var(--color-foreground);
-  border-color: var(--color-border-strong);
-}
-.btn-ghost:hover {
-  background: var(--color-muted);
-  border-color: var(--color-muted-foreground);
-}
-
-.btn svg { width: 16px; height: 16px; flex: none; }
-
-/* --------------------------------------------------------------------------
-   7. Work grid
-   -------------------------------------------------------------------------- */
-
-.work-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr));
-  gap: var(--space-lg);
-}
-
-/* Each card carries its own --theme-color, sampled from its screenshot, so the
-   glow and the accents belong to that project rather than to the site. */
-
-.project { position: relative; }
-
-/* The whole card is the trigger — one tap opens the detail. The links live in
-   the overlay, so nothing here competes for the click. */
-.project-open {
-  position: relative;
-  display: block;
-  width: 100%;
-  padding: 0;
-  text-align: left;
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  cursor: pointer;
-  color: inherit;
-  font: inherit;
-  box-shadow: 0 0 40px -18px hsl(var(--theme-color) / 0.65), var(--shadow-card);
-  animation: card-float var(--float-dur, 7s) var(--float-delay, 0s) ease-in-out infinite;
-  transition: transform var(--dur-mid) var(--ease-out-expo),
-              border-color var(--dur-mid) var(--ease-out-expo),
-              box-shadow var(--dur-mid) var(--ease-out-expo);
-}
-
-/* Low amplitude and long period — at rest it should read as breathing, not
-   bobbing. Phases are staggered per card so the grid never pulses in sync. */
-@keyframes card-float {
-  0%, 100% { translate: 0 0; }
-  50%      { translate: 0 -7px; }
-}
-
-.project:nth-child(3n+1) .project-open { --float-dur: 7.5s; --float-delay: -0.4s; }
-.project:nth-child(3n+2) .project-open { --float-dur: 8.4s; --float-delay: -2.6s; }
-.project:nth-child(3n+3) .project-open { --float-dur: 6.8s; --float-delay: -4.9s; }
-
-.project-open:hover,
-.project-open:focus-visible {
-  transform: translateY(-6px);
-  border-color: hsl(var(--theme-color) / 0.55);
-  box-shadow: 0 0 70px -14px hsl(var(--theme-color) / 0.75), var(--shadow-lift);
-}
-
-/* Freeze the drift while anyone is reading or reaching for a card, and while
-   the overlay is up — a moving background behind a modal is nauseating. */
-.project-open:hover,
-.project-open:focus-visible,
-body.pd-open .project-open { animation-play-state: paused; }
-
-.project-shot {
-  position: relative;
-  display: block;
-  aspect-ratio: 3 / 2;           /* landscape, but tall enough that the wash
-                                    below the title never reaches the subject */
-  overflow: hidden;
-  background: var(--color-muted);
-}
-
-.project-shot img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top center;
-  transition: transform var(--dur-slow) var(--ease-out-expo);
-}
-
-.project-open:hover .project-shot img { transform: scale(1.06); }
-
-/* Portrait screenshots and app icons can't be cropped to landscape without
-   losing the subject, so they sit whole on a tinted stage instead. */
-.project-shot.is-portrait,
-.project-shot.is-icon {
-  background:
-    radial-gradient(75% 90% at 50% 0%, hsl(var(--theme-color) / 0.45), transparent 70%),
-    var(--color-muted);
-}
-
-.project-shot.is-portrait img {
-  object-fit: contain;
-  padding: var(--space-2xs) 0;
-  filter: drop-shadow(var(--shadow-media));
-}
-
-/* Designed cover art keeps its full composition, including text near the
-   edges. The cream ground belongs to INTEGRID's artwork in either theme. */
-.project-shot.is-cover,
-.pd-shot.is-cover { background: #FFF6E5; }
-.project-shot.is-cover img,
-.pd-shot.is-cover .pd-img { object-fit: contain; }
-
-.project-shot.is-icon img {
-  width: auto;
-  height: 68%;
-  margin: 0 auto;
-  aspect-ratio: 1;
-  border-radius: 22%;
-  box-shadow: var(--shadow-media);
-}
-
-/* An inset shadow rather than a themed wash. It has to be deep enough to
-   carry white text over a bright dashboard screenshot, so "subtle" here means
-   neutral and shadow-shaped, not faint — over Sip & Savor or the ledger a
-   genuinely light one leaves the title unreadable. */
-.project-face {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  gap: 2px;
-  padding: var(--space-md);
-  box-shadow:
-    inset 0 -80px 44px -30px rgba(6, 10, 20, 0.92),
-    inset 0 -170px 80px -60px rgba(6, 10, 20, 0.7);
-}
-
-/* The card is just the mark; the meta line belongs to the opened view, where
-   there is room for it. EVMC keeps its line because it says what the thing is
-   rather than when it was — but not the year. */
-.project-face .project-kicker { display: none; }
-#p-evmc .project-face .project-kicker { display: block; }
-#p-evmc .project-face .kicker-year { display: none; }
-
-/* Every card now shows its project's own mark, so the plain-text name is kept
-   only as the button's accessible name. */
-.project-face .project-name {
-  position: absolute;
-  width: 1px; height: 1px;
-  margin: -1px; padding: 0;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
-}
-
-/* The card ground is the inset shadow — always dark, whatever the theme — so
-   the lockup ignores the palette and stays light, and always takes the
-   dark-ground artwork. */
-.project-face .brand { margin-bottom: 0.15rem; }
-.project-face .brand,
-.project-face .brand-words,
-.project-face .brand-probxcape,
-.project-face .brand-sip span { color: #FFFFFF; }
-.project-face .brand-sub { color: rgba(255, 255, 255, 0.72); }
-.project-face .brand img { max-height: 2.2rem; }
-.project-face .brand-glyph { width: 1.8rem; height: 1.8rem; }
-/* The wash under the text can't be trusted where a screenshot is bright —
-   Sip's white martini vanished into its own cocktail photos. */
-.project-face .brand img,
-.project-face .brand-glyph { filter: drop-shadow(0 1px 6px rgba(6, 10, 20, 0.95)); }
-.project-face .brand-words > span:first-child { font-size: clamp(0.95rem, 2vw, 1.2rem); }
-.project-face .brand-probxcape { font-size: clamp(1.5rem, 3.4vw, 2.1rem); }
-.project-face .brand-sip span { font-size: clamp(1rem, 2.2vw, 1.25rem); }
-.project-face .brand .on-light { display: none; }
-.project-face .brand .on-dark  { display: block; }
-:root[data-theme="light"] .project-face .brand .on-light { display: none; }
-:root[data-theme="light"] .project-face .brand .on-dark  { display: block; }
-
-.project-name {
-  font-family: var(--font-heading);
-  font-size: clamp(1.1rem, 2.2vw, var(--text-xl));
-  font-weight: 700;
-  line-height: 1.15;
-  letter-spacing: -0.02em;
-  color: #FFFFFF;
-  text-shadow: 0 1px 12px hsl(var(--theme-color) / 0.9);
-}
-
-/* A trailing clause inside a title — "(EFP Supply Chain)" — is context, not
-   part of the name, so it steps back a little. */
-.project-name .project-meta {
-  font-weight: 500;
-  font-size: 0.82em;
-  color: rgba(255, 255, 255, 0.8);
-}
-.pd-title .project-meta {
-  font-weight: 500;
-  font-size: 0.72em;
-  color: var(--color-muted-foreground);
-}
-
-.project-kicker {
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  letter-spacing: 0.05em;
-  color: rgba(255, 255, 255, 0.82);
-  text-shadow: 0 1px 10px hsl(var(--theme-color) / 0.9);
-}
-
-
-
-/* --------------------------------------------------------------------------
-   7b. Project detail overlay
-   The card's detail block is moved in here on open and moved back on close.
-   -------------------------------------------------------------------------- */
-
-/* No panel — the content sits straight on the blurred page and uses the whole
-   screen. The dialog fills the viewport and stays transparent so the blur
-   behind it is the only surface. */
-.pd {
-  width: 100vw;
-  max-width: none;
-  height: 100dvh;
-  max-height: none;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  /* The scrim and the blur live on the dialog itself, not on ::backdrop.
-     A pseudo-element can't be handed to the Web Animations API everywhere,
-     and closing has to ramp the blur down on its own beat — last, once the
-     shot is already home. */
-  background: var(--color-pd-scrim);
-  backdrop-filter: blur(26px) saturate(112%);
-  -webkit-backdrop-filter: blur(26px) saturate(112%);
-  color: var(--color-foreground);
-  overflow: hidden;
-}
-
-/* Nothing to paint here — .pd covers the whole viewport and carries the
-   scrim itself. */
-.pd::backdrop { background: transparent; }
-
-.pd-close {
-  position: absolute;
-  top: clamp(0.75rem, 3vh, 1.5rem);
-  right: clamp(0.75rem, 3vw, 1.5rem);
-  z-index: 2;
-  display: grid;
-  place-items: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 1px solid var(--color-border);
-  background: var(--color-surface-raised);
-  color: var(--color-foreground);
-  cursor: pointer;
-  transition: border-color var(--dur-fast) var(--ease-out-expo);
-}
-.pd-close:hover { border-color: hsl(var(--theme-color) / 0.7); }
-.pd-close svg { width: 18px; height: 18px; }
-
-/* Portrait first: shot, then stack, then buttons, then the text. The desktop
-   rule below only moves the text into a second column — the order never
-   changes, so the DOM reads the same either way.
-
-   Flex, not grid, because the text has to be the one thing that scrolls: a
-   flex column under a max-height lets .pd-right take the remainder and
-   .pd-text scroll inside it. As a grid the rows just sized to their content
-   and the tail got clipped with no way to reach it. */
-.pd-grid {
-  display: flex;
-  flex-direction: column;
-  width: min(1100px, 100%);
-  height: 100%;
-  margin: 0 auto;
-  justify-content: center;
-  padding: clamp(3.5rem, 8vh, 5rem) var(--space-md) var(--space-md);
-  overflow: hidden;
-}
-
-.pd-left { display: flex; flex-direction: column; min-width: 0; flex: 0 0 auto; }
-
-.pd-shot {
-  aspect-ratio: 3 / 2;           /* same shape as the card it flies from */
-  max-height: 26svh;             /* leave the description room on a phone */
-  border-radius: var(--radius-md);
-  flex: 0 0 auto;
-  overflow: hidden;
-  background:
-    radial-gradient(70% 85% at 50% 10%, hsl(var(--theme-color) / 0.4), transparent 72%),
-    hsl(var(--theme-color) / 0.12);
-}
-
-.pd-img, .pd-video { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
-
-/* A project with a demo shows the demo, not a screenshot of it. The video is
-   its own shape, so the frame follows rather than letterboxing. */
-.pd-shot.is-video { aspect-ratio: 16 / 9; background: #000; }
-.pd-video { display: block; object-fit: contain; background: #000; }
-.pd-shot.is-portrait .pd-img,
-.pd-shot.is-icon .pd-img { object-fit: contain; padding: var(--space-xs); }
-.pd-shot.is-icon .pd-img { border-radius: 18%; }
-
-.pd-side {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-xs);
-  padding: var(--space-sm) 0;
-  flex: 0 0 auto;
-}
-
-.pd-right {
-  display: flex;
-  flex-direction: column;
-  flex: 1 1 auto;
-  min-height: 0;                 /* or the scroller below can never shrink */
-  padding: 0;
-}
-
-.pd-title {
-  font-size: clamp(1.35rem, 4.5vw, var(--text-2xl));
-  letter-spacing: -0.02em;
-  padding-right: 3rem;           /* clear of the close button */
-}
-
-.pd-kicker {
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  letter-spacing: 0.05em;
-  color: hsl(var(--theme-color) / 1);
-  filter: brightness(1.9);
-  margin: 4px 0 var(--space-sm);
-}
-
-/* ---- Open transition -------------------------------------------------
-   The shot flies from where the card sits in the grid to where it lands in
-   the overlay. A clone does the travelling, because the real one is inside a
-   dialog in the top layer and the card is not — nothing can tween between
-   those two stacking contexts. Width and height are animated rather than
-   scaled: object-fit then re-crops each frame instead of stretching the
-   picture, which is what lets a grid tile become a different-sized panel
-   without distorting. */
-.pd-fly {
-  position: fixed;
-  z-index: 5;
-  margin: 0;
-  pointer-events: none;
-  will-change: width, height, top, left;
-}
-
-.pd.is-flying .pd-shot { visibility: hidden; }
-
-/* Once the shot has flown home there is nothing left in here worth showing.
-   Without this the overlay's own copy of the image pops back into view at the
-   position it opened in and sits there for the whole length of the blur fade —
-   which reads as the picture jumping back before the dialog vanishes. */
-.pd.is-emptied .pd-grid,
-.pd.is-emptied .pd-close { visibility: hidden; }
-
-/* The card has left the grid, so it shouldn't still be sitting in it. */
-.project.is-source .project-open { opacity: 0; }
-
-.pd-enter { will-change: transform, opacity; }
-
-/* ---- Project wordmarks ------------------------------------------------
-   Four of the projects have a real logo or title treatment, so the overlay
-   shows that instead of setting the name in the site's own font. The <h3>
-   stays put underneath carrying the accessible name — the dialog is labelled
-   by it, and a logo is a picture, not a heading. */
-.pd.has-brand .pd-title {
-  position: absolute;
-  width: 1px; height: 1px;
-  margin: -1px; padding: 0;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
-}
-
+.btn-ghost { color: var(--color-ink); background: transparent; }
+.btn-ghost:hover { background: var(--color-paper-3); }
+.availability { color: var(--color-muted); font-size: var(--text-sm); text-underline-offset: .3em; min-height: var(--control-height); display: inline-flex; align-items: center; white-space: nowrap; }
+.hero-socials { display: flex; align-items: center; gap: var(--space-sm); margin-top: var(--space-lg); }
+.hero-source-link { display: grid; place-items: center; width: 44px; height: 44px; color: var(--color-muted); }
+.hero-source-link:hover { color: var(--color-ink); }
+.hero-source-link svg { width: 20px; height: 20px; }
+.hero-project { margin: 0; min-width: 0; }
+.hero-project > img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius-card); }
+.hero-project figcaption { display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--space-xs); padding-top: var(--space-md); color: var(--color-muted); font-size: var(--text-sm); }
+.hero-project figcaption > :first-child { color: var(--color-ink); }
+.section { padding-block: var(--section-gap); }
+.section-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--gap-columns); margin-bottom: var(--space-2xl); }
+.section-head h2 { font-size: var(--text-section); }
+.section-head > p { max-width: 33ch; color: var(--color-muted); font-size: var(--text-md); }
+.work-grid { display: grid; grid-template-columns: repeat(12,minmax(0,1fr)); gap: var(--space-3xl) var(--gap-columns); }
+.project { min-width: 0; position: relative; grid-column: span 6; }
+.project:nth-child(6n+1), .project:nth-child(6n+4), .project:nth-child(6n+5) { grid-column: span 7; }
+.project:nth-child(6n+2), .project:nth-child(6n+3), .project:nth-child(6n+6) { grid-column: span 5; }
+.project:nth-child(2n) { padding-top: var(--space-3xl); }
+.project-open { display: block; width: 100%; padding: 0; border: 0; border-radius: var(--radius-card); text-align: start; color: var(--color-ink); background: transparent; cursor: pointer; }
+.project-shot { display: block; width: 100%; aspect-ratio: 16 / 10; border-radius: var(--radius-card); overflow: clip; background: var(--color-paper-2); }
+.project-shot img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.project-shot.is-cover { background: var(--color-project-cover); }
+.project-shot.is-cover img, .project-shot.is-icon img, .project-shot.is-portrait img { object-fit: contain; }
+.project-face { display: block; padding-top: var(--space-lg); }
+.project-face .brand { display: none; }
+.project-name { display: block; color: var(--color-ink); font-size: var(--text-title); font-weight: 700; line-height: 1.25; overflow-wrap: break-word; min-width: 0; }
+.project-open:hover .project-name { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .2em; }
+.project-meta { font-weight: 400; font-size: var(--text-sm); color: var(--color-muted); }
+.project-kicker { display: flex; flex-wrap: wrap; align-items: center; column-gap: var(--space-md); row-gap: var(--space-2xs); margin-top: var(--space-xs); color: var(--color-muted); font-size: var(--text-sm); font-weight: 400; letter-spacing: 0; text-transform: none; }
+.meta-item { display: inline; }
+#stack { background: var(--color-paper-2); }
+.stack-rails { display: grid; gap: var(--space-xl); }
+.rail { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,4fr); gap: var(--gap-columns); padding-top: var(--space-xl); border-top: 1px solid var(--color-rule); }
+.rail-label { font-family: var(--font-body); font-size: var(--text-md); font-weight: 400; letter-spacing: 0; color: var(--color-muted); line-height: 1.55; }
+.rail-set { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); align-items: center; gap: var(--space-lg) var(--gap-columns); list-style: none; margin: 0; padding: 0; }
+.logo { display: inline-flex; align-items: center; gap: var(--space-sm); color: var(--color-ink); font-size: var(--text-lg); }
+.logo .logo-sprite { position: absolute; width: 0; height: 0; overflow: clip; pointer-events: none; }
+svg { width: 24px; height: 24px; fill: currentColor; color: var(--color-muted); }
+.contact-card { display: grid; grid-template-columns: minmax(0,1.3fr) minmax(0,1fr); gap: var(--gap-columns); }
+.contact-card h2 { grid-column: 1; grid-row: 1 / 3; font-size: var(--text-section); max-width: 15ch; }
+.contact-card > p { color: var(--color-muted); max-width: 30ch; align-self: end; font-size: var(--text-lead); }
+.contact-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-md); }
+.contact-actions .btn-primary { font-size: var(--text-sm); }
+.site-footer { padding-block: var(--space-xl); border-top: 1px solid var(--color-rule); color: var(--color-muted); font-size: var(--text-sm); }
+.footer-inner { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--space-lg); }
+.to-top { display: inline-flex; align-items: center; gap: var(--space-xs); min-height: var(--control-height); text-decoration: none; white-space: nowrap; }
+.to-top svg { width: 16px; height: 16px; }
+.pd { position: fixed; inset: 0; width: min(calc(100% - 64px),1248px); max-width: none; max-height: calc(100dvh - 64px); padding: var(--space-2xl); margin: auto; border: 0; border-radius: var(--radius-dialog); background: var(--color-paper-2); color: var(--color-ink); overflow: auto; overscroll-behavior: contain; }
+.pd::backdrop { background: var(--color-scrim); }
+.pd-close { position: absolute; top: var(--space-md); right: var(--space-md); display: grid; place-items: center; width: var(--control-height); height: var(--control-height); border: 0; border-radius: var(--radius-pill); background: transparent; color: var(--color-ink); cursor: pointer; z-index: var(--z-raised); }
+.pd-close:hover { background: var(--color-paper-3); }
+.pd-grid { display: grid; grid-template-columns: minmax(0,1.6fr) minmax(0,1fr); gap: var(--gap-columns); align-items: start; }
+.pd-left, .pd-right { min-width: 0; }
+.pd-shot { aspect-ratio: 16 / 10; background: var(--color-media); overflow: clip; border-radius: var(--radius-card); }
+.pd-img, .pd-video { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.pd-shot.is-video { aspect-ratio: 16 / 9; }
+.pd-video { object-fit: contain; background: var(--color-media); }
+.pd-shot.is-cover { background: var(--color-project-cover); }
+.pd-shot.is-cover .pd-img, .pd-shot.is-portrait .pd-img, .pd-shot.is-icon .pd-img { object-fit: contain; }
+.pd-side { padding-top: var(--space-lg); }
+.pd-brand { margin-bottom: var(--space-lg); }
 .pd-brand:empty { display: none; }
-
-.brand {
-  display: flex;   /* a span, not a <p> — it lives inside the card's button */
-  align-items: center;
-  gap: 0.6rem;
-  margin-bottom: 0.35rem;
-}
-
-/* One cap for every lockup, whatever shape it is, so a tall stacked logo and
-   a wide horizontal one carry the same weight in the layout. */
-.brand img {
-  width: auto;
-  max-width: min(100%, 20rem);
-  max-height: 3.4rem;
-  object-fit: contain;
-}
-
-/* Swarm's own header: the circular mark with the name set beside it over two
-   lines. The mark image is the full circular lockup — at this size the text
-   inside it is a texture, which is exactly how the real header reads. */
-.brand-swarm { gap: 0.6rem; }
-.brand-swarm .brand-mark { max-height: 3.1rem; }
-.brand-words {
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  font-family: var(--font-heading);
-  font-weight: 700;
-  line-height: 1.12;
-  color: var(--color-foreground);
-}
-.brand-words > span:first-child { font-size: clamp(1.05rem, 3vw, 1.35rem); letter-spacing: -0.01em; }
-.brand-sub {
-  font-family: var(--font-body);
-  font-weight: 400;
-  font-size: clamp(0.75rem, 2vw, 0.875rem);
-  letter-spacing: 0;
-  color: var(--color-muted-foreground);
-}
-
-/* Swarm sets its name in tracked caps over two lines; the rest are a name
-   with a tagline under it. */
-.brand-swarm .brand-words { font-weight: 800; text-transform: uppercase; line-height: 1.02; }
-.brand-swarm .brand-words > span:first-child { font-size: clamp(1.05rem, 3vw, 1.3rem); letter-spacing: 0.13em; }
-.brand-swarm .brand-words > span:last-child  { font-size: clamp(0.8rem, 2.3vw, 1rem);  letter-spacing: 0.235em; }
-
-/* The ledger's mark is a glyph in its sidebar, not a file. */
-.brand-glyph { width: 2rem; height: 2rem; flex: none; color: #10A074; }
-.brand-evmc .brand-mark   { max-height: 3rem; }
-.brand-citrus .brand-mark { max-height: 2.9rem; border-radius: 22%; }
-.brand-onehub img { max-height: 2.6rem; }
-
-.brand-probxcape {
-  font-family: 'Butcherman Subset', var(--font-heading), sans-serif;
-  font-size: clamp(1.9rem, 6vw, 2.9rem);
-  line-height: 1.1;
-  letter-spacing: 0.02em;
-  color: var(--color-foreground);
-}
-
-/* The games' native title faces and colours, carried into both the card and
-   opened project. INTEGRID's cream edge keeps its brown ink readable over
-   the card's dark image wash. */
-.brand.brand-lakbayin {
-  font-family: 'Portfolio Lakbayin', cursive;
-  font-weight: 400;
-  font-size: clamp(1.9rem, 6vw, 2.9rem);
-  line-height: 1.25;
-  letter-spacing: 0;
-  color: #F1E2BD;
-  text-shadow: 3px 3px 0 rgb(0 0 0 / 60%);
-}
-.brand.brand-integrid {
-  font-family: 'Portfolio INTEGRID', ui-rounded, sans-serif;
-  font-weight: 900;
-  font-size: clamp(1.9rem, 6vw, 2.9rem);
-  line-height: 1.05;
-  letter-spacing: 0.01em;
-  color: #7A3B0C;
-  text-shadow: -1px -1px 0 #FFF7E8, 1px -1px 0 #FFF7E8,
-    -1px 1px 0 #FFF7E8, 1px 1px 0 #FFF7E8;
-}
-.project-face .brand-lakbayin,
-.project-face .brand-integrid { font-size: clamp(1.5rem, 3.4vw, 2.1rem); }
-
-/* The app's own header runs the mark at 50px against 20px text. Matching that
-   ratio keeps the lockup recognisable rather than just being the two pieces
-   sitting near each other. */
-.brand-sip { gap: 0.5rem; }
-.brand-sip .brand-mark { max-height: 3rem; }
-.brand-sip span {
-  font-family: 'Inter Subset', var(--font-body), sans-serif;
-  font-weight: 600;
-  font-size: clamp(1.2rem, 3.4vw, 1.5rem);
-  letter-spacing: -0.01em;
-  color: var(--color-foreground);
-}
-
-/* Artwork drawn for one ground can't be recoloured, so each of these ships
-   both versions and the theme picks. Declared three times for the same reason
-   the palette is: OS-light, explicit-light, and the dark default. */
+.pd-brand .brand { display: flex; align-items: center; gap: var(--space-sm); }
+.pd-brand .brand > img { width: 48px; height: 48px; object-fit: contain; }
+.pd-brand .brand-words { display: flex; flex-direction: column; font-size: var(--text-title); font-weight: 700; }
+.pd-brand .brand-words .brand-sub { font-size: var(--text-sm); font-weight: 400; }
+.project-wordmark { width: auto; height: 52px; max-width: 100%; color: var(--color-ink); }
+.brand-sip span { font-size: var(--text-title); font-weight: 700; }
+.brand-glyph { width: 32px; height: 32px; color: var(--color-accent); }
 .brand .on-light { display: none; }
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]) .brand .on-dark  { display: none; }
-  :root:not([data-theme="dark"]) .brand .on-light { display: block; }
-}
-:root[data-theme="light"] .brand .on-dark  { display: none; }
+:root[data-theme="light"] .brand .on-dark { display: none; }
 :root[data-theme="light"] .brand .on-light { display: block; }
-
-/* The description gets its own scroller so a long one never pushes the shot,
-   the stack or the buttons off screen. */
-.pd-text {
-  flex: 1 1 auto;
-  min-height: 7rem;
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  padding-right: var(--space-2xs);
-  scrollbar-width: thin;
-  scrollbar-color: hsl(var(--theme-color) / 0.6) transparent;
+@media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) .brand .on-dark { display: none; } :root:not([data-theme="dark"]) .brand .on-light { display: block; } }
+.pd-title { font-size: var(--text-section); }
+.pd.has-brand .pd-title { position: absolute; width: 1px; height: 1px; clip-path: inset(50%); overflow: hidden; white-space: nowrap; }
+.pd-kicker { margin-block: var(--space-sm) var(--space-lg); color: var(--color-muted); font-size: var(--text-sm); }
+.pd-text { max-height: min(42dvh,400px); overflow: auto; }
+.project-desc { font-size: var(--text-md); line-height: 1.65; color: var(--color-ink-2); }
+.tags { display: flex; flex-wrap: wrap; gap: var(--space-xs) var(--space-md); list-style: none; padding: 0; margin: 0 0 var(--space-lg); }
+.tags li { font-size: var(--text-sm); color: var(--color-muted); }
+.project-links { display: flex; flex-wrap: wrap; gap: var(--space-lg); }
+.project-links a, .project-links button { display: inline-flex; align-items: center; gap: var(--space-xs); min-height: var(--control-height); font-size: var(--text-sm); color: var(--color-ink); }
+.project-links svg { width: 16px; height: 16px; }
+.pd-fly { position: fixed; z-index: var(--z-raised); object-fit: cover; pointer-events: none; }
+.pd.is-flying .pd-shot { visibility: hidden; }
+.pd.is-emptied .pd-grid, .pd.is-emptied .pd-close { visibility: hidden; }
+.project.is-source .project-open { opacity: 0; }
+.reveal { opacity: 1; visibility: visible; }
+.no-js .project-detail[hidden] { display: block !important; padding-top: var(--space-lg); }
+.no-js .project-open { cursor: default; }
+.no-js .theme-toggle { display: none; }
+@media (max-width: 68rem) {
+  .handle { display: none; }
+  .contact-card { grid-template-columns: minmax(0,1fr); }
+  .contact-card h2 { grid-column: auto; grid-row: auto; max-width: 20ch; }
+  .contact-card > p { max-width: 48ch; }
 }
-
-.pd-text .project-desc {
-  font-size: var(--text-base);
-  line-height: 1.65;
-  color: var(--color-muted-foreground);
+@media (max-width: 60rem) {
+  .hero { min-height: 0; padding-block: var(--space-2xl) var(--space-3xl); }
+  .intro-layout { grid-template-columns: minmax(0,1fr); gap: var(--space-2xl); }
+  .hero h1 { max-width: 18ch; }
+  .hero-project { max-width: 100%; }
+  .hero-project > img { aspect-ratio: 16 / 9; }
+  .project:nth-child(2n) { padding-top: 0; }
+  .project { grid-column: span 6 !important; }
+  .section-head { align-items: start; }
+  .pd { width: calc(100% - 32px); padding: var(--space-2xl) var(--space-lg) var(--space-lg); max-height: calc(100dvh - 32px); }
+  .pd-grid { grid-template-columns: minmax(0,1fr); }
+  .pd-text { max-height: none; overflow: visible; }
 }
-
-.pd-text::-webkit-scrollbar { width: 6px; }
-.pd-text::-webkit-scrollbar-thumb {
-  background: hsl(var(--theme-color) / 0.6);
-  border-radius: var(--radius-pill);
+@media (max-width: 40rem) {
+  :root { --header-height: 80px; }
+  .site-header .brand { font-size: var(--text-sm); }
+  .header-inner { gap: var(--space-xs); }
+  .site-nav ul { gap: var(--space-xs); }
+  .site-nav a { font-size: var(--text-sm); }
+  .theme-toggle { width: 40px; }
+  .hero-lead { max-width: 29ch; }
+  .hero-actions { gap: var(--space-md); }
+  .hero-project figcaption { font-size: var(--text-xs); }
+  .section-head { display: block; margin-bottom: var(--space-xl); }
+  .section-head > p { margin-top: var(--space-lg); }
+  .project { grid-column: 1 / -1 !important; }
+  .work-grid { row-gap: var(--space-2xl); }
+  .rail { grid-template-columns: minmax(0,1fr); gap: var(--space-lg); }
+  .rail-set { grid-template-columns: repeat(2,minmax(0,1fr)); gap: var(--space-lg); }
+  .rail:last-child .logo:first-child { grid-column: 1 / -1; }
+  .logo { font-size: var(--text-md); }
+  .contact-actions { display: grid; justify-content: start; gap: var(--space-md); }
+  .contact-actions .btn { padding-inline: var(--space-sm); font-size: var(--text-xs); }
+  .footer-inner { align-items: start; flex-direction: column; }
 }
-
-.pd .project-links { margin-top: 0; }
-
-@media (min-width: 52rem) {
-  .pd-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
-    align-items: stretch;
-  }
-  .pd-grid  { gap: var(--space-lg); align-items: center; align-content: center; }
-  .pd-left  { min-height: 0; }
-  .pd-right { padding: 0; }
-  .pd-shot  { max-height: none; }
-}
-
-/* --------------------------------------------------------------------------
-   7c. Shared card pieces (used inside the overlay)
-   -------------------------------------------------------------------------- */
-
-.project-desc {
-  font-size: var(--text-sm);
-  color: var(--color-muted-foreground);
-}
-
-.tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.tags li {
-  padding: 3px 10px;
-  border: 1px solid hsl(var(--theme-color) / 0.35);
-  border-radius: var(--radius-pill);
-  background: hsl(var(--theme-color) / 0.16);
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  color: var(--color-foreground);
-}
-
-.project-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-sm);
-  padding-top: var(--space-sm);
-  border-top: 1px solid var(--color-border);
-}
-
-.project-links a,
-.project-links button {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  min-height: 44px;
-  padding: 0 var(--space-sm);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-pill);
-  background: var(--color-surface-raised);
-  font-size: var(--text-sm);
-  font-weight: 500;
-  color: var(--color-foreground);
-  cursor: pointer;
-  transition: border-color var(--dur-fast) var(--ease-out-expo),
-              background-color var(--dur-fast) var(--ease-out-expo);
-}
-
-.project-links a:hover,
-.project-links button:hover {
-  border-color: hsl(var(--theme-color) / 0.6);
-  background: hsl(var(--theme-color) / 0.2);
-}
-
-.project-links svg { width: 16px; height: 16px; flex: none; }
-.project-links a.is-live { color: var(--color-accent); }
-
-/* With JS off nothing can open, so the cards render as they always did —
-   everything visible, inline, no trigger. The !important is not decoration:
-   the global [hidden] rule near the top is itself !important, and without a
-   match here the descriptions and links would simply vanish. */
-.no-js .project-detail[hidden] {
-  display: block !important;
-  padding: var(--space-md);
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-top: 0;
-  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
-}
-.no-js .project-open {
-  cursor: default;
-  animation: none;
-  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-}
-.no-js .project-open:hover { transform: none; }
-.no-js .project-detail > * + * { margin-top: var(--space-sm); }
-.no-js .brand { display: none; }   /* the card already shows the name */
-/* The overlay never opens, so it must not reserve space either. */
-.no-js .pd { display: none !important; }
-
-@media (prefers-reduced-motion: reduce) {
-  .project-open { animation: none; }
-  .project-open:hover { transform: none; }
-  .project-open:hover .project-shot img { transform: none; }
-}
-
-/* --------------------------------------------------------------------------
-   8. Stack
-   -------------------------------------------------------------------------- */
-
-/* Four marquees, one per group — the grouping is the point, so each row
-   carries its own label and only ever holds its own tools. Rows alternate
-   direction so the block reads as four deliberate lanes, not one long
-   scrolling smear. */
-
-.logo-sprite {
-  position: absolute;
-  width: 0; height: 0;
-  overflow: hidden;
-  /* Not display:none — that stops <use> resolving in some engines. */
-}
-
-
-.stack-rails { display: grid; }
-
-/* Start, not centre: a wrapped row is two lines deep and a centred label
-   floats between them instead of naming the first one. */
-.rail {
-  display: grid;
-  gap: var(--space-xs);
-  align-items: start;
-  padding-block: var(--space-sm);
-  border-top: 1px solid var(--color-border);
-}
-.rail:first-child { border-top: 0; padding-top: 0; }
-.rail:last-child { padding-bottom: 0; }
-
-.rail-label {
-  font-size: var(--text-xs);
-  font-family: var(--font-mono);
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--color-accent);
-}
-
-/* Static rows — the chips wrap onto as many lines as they need. Nothing
-   scrolls, so nothing repeats. */
-.rail-set {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2xs);
-}
-
-.logo {
-  --brand-use: var(--brand-dark);
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 0.875rem;
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-pill);
-  font-size: var(--text-sm);
-  color: var(--color-muted-foreground);
-  white-space: nowrap;
-  transition: color var(--dur-fast) var(--ease-out-expo),
-              border-color var(--dur-fast) var(--ease-out-expo),
-              background-color var(--dur-fast) var(--ease-out-expo);
-}
-
-/* Brand hexes are fixed, but half of them are near-black (Next, Vercel,
-   GitHub, Socket.IO) and vanish on a dark ground. Each chip carries both a
-   light-ground and a dark-ground value inline; the theme picks one. This is
-   the one place a colour can't come from a token — it belongs to the brand,
-   not the page. */
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]) .logo { --brand-use: var(--brand); }
-}
-:root[data-theme="light"] .logo { --brand-use: var(--brand); }
-
-.logo svg {
-  width: 18px; height: 18px;
-  flex: none;
-  fill: currentColor;
-  color: var(--brand-use);          /* the mark keeps its brand colour */
-}
-
-.logo:hover {
-  color: var(--color-foreground);
-  border-color: color-mix(in srgb, var(--brand-use) 55%, transparent);
-  background: color-mix(in srgb, var(--brand-use) 9%, var(--color-surface));
-}
-
-@media (min-width: 46rem) {
-  .rail { grid-template-columns: 9rem minmax(0, 1fr); gap: var(--space-md); }
-  /* Side by side, the label should read level with the first row of chips —
-     half a chip's height less half its own. */
-  .rail-label { padding-top: 14px; }
-}
-
-/* On a portrait phone the full-size chips fit two or three to a line and wrap
-   into a ragged pile. Smaller chips fit three or four and the rows come out
-   even. */
-@media (max-width: 30rem) {
-  .logo {
-    gap: 0.4rem;
-    padding: 0.375rem 0.7rem;
-    font-size: var(--text-xs);
-  }
-  .logo svg { width: 15px; height: 15px; }
-  .rail-set { gap: 0.375rem; }
-}
-
-/* --------------------------------------------------------------------------
-   9. Contact
-   -------------------------------------------------------------------------- */
-
-/* A machined plate: fine brush grain running off-axis, a broad falloff from
-   the lit corner to the shaded one, and a milled lip top and bottom. The
-   grain is drawn, not an image — an 8px repeating gradient tiles for free. */
-.contact-card {
-  position: relative;
-  padding: clamp(2rem, 6vw, 4rem);
-  border: 1px solid var(--metal-edge);
-  border-radius: var(--radius-lg);
-  background:
-    repeating-linear-gradient(101deg,
-      var(--metal-grain-a) 0 1px,
-      var(--metal-grain-b) 1px 2px,
-      transparent 2px 4px),
-    linear-gradient(152deg, var(--metal-hi), transparent 34%),
-    linear-gradient(152deg, transparent 58%, var(--metal-lo)),
-    radial-gradient(120% 140% at 8% 0%, var(--color-grad-a), transparent 58%),
-    var(--metal-base);
-  box-shadow:
-    inset 0 1px 0 var(--metal-lip),
-    inset 0 -1px 0 var(--metal-lip-lo),
-    var(--shadow-card);
-  overflow: hidden;
-}
-
-/* Registering these makes them interpolable. Unregistered custom properties
-   are swapped, not animated, so the highlight used to jump straight back to
-   its resting spot the moment the pointer left while the tilt eased. Browsers
-   without @property still get the eased tilt, just an instant sheen. */
-@property --mx { syntax: "<percentage>"; inherits: true; initial-value: 100%; }
-@property --my { syntax: "<percentage>"; inherits: true; initial-value: 0%; }
-@property --rx { syntax: "<angle>"; inherits: true; initial-value: 0deg; }
-@property --ry { syntax: "<angle>"; inherits: true; initial-value: 0deg; }
-
-/* Tilt is set from script.js; the default is flat, so with JS off the card is
-   simply a still plate rather than a broken one.
-   The card is also a .reveal, and `.reveal.is-visible` sets its own transform
-   to slide the card in — so this has to outrank that pair to survive the
-   entrance. Both classes are named rather than relying on source order. */
-.contact-card.reveal.is-visible {
-  transform: perspective(1100px) rotateX(var(--rx)) rotateY(var(--ry));
-  /* Slower than the site's --dur-slow on purpose: this is a plate settling,
-     and 420ms still reads as a snap at this distance. */
-  /* One transition, three speeds. --follow is set by the classes below; with
-     neither of them the settle applies, which is the leave case. */
-  transition: transform var(--follow, var(--dur-settle)) var(--ease-settle),
-              --mx var(--follow, var(--dur-settle)) var(--ease-settle),
-              --my var(--follow, var(--dur-settle)) var(--ease-settle);
-}
-
-/* Arriving: the highlight is somewhere else entirely when the pointer lands,
-   so it travels across the plate to meet it rather than teleporting. Every
-   move retargets, so it keeps chasing the cursor the whole way. */
-.contact-card.reveal.is-arriving { --follow: var(--dur-arrive); }
-
-/* Caught up: no duration at all, so the highlight is exactly under the
-   pointer. Any lag here reads as the sheen dragging behind rather than
-   sitting on the surface. */
-.contact-card.reveal.is-tracking { --follow: 0s; }
-
-/* The specular highlight. Parked top-centre so it still reads as lit before
-   anything has moved, and on touch, where it never will. */
-.contact-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(30% 44% at var(--mx) var(--my),
-                              var(--metal-sheen), transparent 70%);
-  pointer-events: none;
-}
-
-/* Above the sheen, or the highlight washes over the type. */
-.contact-card > * { position: relative; z-index: 1; }
-
-.contact-card h2 {
-  font-size: clamp(1.75rem, 4.5vw, 2.75rem);
-  max-width: 18ch;
-  margin-block: var(--space-sm) var(--space-md);
-}
-
-.contact-card p {
-  max-width: 54ch;
-  color: var(--metal-text);
-}
-
-.contact-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-xs);
-  margin-top: var(--space-lg);
-}
-
-/* --------------------------------------------------------------------------
-   10. Footer
-   -------------------------------------------------------------------------- */
-
-.site-footer {
-  margin-top: var(--space-xl);
-  padding-block: var(--space-lg);
-  border-top: 1px solid var(--color-border);
-}
-
-.footer-inner {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-sm);
-  font-size: var(--text-sm);
-  color: var(--color-muted-foreground);
-}
-
-.footer-inner a:hover { color: var(--color-accent); }
-.footer-inner .to-top { display: inline-flex; align-items: center; gap: 6px; }
-.footer-note { font-size: var(--text-xs); }
-@media (max-width: 46rem) { .footer-note { display: none; } }
-
-/* --------------------------------------------------------------------------
-   11. Scroll reveal — 1-2 elements per view, staggered
-   -------------------------------------------------------------------------- */
-
-.reveal {
-  opacity: 0;
-  transform: translate3d(0, 18px, 0);
-  transition: opacity var(--dur-slow) var(--ease-out-expo),
-              transform var(--dur-slow) var(--ease-out-expo);
-  transition-delay: var(--reveal-delay, 0ms);
-  will-change: opacity, transform;
-}
-
-.reveal.is-visible {
-  opacity: 1;
-  transform: translate3d(0, 0, 0);
-  will-change: auto;
-}
-
-/* If JS never runs, content must still be visible. */
-.no-js .reveal { opacity: 1; transform: none; }
-
-/* --------------------------------------------------------------------------
-   12. Reduced motion — honour the OS setting
-   -------------------------------------------------------------------------- */
-
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-
-  .reveal { opacity: 1; transform: none; }
-  .project-open:hover { transform: none; }
-  body::before, body::after { animation: none; }
-  .hero h1 .accent { background-size: 100% 2px; }
-  /* The plate keeps its finish; it just stops moving. script.js checks the
-     same setting and never binds, so nothing sets --rx / --ry either. */
-  .contact-card.reveal.is-visible { transform: none; }
-
-}
-
-/* --------------------------------------------------------------------------
-   13. Print
-   -------------------------------------------------------------------------- */
-
-@media print {
-  body { background: #fff; color: #000; }
-  body::before, body::after,
-  .site-header, .contact-actions, .cue { display: none; }
-  .project, .logo, .contact-card { border: 1px solid #ccc; box-shadow: none; }
-  .reveal { opacity: 1; transform: none; }
-  /* A marquee can't scroll on paper — unroll it and drop the duplicate sets. */
-  .logo svg { color: #000; }
-}
-
-/* ===== Part: scroll-cue =================================================== */
-.cue { padding-block: var(--space-lg); }
-.cue-inner {
-  display: flex; align-items: center; gap: var(--space-sm);
-}
-.cue-index { font: 0.6875rem var(--font-mono); color: var(--color-accent); }
-.cue-line {
-  flex: 1; height: 1px;
-  background: var(--color-border);
-}
-.cue-text {
-  font-family: var(--font-mono); font-size: var(--text-xs);
-  font-weight: 500; line-height: 1.65;
-  letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--color-foreground);
-  white-space: nowrap;
-}
-.cue-note { font-size: var(--text-xs); color: var(--color-muted-foreground); }
-@media (max-width: 30rem) { .cue-note { display: none; } }
-.cue-arrow {
-  width: 16px; height: 16px; flex: none;
-  color: var(--color-accent);
-  animation: cue-bob 2.2s var(--ease-out-expo) infinite;
-}
-@keyframes cue-bob {
-  0%, 100% { transform: translateY(-2px); opacity: 0.6; }
-  50%      { transform: translateY(3px);  opacity: 1; }
-}
-.cue + .section { padding-top: 0; }
-/* A cue is a divider, so it wants roughly equal air on both sides. The section
-   above already contributes a full 6rem, which pushed the rule far from the
-   thing it introduces — halve that side and let the cue's own padding do it. */
-.section:has(+ .cue) { padding-bottom: var(--space-lg); }
-@media (prefers-reduced-motion: reduce) { .cue-arrow { animation: none; } }
-
-/* --------------------------------------------------------------------------
-   14. Screen-reader only
-   -------------------------------------------------------------------------- */
-
-.sr-only {
-  position: absolute;
-  width: 1px; height: 1px;
-  padding: 0; margin: -1px;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
-}
-
-/* --------------------------------------------------------------------------
-   15. Touch sizing
-   Pointer-coarse only, so desktop spacing is untouched.
-   -------------------------------------------------------------------------- */
-
-@media (pointer: coarse) {
-  .project-links a,
-  .footer-inner .to-top,
-  .brand {
-    min-height: 44px;
-  }
-  /* .brand aligns on the baseline, which is not the centre of a 44px box. */
-  .brand { align-items: center; }
-  .project-links { gap: var(--space-2xs) var(--space-md); }
-}
-
-/* One more shed: below 23rem even "John Cañete" plus three controls won't fit. */
-@media (max-width: 23rem) {
-  .site-nav .nav-hide-xs { display: none; }
-}
-
+@media (max-width: 23rem) { .brand-mid { display: none; } .site-nav ul { gap: var(--space-xs); } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition: none !important; animation: none !important; } }

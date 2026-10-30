@@ -1,0 +1,67 @@
+[
+  {
+    "width": 1440,
+    "theme": "light",
+    "contrast": {
+      "body": 14.403795278300212,
+      "muted": 6.06283194094838,
+      "mutedPanel": 5.47881635958084,
+      "button": 7.099466377515626,
+      "focus": 7.21993727436086,
+      "focusPanel": 6.524460984436939
+    }
+  },
+  {
+    "width": 1440,
+    "theme": "dark",
+    "contrast": {
+      "body": 15.139580977357276,
+      "muted": 7.544841132430584,
+      "mutedPanel": 6.470942028686588,
+      "button": 9.275106841393228,
+      "focus": 9.919439815281184,
+      "focusPanel": 8.507550904660576
+    }
+  },
+  {
+    "width": 1440,
+    "projectDialogs": 6,
+    "efpAudio": true,
+    "themeToggle": true,
+    "errors": []
+  },
+  {
+    "width": 375,
+    "theme": "light",
+    "contrast": {
+      "body": 14.403795278300212,
+      "muted": 6.06283194094838,
+      "mutedPanel": 5.47881635958084,
+      "button": 7.099466377515626,
+      "focus": 7.21993727436086,
+      "focusPanel": 6.524460984436939
+    }
+  },
+  {
+    "width": 375,
+    "theme": "dark",
+    "contrast": {
+      "body": 15.139580977357276,
+      "muted": 7.544841132430584,
+      "mutedPanel": 6.470942028686588,
+      "button": 9.275106841393228,
+      "focus": 9.919439815281184,
+      "focusPanel": 8.507550904660576
+    }
+  },
+  {
+    "width": 375,
+    "projectDialogs": 6,
+    "efpAudio": true,
+    "themeToggle": true,
+    "errors": []
+  },
+  {
+    "noJavaScript": "All six descriptions and project links remain visible"
+  }
+]

@@ -86,7 +86,7 @@
     }
     // Keep the browser UI (mobile address bar) in step with the page.
     var meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute('content', theme === 'dark' ? '#171918' : '#F6F8FB');
+    if (meta) meta.setAttribute('content', getComputedStyle(document.documentElement).getPropertyValue('--browser-color').trim());
   }
 
   if (toggle) {
@@ -177,9 +177,14 @@
       pd.classList.add('is-flying');
       if (sourceCard) sourceCard.classList.add('is-source');
 
+      clone.style.top = '0';
+      clone.style.left = '0';
+      clone.style.width = to.width + 'px';
+      clone.style.height = to.height + 'px';
+      clone.style.transformOrigin = '0 0';
       var frame = function (r, radius) {
-        return { top: r.top + 'px', left: r.left + 'px',
-                 width: r.width + 'px', height: r.height + 'px', borderRadius: radius };
+        return { transform: 'translate(' + r.left + 'px,' + r.top + 'px) scale(' +
+          (r.width / to.width) + ',' + (r.height / to.height) + ')', borderRadius: radius };
       };
       var anim = clone.animate([frame(from, '20px'), frame(to, '14px')],
         { duration: reverse ? FLY_MS - 90 : FLY_MS, easing: FLY_EASE, fill: 'both' });

@@ -1,0 +1,98 @@
+[
+  {
+    "element": "Headline",
+    "before": "Hi, I'm Ken. I build stuff.",
+    "after": "Web apps. Multiplayer games.",
+    "reason": "Hallmark gates 19, 54, 58 and 63; use existing facts, short introduction and plain action text"
+  },
+  {
+    "element": "Introduction",
+    "before": "Web apps, multiplayer games, and the occasional experiment. From an idea to something you can click, play, and use.",
+    "after": "I’m Ken, a developer in the Philippines who likes experimenting.",
+    "reason": "Hallmark gates 19, 54, 58 and 63; use existing facts, short introduction and plain action text"
+  },
+  {
+    "element": "Availability link",
+    "before": "Open to work ↗",
+    "after": "Open to work",
+    "reason": "Hallmark gates 19, 54, 58 and 63; use existing facts, short introduction and plain action text"
+  },
+  {
+    "element": "Project action",
+    "before": "Explore my builds ↓",
+    "after": "Explore my builds",
+    "reason": "Hallmark gates 19, 54, 58 and 63; use existing facts, short introduction and plain action text"
+  },
+  {
+    "element": "Title",
+    "before": "John Kenneth Cañete — Developer Portfolio",
+    "after": "John Kenneth Cañete, Developer Portfolio",
+    "reason": "Hallmark gates 19, 54, 58 and 63; use existing facts, short introduction and plain action text"
+  },
+  {
+    "element": "p-lakbayin .project-kicker",
+    "before": "Multiplayer · Baybayin",
+    "after": "Multiplayer Baybayin",
+    "reason": "Gate 19/63 punctuation and F1 typographic apostrophes; facts retained"
+  },
+  {
+    "element": "p-escape-room .project-desc",
+    "before": "A horror escape room that teaches probability. You're locked in a school corridor at night, and the way out is three classrooms' worth of questions — every right answer earns you a digit of the exit code. Get too many wrong and something starts following you. Finish alive and your time goes up on the leaderboard, which is what actually makes a class play it twice.",
+    "after": "A horror escape room that teaches probability. You’re locked in a school corridor at night, and the way out is three classrooms' worth of questions, every right answer earns you a digit of the exit code. Get too many wrong and something starts following you. Finish alive and your time goes up on the leaderboard, which is what actually makes a class play it twice.",
+    "reason": "Gate 19/63 punctuation and F1 typographic apostrophes; facts retained"
+  },
+  {
+    "element": "p-escape-room .project-kicker",
+    "before": "3D Game · EdTech · 2026",
+    "after": "3D Game EdTech 2026",
+    "reason": "Gate 19/63 punctuation and F1 typographic apostrophes; facts retained"
+  },
+  {
+    "element": "p-sip-and-savor .project-desc",
+    "before": "Type in whatever's in the fridge and get something to cook — or something to drink. Around 800 dishes and 400 cocktails, searched together, finishing your words as you type, with the full recipe and a way to keep the ones you liked.",
+    "after": "Type in whatever’s in the fridge and get something to cook, or something to drink. Around 800 dishes and 400 cocktails, searched together, finishing your words as you type, with the full recipe and a way to keep the ones you liked.",
+    "reason": "Gate 19/63 punctuation and F1 typographic apostrophes; facts retained"
+  },
+  {
+    "element": "p-sip-and-savor .project-kicker",
+    "before": "Web App · 2025",
+    "after": "Web App 2025",
+    "reason": "Gate 19/63 punctuation and F1 typographic apostrophes; facts retained"
+  },
+  {
+    "element": "p-swarm-gallery .project-desc",
+    "before": "Everyone's photos from the party in one place, with no internet involved. Guests join the local network, scan a QR code, pick a name, and every photo they take lands on everybody else's screen a second later. Nothing to install and no signal needed — it works in a venue with no Wi-Fi and no data. At the end of the night the whole gallery is handed over and wiped.",
+    "after": "Everyone’s photos from the party in one place, with no internet involved. Guests join the local network, scan a QR code, pick a name, and every photo they take lands on everybody else’s screen a second later. Nothing to install and no signal needed, it works in a venue with no Wi-Fi and no data. At the end of the night the whole gallery is handed over and wiped.",
+    "reason": "Gate 19/63 punctuation and F1 typographic apostrophes; facts retained"
+  },
+  {
+    "element": "p-swarm-gallery .project-kicker",
+    "before": "Full-stack · Real-time · 2026",
+    "after": "Full-stack Real-time 2026",
+    "reason": "Gate 19/63 punctuation and F1 typographic apostrophes; facts retained"
+  },
+  {
+    "element": "p-consignment-ledger .project-desc",
+    "before": "Stock control for a fresh-produce supplier who ships on consignment — goods sit on someone else's shelf and only get paid for once they sell. It tracks what went out, what sold, what's near expiry and what came back, so the monthly count stops being guesswork and starts being a number. Warehouse, sales and accounting each only see their own part of it.",
+    "after": "Stock control for a fresh-produce supplier who ships on consignment, goods sit on someone else’s shelf and only get paid for once they sell. It tracks what went out, what sold, what’s near expiry and what came back, so the monthly count stops being guesswork and starts being a number. Warehouse, sales and accounting each only see their own part of it.",
+    "reason": "Gate 19/63 punctuation and F1 typographic apostrophes; facts retained"
+  },
+  {
+    "element": "p-consignment-ledger .project-kicker",
+    "before": "Full-stack · Inventory / Supply Chain · 2025",
+    "after": "Full-stack Inventory / Supply Chain 2025",
+    "reason": "Gate 19/63 punctuation and F1 typographic apostrophes; facts retained"
+  },
+  {
+    "element": "p-integrid .project-kicker",
+    "before": "Educational game · Integer crosswords",
+    "after": "Educational game Integer crosswords",
+    "reason": "Gate 19/63 punctuation and F1 typographic apostrophes; facts retained"
+  },
+  {
+    "element": "#contact p",
+    "before": "I'm open to work. Easiest way to reach me is email.",
+    "after": "I’m open to work. Easiest way to reach me is email.",
+    "reason": "Typographic apostrophes; original facts retained"
+  }
+]

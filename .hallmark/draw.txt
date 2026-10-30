@@ -1,0 +1,7 @@
+draw 0d5869 (fresh each build; --seed 0d5869 repeats it) · clear of the theme picture's portfolio index and ledge
+shape: Map / Diagram · hero: Corridor · nav: search-led bar · footer: letter close
+leave out this time: Grid and Figures · the hero leads with the screen at work, if the prompt has it
+job: hire · the action: a contact line in the nav and at the close
+build these, in the order the shape suits (the first right after the hero): one project opened as a case; where it is; the work as an Index of projects with pictures · close on: a plain email and phone (anatomy.md § hire)
+photos: pass --seed 0d5869 to every theme.mjs photos call, so this build's picks are its own, and take its first fitting pick for the hero rather than hunting for the library's single best frame
+take the draw unless the prompt's material refuses a pick; name any swap in the Picks block, and stamp draw: 0d5869

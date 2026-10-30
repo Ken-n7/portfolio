@@ -1,0 +1,9 @@
+render tier: 8 hero screenshots in /tmp/portfolio-hallmark/.hallmark/shots (1280x800, 1440x900, 1920x1080 and 375x812 first screens)
+index.html
+  WARN 49 :129 long clickable label "Lakbayin Lakbayin Multiplayer Bayba…" without nowrap | fix: Shorten the label or set nowrap
+  WARN 49 :146 long clickable label "ProbXcape ProbXcape 3D Game EdTech …" without nowrap
+  WARN 49 :174 long clickable label "SipAndSavor Sip &amp; Savor Web App…" without nowrap
+  WARN 49 :202 long clickable label "Swarm Gallery Swarm Gallery Full-st…" without nowrap
+  WARN 49 :226 long clickable label "EFP Supply Chain Consignment Ledger…" without nowrap
+  WARN 49 :244 long clickable label "INTEGRID INTEGRID Educational game …" without nowrap
+sloplint: 0 FAIL, 6 WARN across 4 file(s) and 1 URL(s) (hero stage).

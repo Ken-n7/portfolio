@@ -1,0 +1,39 @@
+{
+  "hero": {
+    "reviewer": "fresh-context subagent",
+    "verdict": "ship",
+    "changes_requested": 0
+  },
+  "finish": {
+    "reviewer": "fresh-context subagent",
+    "verdict": "fix",
+    "findings": [
+      {
+        "issue": "Mobile Stack navigation hidden",
+        "status": "resolved",
+        "evidence": "Link restored; visible and within mobile viewport in functional checks and final Hallmark capture"
+      },
+      {
+        "issue": "Email icon reads as filled square",
+        "status": "resolved",
+        "evidence": "Stroke-only SVG fill reset; actual fill=none and stroke matches button text color in browser checks"
+      }
+    ],
+    "original_did_better": [
+      "Mobile Stack navigation",
+      "Recognizable email envelope"
+    ],
+    "gap": "none"
+  },
+  "sweep": {
+    "floor_failures": 0,
+    "open_reflex": 0,
+    "warnings": 0,
+    "waived": [
+      "39b: original full-image project buttons retain their full clickable area"
+    ],
+    "dismissed": [
+      "49: project previews use short explicit aria-labels; inner project metadata is structured content"
+    ]
+  }
+}
