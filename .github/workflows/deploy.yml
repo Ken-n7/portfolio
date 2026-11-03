@@ -19,4 +19,4 @@ jobs:
           role-to-assume: ${{ vars.AWS_ROLE_ARN }}
           aws-region: ap-southeast-1
 
-      - run: aws s3 sync . s3://${{ vars.S3_BUCKET }} --delete --exclude ".git*" --exclude ".github/*"
+      - run: aws s3 sync . s3://${{ vars.S3_BUCKET }} --delete --exclude ".git*" --exclude ".github/*" --exclude "trailers/*"
