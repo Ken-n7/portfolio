@@ -305,7 +305,7 @@
         (!demo && shot.classList.contains('is-cover') ? ' is-cover' : '');
 
       pdTitle.textContent  = card.querySelector('.project-name').textContent;
-      var kicker = card.querySelector('.project-kicker');   // only EVMC still has one
+      var kicker = card.querySelector('.project-kicker');
       pdKicker.textContent = kicker ? kicker.textContent : '';
       pdKicker.hidden = !kicker;
 

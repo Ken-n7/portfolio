@@ -885,11 +885,8 @@ body.pd-open .project-open { animation-play-state: paused; }
 }
 
 /* The card is just the mark; the meta line belongs to the opened view, where
-   there is room for it. EVMC keeps its line because it says what the thing is
-   rather than when it was — but not the year. */
+   there is room for it. */
 .project-face .project-kicker { display: none; }
-#p-evmc .project-face .project-kicker { display: block; }
-#p-evmc .project-face .kicker-year { display: none; }
 
 /* Every card now shows its project's own mark, so the plain-text name is kept
    only as the button's accessible name. */
@@ -1174,9 +1171,7 @@ body.pd-open .project-open { animation-play-state: paused; }
 
 /* The ledger's mark is a glyph in its sidebar, not a file. */
 .brand-glyph { width: 2rem; height: 2rem; flex: none; color: #10A074; }
-.brand-evmc .brand-mark   { max-height: 3rem; }
 .brand-citrus .brand-mark { max-height: 2.9rem; border-radius: 22%; }
-.brand-onehub img { max-height: 2.6rem; }
 
 .brand-probxcape {
   font-family: 'Butcherman Subset', var(--font-heading), sans-serif;
