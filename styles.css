@@ -1585,6 +1585,13 @@ body.pd-open .project-open { animation-play-state: paused; }
 }
 
 .footer-inner a:hover { color: var(--color-accent); }
+.footer-links {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-sm) var(--space-lg);
+}
+.footer-links > a { display: inline-flex; align-items: center; }
 .footer-inner .to-top { display: inline-flex; align-items: center; gap: 6px; }
 .footer-note { font-size: var(--text-xs); }
 @media (max-width: 46rem) { .footer-note { display: none; } }
@@ -1704,6 +1711,7 @@ body.pd-open .project-open { animation-play-state: paused; }
 
 @media (pointer: coarse) {
   .project-links a,
+  .footer-links a,
   .footer-inner .to-top,
   .brand {
     min-height: 44px;
