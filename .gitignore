@@ -12,3 +12,13 @@ NOTES.md
 screenshots/
 trailers/probxcape/*.mp4
 trailers/voice-samples/
+
+# Local authoring tools, previews, and credentials are never site sources
+/.agents/
+/.hallmark/
+/.codex/
+/.aws/
+/.preview-tmp/
+/trailers/probxcape/
+__pycache__/
+*.py[cod]
