@@ -1,4 +1,13 @@
 """Mux the completed picture and mastered audio into browser-compatible MP4."""
+import sys
+from pathlib import Path
+
+if "--audio-only" in sys.argv:
+    sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+    from music_audio import export_audio_only
+    export_audio_only(Path(__file__).resolve().parent)
+    raise SystemExit(0)
+
 from pathlib import Path
 import json
 import subprocess

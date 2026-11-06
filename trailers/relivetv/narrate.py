@@ -2,9 +2,10 @@
 
 Reuses the Kokoro model, voices and venv already downloaded for the EFP presentation:
     ../efp/work/venv/bin/python narrate.py
-Writes work/<scene>-voice.wav (cached), work/narration-raw.wav and timeline.json.
+Writes voice-and-script-keyed WAV caches, work/narration-raw.wav and timeline.json.
 """
 import json
+import hashlib
 import os
 from pathlib import Path
 
@@ -17,7 +18,7 @@ ROOT = Path(__file__).resolve().parent
 WORK = ROOT / "work"
 MODEL = ROOT.parent / "efp" / "work"
 FPS = 30
-VOICE, SPEED = os.environ.get("VOICE", "bm_george"), 0.97  # Ken picked George (British male) for the portfolio films
+VOICE, SPEED = os.environ.get("VOICE", "bm_fable"), 0.97
 LANG = "en-gb" if VOICE[0] == "b" else "en-us"
 
 options = ort.SessionOptions()
@@ -29,7 +30,9 @@ scenes = json.loads((ROOT / "scenes.json").read_text())
 rate = 24000
 pieces, offset = [], 0.0
 for scene in scenes:
-    dest = WORK / f"{scene['id']}-voice.wav"
+    # A script or voice change must never reuse narration from an earlier edit.
+    key = hashlib.sha256(f"{VOICE}:{SPEED}:{scene.get('say', scene['narration'])}".encode()).hexdigest()[:12]
+    dest = WORK / f"{scene['id']}-{VOICE}-{key}-voice.wav"
     if dest.exists():
         samples, sr = sf.read(dest)
     else:
@@ -42,7 +45,8 @@ for scene in scenes:
         samples[-n:] *= np.linspace(1, 0, n)
         sf.write(dest, samples, sr, subtype="PCM_24")
     assert sr == rate
-    lead, tail = {"intro": (1.4, 1.0), "outro": (.6, 2.2)}.get(scene["id"], (.5, .7))
+    lead, tail = {"intro": (1.1, .6), "outro": (.5, 1.6), "disclaimer": (.6, .9)}.get(scene["id"], (.25, .45))
+    lead, tail = scene.get("lead", lead), scene.get("tail", tail)
     speech = len(samples) / sr
     length = np.ceil((lead + speech + tail) * FPS) / FPS
     footage = sum(b - a for a, b in scene.get("cuts", []))
@@ -52,7 +56,7 @@ for scene in scenes:
     clip[start:start + len(samples)] = samples
     pieces.append(clip)
     scene.update(start=round(offset, 4), duration=round(float(length), 4), voice_start=lead,
-                 voice_duration=round(speech, 3))
+                 voice_duration=round(speech, 3), voice=VOICE)
     offset += length
     print(f"{scene['id']:8} {speech:5.2f}s speech  {length:5.2f}s scene", flush=True)
 sf.write(WORK / "narration-raw.wav", np.concatenate(pieces), rate, subtype="PCM_24")

@@ -37,8 +37,9 @@ All open source, all local:
 - **Pillow** composes the picture: the recorded window on a plain backdrop in
   the app's own colors, typed `$ tagtune` title cards and captions in DejaVu
   Sans Mono, which is the font the app itself renders in.
-- **NumPy/SciPy** make a quiet original Am7–Fmaj7–Cmaj7–G6 chord bed, ducked
-  under the voice. No third-party music, and no song audio from the download.
+- **Background music:** “Wallpaper” by Kevin MacLeod, a 92 BPM synth, drum
+  kit and guitar recording published in 2011. Licensed CC BY 4.0; excerpted,
+  faded and ducked under the original narration. No song audio from the download.
 - **FFmpeg loudnorm**, two passes: −16 LUFS integrated, −1.5 dBTP ceiling.
 
 ## Rebuild
@@ -55,3 +56,35 @@ From this folder, with `work/home` seeded with a few tagged MP3s:
    `python3 render.py --review` writes the contact sheet.
 
 Delete `work/*-voice.wav` after changing any narration.
+
+## Music-only update
+
+The current portfolio MP4 was updated by copying its existing H.264 video
+stream, preserving every frame, clip boundary, title, caption and transition.
+TagTune reuses the existing published stereo soundtrack as its base, preserving
+the original voice and timing. Its local narration WAV belongs to a different
+edit and is deliberately not used. No speech is regenerated or time-stretched.
+EFP's embedded subtitle stream is also copied unchanged. No visual render,
+new speech synthesis or poster change is needed for this audio-only update.
+
+- Track: [Wallpaper](https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100843) — Kevin MacLeod (incompetech.com).
+- License: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+- Full attribution: [`../../previews/music-credits.txt`](../../previews/music-credits.txt),
+  linked from the project's details and embedded in the MP4's metadata.
+- Original publication: 2011-07-21. No generated music is added.
+- Exact download URL, source SHA-256 and mix settings: [`music.json`](music.json).
+- Preservation checks: ignored `work/music-verification.json` records the
+  unchanged video stream hash and original narration hash.
+
+To rebuild just the music mix and replace the audio:
+
+```sh
+python3 master_audio.py
+python3 export.py --audio-only
+```
+
+The downloaded MP3 is cached in ignored `work/music-source.mp3`; if missing,
+mastering downloads it from the official URL and checks its SHA-256. Keep
+`work/before-online-music.mp4` as the original picture source for this update.
+The existing full-picture rebuild instructions above remain available for
+intentional future visual changes.

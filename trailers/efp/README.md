@@ -42,13 +42,14 @@ The complete production uses open-source tools:
   `/usr/share/fonts/truetype/liberation/`. The application's window title bar
   retains Commissioner; its OFL notice remains in
   `../../fonts/commissioner-OFL.txt`.
-- **[NumPy](https://numpy.org/)** and **[SciPy](https://scipy.org/)** create a
-  quiet original chord bed and a smooth envelope that lowers it beneath speech.
-  There is no third-party music recording.
+- **Background music:** “Inspired” by Kevin MacLeod, a bright, relaxed
+  guitar, synth and percussion recording published in 2016. Licensed CC BY 4.0;
+  excerpted, faded and ducked under the original narration. The earlier
+  synthesized chord bed is replaced.
 - **[FFmpeg](https://ffmpeg.org/ffmpeg-filters.html#loudnorm)** encodes the film
   and performs two-pass loudness mastering: target −16 LUFS, true-peak ceiling
   −1.5 dBTP, 65 Hz high-pass filter, and 48 kHz output. The final AAC stream
-  measures **−16.02 LUFS / −1.49 dBTP**, with 3.4 LU loudness range.
+  is checked again after the music update; measurements are in `audio-report.json`.
 
 The visuals use actual application screenshots with editorial titles and
 transitions. They are a narrated presentation, rather than a continuous
@@ -97,3 +98,33 @@ master MP4 is also ignored; the browser-ready video is tracked in `previews/`.
 Delete the affected `work/*-voice.wav` cache files when changing the script
 or voice, then rerun narration, mastering, rendering, and export. Keep the
 same script revision between picture and audio renders so timings stay aligned.
+
+## Music-only update
+
+The current portfolio MP4 was updated by copying its existing H.264 video
+stream, preserving every frame, clip boundary, title, caption and transition.
+The existing narration WAV is reused without regeneration or time stretching.
+EFP's embedded subtitle stream is also copied unchanged. No visual render,
+new speech synthesis or poster change is needed for this audio-only update.
+
+- Track: [Inspired](https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1600022) — Kevin MacLeod (incompetech.com).
+- License: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+- Full attribution: [`../../previews/music-credits.txt`](../../previews/music-credits.txt),
+  linked from the project's details and embedded in the MP4's metadata.
+- Original publication: 2016-04-20. No generated music is used.
+- Exact download URL, source SHA-256 and mix settings: [`music.json`](music.json).
+- Preservation checks: ignored `work/music-verification.json` records the
+  unchanged video stream hash and original narration hash.
+
+To rebuild just the music mix and replace the audio:
+
+```sh
+python3 master_audio.py
+python3 export.py --audio-only
+```
+
+The downloaded MP3 is cached in ignored `work/music-source.mp3`; if missing,
+mastering downloads it from the official URL and checks its SHA-256. Keep
+`work/before-online-music.mp4` as the original picture source for this update.
+The existing full-picture rebuild instructions above remain available for
+intentional future visual changes.

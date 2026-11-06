@@ -43,15 +43,29 @@ class Take:
     """Reads a recording front to back, cropped; every scene asks for later times than the one before."""
 
     def __init__(self, path, crop=None):
+        self.path = path
         self.size = probe(path)
         self.crop = crop
-        self.proc = subprocess.Popen(["ffmpeg", "-v", "error", "-i", str(path), "-f", "rawvideo", "-pix_fmt", "rgb24",
-                                      "-r", str(FPS), "-"], stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
+        self.proc = None
         self.index, self.frame = -1, None
+
+    def close(self):
+        if self.proc:
+            self.proc.stdout.close()
+            self.proc.terminate()
+            self.proc.wait()
+            self.proc = None
 
     def at(self, t):
         w, h = self.size
-        while self.index < round(t * FPS):
+        target = round(t * FPS)
+        if self.proc is None or target < self.index or target - self.index > FPS:
+            self.close()
+            self.proc = subprocess.Popen(["ffmpeg", "-v", "error", "-ss", str(target / FPS),
+                                          "-i", str(self.path), "-f", "rawvideo", "-pix_fmt", "rgb24",
+                                          "-r", str(FPS), "-"], stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
+            self.index = target - 1
+        while self.index < target:
             raw = self.proc.stdout.read(w * h * 3)
             if len(raw) < w * h * 3:
                 break  # past the end: keep the last frame
@@ -190,27 +204,28 @@ def card(kind, t, length):
             text_center(y0 + size + 160, "free live TV from around the world", font(40), MUTED, fade(1.2))
         else:
             text_center(y0 + size + 160, "github.com/Ken-n7/reLiveTV", font(46, True), TEXT, fade(1.0))
-            text_center(y0 + size + 230, "open source  ·  linux, android & android tv", font(34), MUTED, fade(1.3))
+            text_center(y0 + size + 230, "linux  ·  android  ·  android tv", font(34), MUTED, fade(1.3))
     elif kind == "disclaimer":
         text_center(250, "Good to know", font(64, True), TEXT, fade(0.2))
-        lines = ["Channels come and go: some may be offline or",
-                 "geo-blocked in your country at times.",
-                 "Schedules come from public guide data and may not be accurate.",
-                 "reLiveTV doesn't host any streams. It plays links",
-                 "that iptv-org lists publicly."]
+        lines = ["Channel availability can change.",
+                 "Some channels may be offline or unavailable in your region.",
+                 "Schedules may be inaccurate.",
+                 "reLiveTV does not host any streams."]
         y = 380
         for i, line in enumerate(lines):
             text_center(y, line, font(40), MUTED if i != 2 else MUTED, fade(0.6 + i * 0.25))
-            y += 62 + (24 if i in (1, 2) else 0)
+            y += 88
     if kind == "outro" and length - t < 0.5:
         img = Image.blend(Image.new("RGB", (W, H), (0, 0, 0)), img, ease((length - t) / 0.5))
     return img
 
 
-def frames():
+def frames(picks=None):
     takes = {}
     last = None
+    frame_number = 0
     for si, scene in enumerate(scenes):
+        scene_last = None
         n = round(scene["duration"] * FPS)
         caps = phrases(scene["narration"], scene["voice_duration"])
         cuts = scene.get("cuts", [])
@@ -222,8 +237,12 @@ def frames():
             still = still.resize((still.width * 3, still.height * 3), Image.LANCZOS)
             source = "phone"
         if cuts and source not in takes:
-            takes[source] = Take(WORK / "take.mp4", CROP)
+            takes[source] = Take(WORK / ("take.mp4" if source == "desktop" else "phone.mp4"),
+                                 CROP if source == "desktop" else scene.get("crop"))
         for i in range(n):
+            frame_number += 1
+            if picks is not None and frame_number - 1 not in picks:
+                continue
             t = i / FPS
             if "card" in scene:
                 img = card(scene["card"], t, scene["duration"])
@@ -250,29 +269,34 @@ def frames():
             if hit:
                 a, b, text = hit
                 img = caption(img, text, min(ease((v - a) / 0.15), ease((b - v) / 0.15) if b < caps[-1][1] else 1))
+            scene_last = img
             yield img
-        last = img
+        if scene_last is not None:
+            last = scene_last
+    for take in takes.values():
+        take.close()
 
 
 def main():
     if "--review" in sys.argv:
         total = sum(round(s["duration"] * FPS) for s in scenes)
         picks = {round(total * k / 8 + total / 16) for k in range(8)}
-        shots = [img.resize((W // 4, H // 4)) for k, img in enumerate(frames()) if k in picks]
+        shots = [img.resize((W // 4, H // 4)) for img in frames(picks)]
         sheet = Image.new("RGB", (W // 2, H), BG)
         for k, s in enumerate(shots):
             sheet.paste(s, ((k % 2) * W // 4, (k // 2) * H // 4))
         sheet.save(ROOT / "reLiveTV-review.jpg", quality=88)
         return
     out = subprocess.Popen(["ffmpeg", "-v", "error", "-y", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}",
-                            "-r", str(FPS), "-i", "-", "-c:v", "libx264", "-preset", "slow", "-crf", "16",
+                            "-r", str(FPS), "-i", "-", "-c:v", "libx264", "-preset", "fast", "-crf", "16",
                             "-pix_fmt", "yuv420p", str(WORK / "picture.mp4")], stdin=subprocess.PIPE)
     for k, img in enumerate(frames()):
         out.stdin.write(img.tobytes())
         if k % 300 == 0:
             print(f"frame {k}", flush=True)
     out.stdin.close()
-    out.wait()
+    if out.wait() != 0:
+        raise RuntimeError("Picture encoding failed")
 
 
 if __name__ == "__main__":

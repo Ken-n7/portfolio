@@ -1,0 +1,21 @@
+{
+  "title": "Chill Wave",
+  "composer": "Kevin MacLeod",
+  "publisher": "incompetech.com",
+  "source_url": "https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1600048",
+  "download_url": "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Chill%20Wave.mp3",
+  "license": "CC BY 4.0",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "published": "2016-08-20",
+  "isrc": "USUAN1600048",
+  "tempo_bpm": 100.0,
+  "instruments": "Synths, Bass, Drum, Guitar",
+  "source_sha256": "7f07fbf89860959ff527f7b74606146dd0b0de263739989a70ce712c7c361614",
+  "music_lufs": -31.5,
+  "source_start_seconds": 0,
+  "fade_in_seconds": 1.2,
+  "fade_out_seconds": 2.5,
+  "video_file": "relivetv-demo.mp4",
+  "attribution": "\"Chill Wave\" Kevin MacLeod (incompetech.com). Licensed under Creative Commons: By Attribution 4.0 License. https://creativecommons.org/licenses/by/4.0/ . Excerpted, faded and mixed beneath narration.",
+  "music_gain_db": 6
+}

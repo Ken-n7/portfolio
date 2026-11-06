@@ -1,34 +1,53 @@
 {
   "first_pass": {
-    "input_i": "-17.97",
-    "input_tp": "-1.08",
-    "input_lra": "3.70",
-    "input_thresh": "-28.82",
-    "output_i": "-16.05",
+    "input_i": "-18.31",
+    "input_tp": "-0.96",
+    "input_lra": "3.20",
+    "input_thresh": "-28.68",
+    "output_i": "-16.16",
     "output_tp": "-1.50",
-    "output_lra": "3.50",
-    "output_thresh": "-26.90",
+    "output_lra": "3.20",
+    "output_thresh": "-26.49",
     "normalization_type": "dynamic",
-    "target_offset": "0.05"
+    "target_offset": "0.16"
   },
   "second_pass": {
-    "input_i": "-17.97",
-    "input_tp": "-1.08",
-    "input_lra": "3.70",
-    "input_thresh": "-28.82",
+    "input_i": "-18.31",
+    "input_tp": "-0.96",
+    "input_lra": "3.20",
+    "input_thresh": "-28.68",
     "output_i": "-16.00",
     "output_tp": "-1.50",
-    "output_lra": "3.40",
-    "output_thresh": "-26.85",
+    "output_lra": "3.20",
+    "output_thresh": "-26.33",
     "normalization_type": "dynamic",
-    "target_offset": "0.00"
+    "target_offset": "-0.00"
   },
-  "bed": "Original additive-synthesis chords; no third-party music or cloned voice.",
-  "voice": "Kokoro v1.0 af_heart, speed 0.97, full precision model",
-  "final_encoded_aac": {
-    "integrated_lufs": -16.02,
-    "true_peak_dbtp": -1.49,
-    "loudness_range_lu": 3.4
+  "voice": "Existing narration recording and timing; no speech regenerated or time-stretched.",
+  "narration_source_file": "narration-raw.wav",
+  "narration_sha256": "efdc5540634101a755b9d9a1ae56dd8f1ab9333c860310099ce4b3744d1848cd",
+  "duration_seconds": 102.0,
+  "music": {
+    "title": "Inspired",
+    "composer": "Kevin MacLeod",
+    "publisher": "incompetech.com",
+    "source_url": "https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1600022",
+    "download_url": "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Inspired.mp3",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0/",
+    "published": "2016-04-20",
+    "isrc": "USUAN1600022",
+    "tempo_bpm": 120.0,
+    "instruments": "Guitar, Synths, Percussion",
+    "source_sha256": "40b1af74145cedac77814d060155ad4658e04efa14d1b649decedc98fbb25f69",
+    "music_lufs": -33,
+    "source_start_seconds": 0,
+    "fade_in_seconds": 1.2,
+    "fade_out_seconds": 2.5,
+    "video_file": "efp-presentation.mp4",
+    "attribution": "\"Inspired\" Kevin MacLeod (incompetech.com). Licensed under Creative Commons: By Attribution 4.0 License. https://creativecommons.org/licenses/by/4.0/ . Excerpted, faded and mixed beneath narration.",
+    "music_gain_db": 6
   },
-  "decode_errors": 0
+  "ducking_reduction_max_db": 6.02,
+  "music_rms_dbfs_before_master": -32.30341255400838
 }

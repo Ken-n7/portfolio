@@ -1,0 +1,21 @@
+{
+  "title": "Inspired",
+  "composer": "Kevin MacLeod",
+  "publisher": "incompetech.com",
+  "source_url": "https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1600022",
+  "download_url": "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Inspired.mp3",
+  "license": "CC BY 4.0",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "published": "2016-04-20",
+  "isrc": "USUAN1600022",
+  "tempo_bpm": 120.0,
+  "instruments": "Guitar, Synths, Percussion",
+  "source_sha256": "40b1af74145cedac77814d060155ad4658e04efa14d1b649decedc98fbb25f69",
+  "music_lufs": -33,
+  "source_start_seconds": 0,
+  "fade_in_seconds": 1.2,
+  "fade_out_seconds": 2.5,
+  "video_file": "efp-presentation.mp4",
+  "attribution": "\"Inspired\" Kevin MacLeod (incompetech.com). Licensed under Creative Commons: By Attribution 4.0 License. https://creativecommons.org/licenses/by/4.0/ . Excerpted, faded and mixed beneath narration.",
+  "music_gain_db": 6
+}

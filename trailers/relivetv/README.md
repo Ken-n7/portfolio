@@ -1,59 +1,102 @@
 # reLiveTV demo
 
-98.3-second narrated walkthrough. 1920 × 1080, 30 fps, H.264 MP4, 48 kHz
-stereo AAC, about 7 MiB. Captions are burned into the picture.
+70.2-second narrated walkthrough. 1920 × 1080, 30 fps, H.264 MP4,
+48 kHz stereo AAC. Burned-in captions, Fable narration, and an original
+licensed instrumental recording.
 
 - Video: [`../../previews/relivetv-demo.mp4`](../../previews/relivetv-demo.mp4)
 - Poster: [`../../previews/relivetv-demo-poster.jpg`](../../previews/relivetv-demo-poster.jpg)
 - Card cover: [`../../previews/relivetv.jpg`](../../previews/relivetv.jpg)
 - Eight-frame review: [`reLiveTV-review.jpg`](reLiveTV-review.jpg)
-- Script: [`scenes.json`](scenes.json); timings: [`timeline.json`](timeline.json); loudness: [`audio-report.json`](audio-report.json)
+- Script and source cuts: [`scenes.json`](scenes.json)
+- Final timing: [`timeline.json`](timeline.json)
+- Audio measurements: [`audio-report.json`](audio-report.json)
 
-## What's real
+## Edit
 
-One continuous recording of the actual Linux app
-([Ken-n7/reLiveTV](https://github.com/Ken-n7/reLiveTV), `main` at `920e75f`),
-driven by a Flutter integration test (`integration_test/demo_trailer_test.dart`
-in that repo, kept out of its test suite) while FFmpeg records the window.
+The existing dark background, desktop window framing, phone framing, title
+cards, typography, and caption band are retained. Shorter feature narration
+and separate news, markets, and sports beats bring the edit down from 98.3
+seconds. Playback stays at its original speed. Buffering waits and test click
+indicators are excluded through source selection.
 
-- **Playback** is real and limited to free channels their broadcasters stream
-  themselves: BBC News, DW, Bloomberg TV and Red Bull TV. Each one was left to
-  buffer for five seconds after it started before any of its footage is used,
-  so no spinner or stutter makes the cut. On a slow connection streams took up
-  to a minute to start; those waits are cut, not sped up.
-- **Paid channels** (Cartoon Network, Disney XD, Animax and others) appear
-  only as saved cards in My List, never playing. The list is Ken's own, copied
-  into the demo's settings by `record.sh` from `my-list.json`.
-- **The BBC News stretch** was picked for a calm business segment; the hold
-  around it ran into other footage that was left out.
-- **The phone shot** is the same app at phone size on the laptop (Flutter draws
-  the same compact layout on Android), shown in a plain phone frame. The phone
-  itself was offline, so a real screenshot would have shown empty logo boxes.
-- **Disclaimers** (schedules may be inaccurate; channels may be offline or
-  geo-blocked; no streams are hosted) are both on screen and spoken.
+The narration describes the viewing experience: Home, Discover, search,
+schedules, channel variety, the mini player, filters, saved favourites, and
+Android availability. The closing disclaimer covers changing availability,
+offline or region-restricted channels, inaccurate schedules, and the fact
+that reLiveTV hosts no streams. It is both spoken and displayed.
 
-The app ran with `HOME` pointed at `work/home` (fresh settings, a copy of the
-channel cache) so Ken's own settings were never touched. Channel logos were
-loaded in an unrecorded warm-up pass first.
+## Footage
 
-## Tools
+Desktop scenes use the existing recording of the actual Linux app
+([Ken-n7/reLiveTV](https://github.com/Ken-n7/reLiveTV), `920e75f`).
+Only broadcaster-provided free channels play: BBC News, DW, Bloomberg TV,
+and Red Bull TV. Other channels appear only as saved cards.
 
-All open source, all local:
+The phone scene is a new recording of the actual Android app running on a
+Realme RMX1851, captured over USB with scrcpy. Channel artwork is loaded,
+the Android country filter opens and closes naturally, and Android touch indicators are disabled during
+capture. The crop removes system notifications and the system navigation bar;
+the app's real header, content, and bottom navigation remain. The phone scene
+uses moving footage rather than the previous resized desktop still.
 
-- **Flutter integration_test** drives the real UI; **python-xlib** resizes the
-  window to 1600 × 900 (`xresize.py`); **FFmpeg** `x11grab -window_id` records
-  it (run with `GDK_BACKEND=x11`, since Wayland windows can't be grabbed).
-- **Kokoro-82M** via **kokoro-onnx**, stock `bm_george` voice, en-gb, speed
-  0.97. Synthetic, no voice cloning. `say` lines in `scenes.json` spell out
-  "re-live TV" and "I P T V org" for the voice; captions keep the real names.
-- **Pillow** composes the picture in Ubuntu Sans, the font the app renders in on
-  Linux. **NumPy/SciPy** make the quiet original chord bed. **FFmpeg loudnorm**
-  masters to −16 LUFS / −1.5 dBTP.
+## Audio
+
+Kokoro v1.0 **bm_fable**, en-gb, speed 0.97: the Fable voice from the existing
+voice sample set. Narration is regenerated with voice-and-script keyed caches
+so earlier George recordings cannot be reused accidentally. Speech stays at
+its generated speed.
+
+The background recording is **“Chill Wave” by Kevin MacLeod**, published in
+2016: a relaxed 100 BPM groove with synths, bass, drums and guitar. It replaces
+the generated instrumental. The music is excerpted, faded and ducked under
+Fable. Two-pass FFmpeg loudness mastering targets −16 LUFS and −1.5 dBTP.
 
 ## Rebuild
 
-1. `./record.sh` (needs a venv with `python-xlib`; set `XPY` to its python)
-   records `work/take.mp4`, `work/take.json` and `work/phone-discover.png`.
-2. Re-pick the cuts in `scenes.json` from the `clean:` marks in `take.json`.
-3. `../efp/work/venv/bin/python narrate.py`, `python3 master_audio.py`,
-   `python3 render.py`, `python3 export.py`, `python3 cover.py`.
+Existing desktop source: `work/take.mp4` and `work/take.json`.
+For a new phone take, open Discover on the connected Android phone, scroll to
+the top, and let the artwork load. Then run `python3 record_phone.py`.
+This restores the original touch-indicator setting after capture and
+normalizes the variable-frame-rate recording to 30 fps, preserving still holds.
+
+```sh
+../efp/work/venv/bin/python narrate.py
+python3 master_audio.py
+python3 render.py
+python3 export.py
+python3 render.py --review
+```
+
+`python3 cover.py` rebuilds the existing sports poster and card cover.
+Working recordings, generated audio, and the local master stay in ignored paths.
+
+## Music-only update
+
+The current portfolio MP4 was updated by copying its existing H.264 video
+stream, preserving every frame, clip boundary, title, caption and transition.
+The existing narration WAV is reused without regeneration or time stretching.
+EFP's embedded subtitle stream is also copied unchanged. No visual render,
+new speech synthesis or poster change is needed for this audio-only update.
+
+- Track: [Chill Wave](https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1600048) — Kevin MacLeod (incompetech.com).
+- License: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+- Full attribution: [`../../previews/music-credits.txt`](../../previews/music-credits.txt),
+  linked from the project's details and embedded in the MP4's metadata.
+- Original publication: 2016-08-20. No generated music is used.
+- Exact download URL, source SHA-256 and mix settings: [`music.json`](music.json).
+- Preservation checks: ignored `work/music-verification.json` records the
+  unchanged video stream hash and original narration hash.
+
+To rebuild just the music mix and replace the audio:
+
+```sh
+python3 master_audio.py
+python3 export.py --audio-only
+```
+
+The downloaded MP3 is cached in ignored `work/music-source.mp3`; if missing,
+mastering downloads it from the official URL and checks its SHA-256. Keep
+`work/before-online-music.mp4` as the original picture source for this update.
+The existing full-picture rebuild instructions above remain available for
+intentional future visual changes.

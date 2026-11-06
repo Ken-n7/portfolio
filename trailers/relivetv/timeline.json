@@ -2,169 +2,217 @@
   {
     "id": "intro",
     "card": "intro",
-    "narration": "reLiveTV. Free live TV from around the world.",
-    "say": "re-live TV. Free live TV from around the world.",
+    "narration": "reLiveTV. Live TV from around the world.",
+    "say": "Re-live TV. Live TV from around the world.",
     "start": 0.0,
-    "duration": 6.5667,
-    "voice_start": 1.4,
-    "voice_duration": 4.138
+    "duration": 5.8333,
+    "voice_start": 1.1,
+    "voice_duration": 4.104,
+    "voice": "bm_fable"
   },
   {
     "id": "home",
     "cuts": [
       [
-        0.3,
-        4.7
+        0.4,
+        3.8
       ]
     ],
-    "narration": "Home keeps the channels you've saved, in My List.",
-    "start": 6.5667,
-    "duration": 4.7,
-    "voice_start": 0.5,
-    "voice_duration": 3.476
+    "narration": "Your favourite channels, together in My List.",
+    "start": 5.8333,
+    "duration": 4.1333,
+    "voice_start": 0.25,
+    "voice_duration": 3.41,
+    "voice": "bm_fable"
   },
   {
     "id": "browse",
     "cuts": [
       [
-        4.9,
-        13.0
+        6,
+        10.6
       ]
     ],
-    "narration": "Discover reads the public channel list kept by iptv-org, and sorts thousands of channels into rows.",
-    "say": "Discover reads the public channel list kept by I P T V org, and sorts thousands of channels into rows.",
-    "start": 11.2667,
-    "duration": 8.7667,
-    "voice_start": 0.5,
-    "voice_duration": 7.541
+    "narration": "Explore news, entertainment, and more in Discover.",
+    "start": 9.9667,
+    "duration": 4.6,
+    "voice_start": 0.25,
+    "voice_duration": 3.8,
+    "voice": "bm_fable"
   },
   {
     "id": "search",
     "cuts": [
       [
-        14.8,
-        19.9
+        15.7,
+        19.4
       ]
     ],
-    "narration": "Search by name, network, country or language, and pick a channel.",
-    "start": 20.0333,
-    "duration": 5.7333,
-    "voice_start": 0.5,
-    "voice_duration": 4.507
+    "narration": "Find a channel with a quick search.",
+    "start": 14.5667,
+    "duration": 3.7,
+    "voice_start": 0.25,
+    "voice_duration": 2.687,
+    "voice": "bm_fable"
   },
   {
     "id": "schedule",
     "cuts": [
       [
-        64.0,
-        74.0
+        65,
+        69.9
       ]
     ],
-    "note": "Schedules come from public guide data and may not always be accurate.",
-    "narration": "Most channels show what's on now and next, in your own time zone. The schedule comes from public guide data, so it isn't always exact.",
-    "start": 25.7667,
-    "duration": 10.2,
-    "voice_start": 0.5,
-    "voice_duration": 8.991
+    "narration": "See what's on now, and what's coming up, in your time zone.",
+    "start": 18.2667,
+    "duration": 4.9333,
+    "voice_start": 0.25,
+    "voice_duration": 3.84,
+    "voice": "bm_fable"
   },
   {
-    "id": "hop",
+    "id": "news",
     "cuts": [
       [
-        159.0,
-        162.4
-      ],
-      [
-        193.5,
-        196.9
-      ],
-      [
-        223.5,
-        226.9
+        159.1,
+        161.8
       ]
     ],
-    "narration": "Jump from world news, to the markets, to sports. If a stream stalls, reLiveTV retries it, then moves on to the next source.",
-    "say": "Jump from world news, to the markets, to sports. If a stream stalls, re-live TV retries it, then moves on to the next source.",
-    "start": 35.9667,
-    "duration": 10.3,
-    "voice_start": 0.5,
-    "voice_duration": 9.091
+    "narration": "Catch up on world news.",
+    "lead": 0.25,
+    "tail": 0.18,
+    "start": 23.2,
+    "duration": 2.7333,
+    "voice_start": 0.25,
+    "voice_duration": 2.291,
+    "voice": "bm_fable"
+  },
+  {
+    "id": "markets",
+    "cuts": [
+      [
+        193.5,
+        196.2
+      ]
+    ],
+    "narration": "Follow the markets.",
+    "lead": 0.12,
+    "tail": 0.18,
+    "start": 25.9333,
+    "duration": 2.7,
+    "voice_start": 0.12,
+    "voice_duration": 1.771,
+    "voice": "bm_fable"
+  },
+  {
+    "id": "sports",
+    "cuts": [
+      [
+        223.6,
+        227.1
+      ]
+    ],
+    "narration": "Or find your next adventure.",
+    "lead": 0.12,
+    "tail": 0.18,
+    "start": 28.6333,
+    "duration": 3.5,
+    "voice_start": 0.12,
+    "voice_duration": 2.624,
+    "voice": "bm_fable"
   },
   {
     "id": "mini",
     "cuts": [
       [
-        241.4,
-        252.0
+        247,
+        251.1
       ]
     ],
-    "narration": "Keep a channel playing in the mini player while you look for something else.",
-    "start": 46.2667,
-    "duration": 10.6,
-    "voice_start": 0.5,
-    "voice_duration": 4.187
+    "narration": "Keep watching in the mini player while you browse.",
+    "start": 32.1333,
+    "duration": 4.1,
+    "voice_start": 0.25,
+    "voice_duration": 3.138,
+    "voice": "bm_fable"
   },
   {
     "id": "filter",
     "cuts": [
       [
-        252.9,
-        261.5
+        253.8,
+        256.4
+      ],
+      [
+        258.4,
+        260.8
       ]
     ],
-    "narration": "Filters narrow it down by country, language or category.",
-    "start": 56.8667,
-    "duration": 8.6,
-    "voice_start": 0.5,
-    "voice_duration": 4.358
+    "narration": "Narrow your search by country, language, or category.",
+    "start": 36.2333,
+    "duration": 5.0,
+    "voice_start": 0.25,
+    "voice_duration": 4.117,
+    "voice": "bm_fable"
   },
   {
     "id": "saved",
     "cuts": [
       [
-        263.3,
-        267.9
+        264,
+        267.8
       ]
     ],
-    "narration": "Save a channel, and it's on Home next time. No accounts, and no tracking.",
-    "start": 65.4667,
-    "duration": 6.3,
-    "voice_start": 0.5,
-    "voice_duration": 5.095
+    "narration": "Save your favourites. Come back to them on Home.",
+    "start": 41.2333,
+    "duration": 4.3667,
+    "voice_start": 0.25,
+    "voice_duration": 3.648,
+    "voice": "bm_fable"
   },
   {
     "id": "phone",
-    "still": "phone-discover.png",
-    "still_crop": [
-      26,
-      71,
-      374,
-      821
+    "narration": "Take reLiveTV with you on Android. Made for your phone, and your smart TV.",
+    "source": "phone",
+    "cuts": [
+      [
+        2.5,
+        10
+      ]
     ],
-    "narration": "Also available on Android phones, and Android smart TVs.",
-    "start": 71.7667,
-    "duration": 5.9,
-    "voice_start": 0.5,
-    "voice_duration": 4.675
+    "say": "Take re-live TV with you on Android. Made for your phone, and your smart TV.",
+    "crop": [
+      0,
+      90,
+      1080,
+      2250
+    ],
+    "start": 45.6,
+    "duration": 7.5,
+    "voice_start": 0.25,
+    "voice_duration": 5.609,
+    "voice": "bm_fable"
   },
   {
     "id": "disclaimer",
     "card": "disclaimer",
-    "narration": "Channels come and go. Some may be offline, or blocked in your country, at times. reLiveTV doesn't host any streams. It plays the links iptv-org lists publicly.",
-    "say": "Channels come and go. Some may be offline, or blocked in your country, at times. re-live TV doesn't host any streams. It plays the links I P T V org lists publicly.",
-    "start": 77.6667,
-    "duration": 13.3,
-    "voice_start": 0.5,
-    "voice_duration": 12.088
+    "narration": "Channel availability can change. Some may be offline or unavailable in your region. Schedules may be inaccurate. reLiveTV does not host any streams.",
+    "say": "Channel availability can change. Some may be offline or unavailable in your region. Schedules may be inaccurate. Re-live TV does not host any streams.",
+    "start": 53.1,
+    "duration": 11.6667,
+    "voice_start": 0.6,
+    "voice_duration": 10.166,
+    "voice": "bm_fable"
   },
   {
     "id": "outro",
     "card": "outro",
-    "narration": "reLiveTV is open source. The code is on GitHub.",
-    "say": "re-live TV is open source. The code is on GitHub.",
-    "start": 90.9667,
-    "duration": 7.3,
-    "voice_start": 0.6,
-    "voice_duration": 4.476
+    "narration": "Find your next channel with reLiveTV.",
+    "say": "Find your next channel with re-live TV.",
+    "start": 64.7667,
+    "duration": 5.4333,
+    "voice_start": 0.5,
+    "voice_duration": 3.313,
+    "voice": "bm_fable"
   }
 ]

@@ -2,68 +2,147 @@
   {
     "id": "intro",
     "card": "intro",
-    "narration": "reLiveTV. Free live TV from around the world.",
-    "say": "re-live TV. Free live TV from around the world."
+    "narration": "reLiveTV. Live TV from around the world.",
+    "say": "Re-live TV. Live TV from around the world."
   },
   {
     "id": "home",
-    "cuts": [[0.3, 4.7]],
-    "narration": "Home keeps the channels you've saved, in My List."
+    "cuts": [
+      [
+        0.4,
+        3.8
+      ]
+    ],
+    "narration": "Your favourite channels, together in My List."
   },
   {
     "id": "browse",
-    "cuts": [[4.9, 13.0]],
-    "narration": "Discover reads the public channel list kept by iptv-org, and sorts thousands of channels into rows.",
-    "say": "Discover reads the public channel list kept by I P T V org, and sorts thousands of channels into rows."
+    "cuts": [
+      [
+        6,
+        10.6
+      ]
+    ],
+    "narration": "Explore news, entertainment, and more in Discover."
   },
   {
     "id": "search",
-    "cuts": [[14.8, 19.9]],
-    "narration": "Search by name, network, country or language, and pick a channel."
+    "cuts": [
+      [
+        15.7,
+        19.4
+      ]
+    ],
+    "narration": "Find a channel with a quick search."
   },
   {
     "id": "schedule",
-    "cuts": [[64.0, 74.0]],
-    "note": "Schedules come from public guide data and may not always be accurate.",
-    "narration": "Most channels show what's on now and next, in your own time zone. The schedule comes from public guide data, so it isn't always exact."
+    "cuts": [
+      [
+        65,
+        69.9
+      ]
+    ],
+    "narration": "See what's on now, and what's coming up, in your time zone."
   },
   {
-    "id": "hop",
-    "cuts": [[159.0, 162.4], [193.5, 196.9], [223.5, 226.9]],
-    "narration": "Jump from world news, to the markets, to sports. If a stream stalls, reLiveTV retries it, then moves on to the next source.",
-    "say": "Jump from world news, to the markets, to sports. If a stream stalls, re-live TV retries it, then moves on to the next source."
+    "id": "news",
+    "cuts": [
+      [
+        159.1,
+        161.8
+      ]
+    ],
+    "narration": "Catch up on world news.",
+    "lead": 0.25,
+    "tail": 0.18
+  },
+  {
+    "id": "markets",
+    "cuts": [
+      [
+        193.5,
+        196.2
+      ]
+    ],
+    "narration": "Follow the markets.",
+    "lead": 0.12,
+    "tail": 0.18
+  },
+  {
+    "id": "sports",
+    "cuts": [
+      [
+        223.6,
+        227.1
+      ]
+    ],
+    "narration": "Or find your next adventure.",
+    "lead": 0.12,
+    "tail": 0.18
   },
   {
     "id": "mini",
-    "cuts": [[241.4, 252.0]],
-    "narration": "Keep a channel playing in the mini player while you look for something else."
+    "cuts": [
+      [
+        247,
+        251.1
+      ]
+    ],
+    "narration": "Keep watching in the mini player while you browse."
   },
   {
     "id": "filter",
-    "cuts": [[252.9, 261.5]],
-    "narration": "Filters narrow it down by country, language or category."
+    "cuts": [
+      [
+        253.8,
+        256.4
+      ],
+      [
+        258.4,
+        260.8
+      ]
+    ],
+    "narration": "Narrow your search by country, language, or category."
   },
   {
     "id": "saved",
-    "cuts": [[263.3, 267.9]],
-    "narration": "Save a channel, and it's on Home next time. No accounts, and no tracking."
+    "cuts": [
+      [
+        264,
+        267.8
+      ]
+    ],
+    "narration": "Save your favourites. Come back to them on Home."
   },
   {
     "id": "phone",
-    "still": "phone-discover.png",
-    "still_crop": [26, 71, 374, 821],
-    "narration": "Also available on Android phones, and Android smart TVs."
+    "narration": "Take reLiveTV with you on Android. Made for your phone, and your smart TV.",
+    "source": "phone",
+    "cuts": [
+      [
+        2.5,
+        10
+      ]
+    ],
+    "say": "Take re-live TV with you on Android. Made for your phone, and your smart TV.",
+    "crop": [
+      0,
+      90,
+      1080,
+      2250
+    ]
   },
   {
     "id": "disclaimer",
     "card": "disclaimer",
-    "narration": "Channels come and go. Some may be offline, or blocked in your country, at times. reLiveTV doesn't host any streams. It plays the links iptv-org lists publicly.",
-    "say": "Channels come and go. Some may be offline, or blocked in your country, at times. re-live TV doesn't host any streams. It plays the links I P T V org lists publicly."
+    "narration": "Channel availability can change. Some may be offline or unavailable in your region. Schedules may be inaccurate. reLiveTV does not host any streams.",
+    "say": "Channel availability can change. Some may be offline or unavailable in your region. Schedules may be inaccurate. Re-live TV does not host any streams."
   },
   {
     "id": "outro",
     "card": "outro",
-    "narration": "reLiveTV is open source. The code is on GitHub.",
-    "say": "re-live TV is open source. The code is on GitHub."
+    "narration": "Find your next channel with reLiveTV.",
+    "say": "Find your next channel with re-live TV."
   }
 ]

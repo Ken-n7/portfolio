@@ -3,6 +3,15 @@
     python3 export.py
 -> TagTune-demo-1080p.mp4 (local master, ignored), ../../previews/tagtune-demo.mp4, ../../previews/tagtune-demo-poster.jpg
 """
+import sys
+from pathlib import Path
+
+if "--audio-only" in sys.argv:
+    sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+    from music_audio import export_audio_only
+    export_audio_only(Path(__file__).resolve().parent)
+    raise SystemExit(0)
+
 import json
 import subprocess
 from pathlib import Path

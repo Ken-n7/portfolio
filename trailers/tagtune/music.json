@@ -1,0 +1,22 @@
+{
+  "title": "Wallpaper",
+  "composer": "Kevin MacLeod",
+  "publisher": "incompetech.com",
+  "source_url": "https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100843",
+  "download_url": "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Wallpaper.mp3",
+  "license": "CC BY 4.0",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "published": "2011-07-21",
+  "isrc": "USUAN1100843",
+  "tempo_bpm": 92.0,
+  "instruments": "Synths, Drum Kit, Guitar",
+  "source_sha256": "9fa810e5193c88f1b360537366f210f16c2588106d5292f0659e9957fa274f96",
+  "music_lufs": -30,
+  "source_start_seconds": 0,
+  "fade_in_seconds": 1.2,
+  "fade_out_seconds": 2.5,
+  "video_file": "tagtune-demo.mp4",
+  "attribution": "\"Wallpaper\" Kevin MacLeod (incompetech.com). Licensed under Creative Commons: By Attribution 4.0 License. https://creativecommons.org/licenses/by/4.0/ . Excerpted, faded and mixed beneath narration.",
+  "narration_source": "published_soundtrack",
+  "music_gain_db": 6
+}
