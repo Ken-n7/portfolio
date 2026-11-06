@@ -1,0 +1,28 @@
+{
+  "first_pass": {
+    "input_i": "-17.31",
+    "input_tp": "-2.03",
+    "input_lra": "4.80",
+    "input_thresh": "-28.95",
+    "output_i": "-16.06",
+    "output_tp": "-1.50",
+    "output_lra": "3.30",
+    "output_thresh": "-27.60",
+    "normalization_type": "dynamic",
+    "target_offset": "0.06"
+  },
+  "second_pass": {
+    "input_i": "-17.31",
+    "input_tp": "-2.03",
+    "input_lra": "4.80",
+    "input_thresh": "-28.95",
+    "output_i": "-16.00",
+    "output_tp": "-1.50",
+    "output_lra": "3.40",
+    "output_thresh": "-27.54",
+    "normalization_type": "dynamic",
+    "target_offset": "-0.00"
+  },
+  "bed": "Original additive-synthesis chords; no third-party music or cloned voice.",
+  "voice": "Kokoro v1.0 af_heart, speed 0.97, full precision model (same narrator as the EFP film)"
+}

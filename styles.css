@@ -916,6 +916,9 @@ body.pd-open .project-open { animation-play-state: paused; }
 .project-face .brand-glyph { filter: drop-shadow(0 1px 6px rgba(6, 10, 20, 0.95)); }
 .project-face .brand-words > span:first-child { font-size: clamp(0.95rem, 2vw, 1.2rem); }
 .project-face .brand-probxcape { font-size: clamp(1.5rem, 3.4vw, 2.1rem); }
+.brand.brand-tagtune { display: block; font-family: var(--font-mono); font-weight: 700; letter-spacing: 0; white-space: pre; }
+.project-face .brand-tagtune { font-size: clamp(1.15rem, 2.6vw, 1.55rem); color: #C6F2D2; }
+.brand-tagtune .prompt { color: #4ADE80; }
 .project-face .brand-sip span { font-size: clamp(1rem, 2.2vw, 1.25rem); }
 .project-face .brand .on-light { display: none; }
 .project-face .brand .on-dark  { display: block; }
