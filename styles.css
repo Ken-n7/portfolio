@@ -1171,7 +1171,8 @@ body.pd-open .project-open { animation-play-state: paused; }
 
 /* The ledger's mark is a glyph in its sidebar, not a file. */
 .brand-glyph { width: 2rem; height: 2rem; flex: none; color: #10A074; }
-.brand-citrus .brand-mark { max-height: 2.9rem; border-radius: 22%; }
+.brand-citrus .brand-mark,
+.brand-icon .brand-mark { max-height: 2.9rem; border-radius: 22%; }
 
 .brand-probxcape {
   font-family: 'Butcherman Subset', var(--font-heading), sans-serif;
