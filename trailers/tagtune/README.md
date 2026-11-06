@@ -1,7 +1,7 @@
 # TagTune demo
 
-54.7-second narrated walkthrough. 1920 × 1080, 30 fps, H.264 MP4, 48 kHz
-stereo AAC, about 2.7 MiB. Captions are burned into the picture.
+58.1-second narrated walkthrough. 1920 × 1080, 30 fps, H.264 MP4, 48 kHz
+stereo AAC, about 2.9 MiB. Captions are burned into the picture.
 
 - Video: [`../../previews/tagtune-demo.mp4`](../../previews/tagtune-demo.mp4)
 - Poster: [`../../previews/tagtune-demo-poster.jpg`](../../previews/tagtune-demo-poster.jpg)
@@ -31,9 +31,10 @@ All open source, all local:
 - **FFmpeg** `x11grab -window_id` records the TagTune window (an XWayland
   window, so recording the screen area comes out black on GNOME Wayland).
 - **[Kokoro-82M](https://huggingface.co/hexgrad/Kokoro-82M)** via
-  **kokoro-onnx** reads the narration with the stock `af_heart` voice at speed
-  0.97: the same model, files and voice as the EFP film, reused from
-  `../efp/work`. Synthetic, no voice cloning, no time stretching.
+  **kokoro-onnx** reads the narration with the stock `bm_george` voice
+  (British English) at speed 0.97, picked by ear from twelve samples, using the
+  model files already downloaded for the EFP film in `../efp/work`. Synthetic,
+  no voice cloning, no time stretching.
 - **Pillow** composes the picture: the recorded window on a plain backdrop in
   the app's own colors, typed `$ tagtune` title cards and captions in DejaVu
   Sans Mono, which is the font the app itself renders in.

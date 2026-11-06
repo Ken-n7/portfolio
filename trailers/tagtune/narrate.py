@@ -5,6 +5,7 @@ Reuses the Kokoro model, voices and venv already downloaded for the EFP presenta
 Writes work/<scene>-voice.wav (cached), work/narration-raw.wav and timeline.json.
 """
 import json
+import os
 from pathlib import Path
 
 import numpy as np
@@ -16,7 +17,8 @@ ROOT = Path(__file__).resolve().parent
 WORK = ROOT / "work"
 MODEL = ROOT.parent / "efp" / "work"
 FPS = 30
-VOICE, SPEED = "af_heart", 0.97  # same narrator as the EFP film, so the portfolio sounds like one voice
+VOICE, SPEED = os.environ.get("VOICE", "bm_george"), 0.97  # Ken picked George (British male) for the portfolio films
+LANG = "en-gb" if VOICE[0] == "b" else "en-us"
 
 options = ort.SessionOptions()
 options.intra_op_num_threads = 4
@@ -31,7 +33,7 @@ for scene in scenes:
     if dest.exists():
         samples, sr = sf.read(dest)
     else:
-        samples, sr = kokoro.create(scene["narration"], voice=VOICE, speed=SPEED, lang="en-us")
+        samples, sr = kokoro.create(scene["narration"], voice=VOICE, speed=SPEED, lang=LANG)
         # trim only the model's padding; breaths and inner pauses stay
         active = np.where(np.abs(samples) > 0.0015)[0]
         samples = samples[max(0, active[0] - int(.09 * sr)):min(len(samples), active[-1] + int(.18 * sr))]

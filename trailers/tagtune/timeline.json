@@ -4,9 +4,9 @@
     "card": "intro",
     "narration": "TagTune. Paste a YouTube link, and get back a properly tagged song.",
     "start": 0.0,
-    "duration": 6.6333,
+    "duration": 7.2333,
     "voice_start": 1.4,
-    "voice_duration": 4.219
+    "voice_duration": 4.821
   },
   {
     "id": "paste",
@@ -17,10 +17,10 @@
         9.0
       ]
     ],
-    "start": 6.6333,
+    "start": 7.2333,
     "duration": 9.0,
     "voice_start": 0.5,
-    "voice_duration": 5.714
+    "voice_duration": 6.249
   },
   {
     "id": "search",
@@ -39,10 +39,10 @@
         78.3
       ]
     ],
-    "start": 15.6333,
-    "duration": 9.3333,
+    "start": 16.2333,
+    "duration": 10.0,
     "voice_start": 0.5,
-    "voice_duration": 8.128
+    "voice_duration": 8.791
   },
   {
     "id": "tags",
@@ -60,10 +60,10 @@
         81.3
       ]
     ],
-    "start": 24.9667,
-    "duration": 9.4,
+    "start": 26.2333,
+    "duration": 10.1667,
     "voice_start": 0.5,
-    "voice_duration": 8.177
+    "voice_duration": 8.946
   },
   {
     "id": "library",
@@ -74,10 +74,10 @@
         88.4
       ]
     ],
-    "start": 34.3667,
-    "duration": 7.4,
+    "start": 36.4,
+    "duration": 7.9667,
     "voice_start": 0.5,
-    "voice_duration": 6.189
+    "voice_duration": 6.738
   },
   {
     "id": "theme",
@@ -88,18 +88,18 @@
         95.3
       ]
     ],
-    "start": 41.7667,
+    "start": 44.3667,
     "duration": 6.9,
     "voice_start": 0.5,
-    "voice_duration": 4.34
+    "voice_duration": 4.987
   },
   {
     "id": "outro",
     "card": "outro",
     "narration": "TagTune is open source. The code is on GitHub.",
-    "start": 48.6667,
-    "duration": 6.0667,
+    "start": 51.2667,
+    "duration": 6.8333,
     "voice_start": 0.6,
-    "voice_duration": 3.251
+    "voice_duration": 4.002
   }
 ]

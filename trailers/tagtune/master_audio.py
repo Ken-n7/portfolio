@@ -42,6 +42,6 @@ log=run(['-i',str(WORK/'mix-premaster.wav'),'-af',chain+':print_format=json','-f
 stats=json.loads(re.search(r'\{[\s\S]*?\}',log).group(0))
 params=f":measured_I={stats['input_i']}:measured_LRA={stats['input_lra']}:measured_TP={stats['input_tp']}:measured_thresh={stats['input_thresh']}:offset={stats['target_offset']}:linear=true"
 log2=run(['-i',str(WORK/'mix-premaster.wav'),'-af',chain+params+':print_format=json','-ar','48000','-c:a','pcm_s24le',str(WORK/'audio-master.wav')])
-result={'first_pass':stats,'second_pass':json.loads(re.search(r'\{[\s\S]*?\}',log2).group(0)),'bed':'Original additive-synthesis chords; no third-party music or cloned voice.','voice':'Kokoro v1.0 af_heart, speed 0.97, full precision model (same narrator as the EFP film)'}
+result={'first_pass':stats,'second_pass':json.loads(re.search(r'\{[\s\S]*?\}',log2).group(0)),'bed':'Original additive-synthesis chords; no third-party music or cloned voice.','voice':'Kokoro v1.0 bm_george (en-gb), speed 0.97, full precision model'}
 (ROOT/'audio-report.json').write_text(json.dumps(result,indent=2)+'\n')
 print(json.dumps(result['second_pass'],indent=2))

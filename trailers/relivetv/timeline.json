@@ -1,0 +1,170 @@
+[
+  {
+    "id": "intro",
+    "card": "intro",
+    "narration": "reLiveTV. Free live TV from around the world.",
+    "say": "re-live TV. Free live TV from around the world.",
+    "start": 0.0,
+    "duration": 6.5667,
+    "voice_start": 1.4,
+    "voice_duration": 4.138
+  },
+  {
+    "id": "home",
+    "cuts": [
+      [
+        0.3,
+        4.7
+      ]
+    ],
+    "narration": "Home keeps the channels you've saved, in My List.",
+    "start": 6.5667,
+    "duration": 4.7,
+    "voice_start": 0.5,
+    "voice_duration": 3.476
+  },
+  {
+    "id": "browse",
+    "cuts": [
+      [
+        4.9,
+        13.0
+      ]
+    ],
+    "narration": "Discover reads the public channel list kept by iptv-org, and sorts thousands of channels into rows.",
+    "say": "Discover reads the public channel list kept by I P T V org, and sorts thousands of channels into rows.",
+    "start": 11.2667,
+    "duration": 8.7667,
+    "voice_start": 0.5,
+    "voice_duration": 7.541
+  },
+  {
+    "id": "search",
+    "cuts": [
+      [
+        14.8,
+        19.9
+      ]
+    ],
+    "narration": "Search by name, network, country or language, and pick a channel.",
+    "start": 20.0333,
+    "duration": 5.7333,
+    "voice_start": 0.5,
+    "voice_duration": 4.507
+  },
+  {
+    "id": "schedule",
+    "cuts": [
+      [
+        64.0,
+        74.0
+      ]
+    ],
+    "note": "Schedules come from public guide data and may not always be accurate.",
+    "narration": "Most channels show what's on now and next, in your own time zone. The schedule comes from public guide data, so it isn't always exact.",
+    "start": 25.7667,
+    "duration": 10.2,
+    "voice_start": 0.5,
+    "voice_duration": 8.991
+  },
+  {
+    "id": "hop",
+    "cuts": [
+      [
+        159.0,
+        162.4
+      ],
+      [
+        193.5,
+        196.9
+      ],
+      [
+        223.5,
+        226.9
+      ]
+    ],
+    "narration": "Jump from world news, to the markets, to sports. If a stream stalls, reLiveTV retries it, then moves on to the next source.",
+    "say": "Jump from world news, to the markets, to sports. If a stream stalls, re-live TV retries it, then moves on to the next source.",
+    "start": 35.9667,
+    "duration": 10.3,
+    "voice_start": 0.5,
+    "voice_duration": 9.091
+  },
+  {
+    "id": "mini",
+    "cuts": [
+      [
+        241.4,
+        252.0
+      ]
+    ],
+    "narration": "Keep a channel playing in the mini player while you look for something else.",
+    "start": 46.2667,
+    "duration": 10.6,
+    "voice_start": 0.5,
+    "voice_duration": 4.187
+  },
+  {
+    "id": "filter",
+    "cuts": [
+      [
+        252.9,
+        261.5
+      ]
+    ],
+    "narration": "Filters narrow it down by country, language or category.",
+    "start": 56.8667,
+    "duration": 8.6,
+    "voice_start": 0.5,
+    "voice_duration": 4.358
+  },
+  {
+    "id": "saved",
+    "cuts": [
+      [
+        263.3,
+        267.9
+      ]
+    ],
+    "narration": "Save a channel, and it's on Home next time. No accounts, and no tracking.",
+    "start": 65.4667,
+    "duration": 6.3,
+    "voice_start": 0.5,
+    "voice_duration": 5.095
+  },
+  {
+    "id": "phone",
+    "still": "phone-discover.png",
+    "still_crop": [
+      26,
+      71,
+      374,
+      821
+    ],
+    "narration": "Also available on Android phones, and Android smart TVs.",
+    "start": 71.7667,
+    "duration": 5.9,
+    "voice_start": 0.5,
+    "voice_duration": 4.675
+  },
+  {
+    "id": "disclaimer",
+    "card": "disclaimer",
+    "narration": "Channels come and go. Some may be offline, or blocked in your country, at times. reLiveTV doesn't host any streams. It plays the links iptv-org lists publicly.",
+    "say": "Channels come and go. Some may be offline, or blocked in your country, at times. re-live TV doesn't host any streams. It plays the links I P T V org lists publicly.",
+    "start": 77.6667,
+    "duration": 13.3,
+    "voice_start": 0.5,
+    "voice_duration": 12.088
+  },
+  {
+    "id": "outro",
+    "card": "outro",
+    "narration": "reLiveTV is open source. The code is on GitHub.",
+    "say": "re-live TV is open source. The code is on GitHub.",
+    "start": 90.9667,
+    "duration": 7.3,
+    "voice_start": 0.6,
+    "voice_duration": 4.476
+  }
+]
