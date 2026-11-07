@@ -1,27 +1,27 @@
 {
   "first_pass": {
-    "input_i": "-18.20",
-    "input_tp": "3.27",
-    "input_lra": "5.60",
-    "input_thresh": "-28.77",
-    "output_i": "-16.84",
+    "input_i": "-18.08",
+    "input_tp": "3.22",
+    "input_lra": "4.80",
+    "input_thresh": "-28.35",
+    "output_i": "-16.67",
     "output_tp": "-1.50",
-    "output_lra": "4.30",
-    "output_thresh": "-27.24",
+    "output_lra": "3.60",
+    "output_thresh": "-26.84",
     "normalization_type": "dynamic",
-    "target_offset": "0.84"
+    "target_offset": "0.67"
   },
   "second_pass": {
-    "input_i": "-18.20",
-    "input_tp": "3.27",
-    "input_lra": "5.60",
-    "input_thresh": "-28.77",
-    "output_i": "-16.15",
+    "input_i": "-18.08",
+    "input_tp": "3.22",
+    "input_lra": "4.80",
+    "input_thresh": "-28.35",
+    "output_i": "-16.11",
     "output_tp": "-1.50",
-    "output_lra": "4.20",
-    "output_thresh": "-26.54",
+    "output_lra": "3.50",
+    "output_thresh": "-26.27",
     "normalization_type": "dynamic",
-    "target_offset": "0.15"
+    "target_offset": "0.11"
   },
   "voice": "Existing narration recording and timing; no speech regenerated or time-stretched.",
   "narration_source_file": "narration-raw.wav",
@@ -46,8 +46,9 @@
     "fade_out_seconds": 2.5,
     "video_file": "relivetv-demo.mp4",
     "attribution": "\"Chill Wave\" Kevin MacLeod (incompetech.com). Licensed under Creative Commons: By Attribution 4.0 License. https://creativecommons.org/licenses/by/4.0/ . Excerpted, faded and mixed beneath narration.",
-    "music_gain_db": 6
+    "music_gain_db": 9,
+    "duck": 0.4
   },
-  "ducking_reduction_max_db": 6.02,
-  "music_rms_dbfs_before_master": -29.395451809458237
+  "ducking_reduction_max_db": 4.44,
+  "music_rms_dbfs_before_master": -25.724439174836785
 }

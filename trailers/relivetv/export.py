@@ -26,6 +26,7 @@ def ffmpeg(*args):
 
 
 timeline = json.loads((ROOT / "timeline.json").read_text())
+music = json.loads((ROOT / "music.json").read_text())
 expected_frames = sum(round(scene["duration"] * 30) for scene in timeline)
 picture = json.loads(subprocess.run([
     "ffprobe", "-v", "error", "-select_streams", "v:0", "-show_entries",
@@ -40,7 +41,9 @@ ffmpeg("-i", str(WORK / "picture.mp4"), "-i", str(WORK / "audio-master.wav"), "-
        "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-shortest", "-movflags", "+faststart", str(master))
 web = PREVIEWS / "relivetv-demo.mp4"
 ffmpeg("-i", str(master), "-c:v", "libx264", "-preset", "slow", "-crf", "22", "-pix_fmt", "yuv420p", "-r", "30",
-       "-c:a", "copy", "-movflags", "+faststart", str(web))
+       "-c:a", "copy", "-metadata", "comment=" + music["attribution"],
+       "-metadata", "copyright=Music: Kevin MacLeod, CC BY 4.0; see comment for full credit.",
+       "-movflags", "+faststart", str(web))
 info = json.loads(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration,size", "-of", "json",
                                   str(web)], capture_output=True, text=True, check=True).stdout)["format"]
 assert abs(float(info["duration"]) - expected_frames / 30) < .05, "Export truncated the narration timeline"

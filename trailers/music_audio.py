@@ -74,7 +74,7 @@ def master_audio(root):
     bed = bed[:len(voice)]
     time = np.arange(len(voice)) / rate
     activity = np.sqrt(np.maximum(0, uniform_filter1d(voice ** 2, size=round(rate * .18))))
-    duck = 1 - .5 * np.clip(uniform_filter1d(activity, size=round(rate * .4)) / .045, 0, 1)
+    duck = 1 - music.get("duck", .5) * np.clip(uniform_filter1d(activity, size=round(rate * .4)) / .045, 0, 1)
     edge = np.minimum(1, time / music["fade_in_seconds"])
     edge *= np.minimum(1, (duration - time) / music["fade_out_seconds"])
     bed *= (duck * edge)[:, None]
@@ -105,7 +105,7 @@ def master_audio(root):
                   if published else "Existing narration recording and timing; no speech regenerated or time-stretched."),
         "narration_source_file": voice_source.name,
         "narration_sha256": voice_hash, "duration_seconds": duration,
-        "music": music, "ducking_reduction_max_db": 6.02,
+        "music": music, "ducking_reduction_max_db": round(float(-20 * np.log10(1 - music.get("duck", .5))), 2),
         "music_rms_dbfs_before_master": float(20 * np.log10(np.sqrt(np.mean(bed ** 2)))),
     }
     (root / "audio-report.json").write_text(json.dumps(report, indent=2) + "\n")

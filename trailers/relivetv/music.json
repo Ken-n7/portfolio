@@ -17,5 +17,6 @@
   "fade_out_seconds": 2.5,
   "video_file": "relivetv-demo.mp4",
   "attribution": "\"Chill Wave\" Kevin MacLeod (incompetech.com). Licensed under Creative Commons: By Attribution 4.0 License. https://creativecommons.org/licenses/by/4.0/ . Excerpted, faded and mixed beneath narration.",
-  "music_gain_db": 6
+  "music_gain_db": 9,
+  "duck": 0.4
 }

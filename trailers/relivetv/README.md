@@ -20,6 +20,15 @@ and separate news, markets, and sports beats bring the edit down from 98.3
 seconds. Playback stays at its original speed. Buffering waits and test click
 indicators are excluded through source selection.
 
+Every scene change is a half-second cross-fade. Each feature scene has a
+slow, eased camera push toward what the narration names (search bar,
+schedule panel, mini player, filter dialog), set by `zoom` in
+`scenes.json`: canvas centre x, y, start and end zoom. The intro,
+disclaimer and outro cards sit over blurred, dimmed footage from the same
+recording (Red Bull TV and DW playback, `BACKDROPS` in `render.py`). The
+search cut starts at 16.1 s, after the results' artwork has loaded. Only
+real app recordings are used for the picture; nothing is generated.
+
 The narration describes the viewing experience: Home, Discover, search,
 schedules, channel variety, the mini player, filters, saved favourites, and
 Android availability. The closing disclaimer covers changing availability,
@@ -50,7 +59,7 @@ its generated speed.
 The background recording is **“Chill Wave” by Kevin MacLeod**, published in
 2016: a relaxed 100 BPM groove with synths, bass, drums and guitar. It replaces
 the generated instrumental. The music is excerpted, faded and ducked under
-Fable. Two-pass FFmpeg loudness mastering targets −16 LUFS and −1.5 dBTP.
+Fable (`duck` 0.4, about 4.4 dB, at +9 dB music gain). Two-pass FFmpeg loudness mastering targets −16 LUFS and −1.5 dBTP.
 
 ## Rebuild
 

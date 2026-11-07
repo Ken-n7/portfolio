@@ -13,7 +13,13 @@
         3.8
       ]
     ],
-    "narration": "Your favourite channels, together in My List."
+    "narration": "Your favourite channels, together in My List.",
+    "zoom": [
+      960,
+      380,
+      1.0,
+      1.1
+    ]
   },
   {
     "id": "browse",
@@ -23,17 +29,29 @@
         10.6
       ]
     ],
-    "narration": "Explore news, entertainment, and more in Discover."
+    "narration": "Explore news, entertainment, and more in Discover.",
+    "zoom": [
+      960,
+      480,
+      1.0,
+      1.07
+    ]
   },
   {
     "id": "search",
     "cuts": [
       [
-        15.7,
-        19.4
+        16.1,
+        19.8
       ]
     ],
-    "narration": "Find a channel with a quick search."
+    "narration": "Find a channel with a quick search.",
+    "zoom": [
+      900,
+      350,
+      1.0,
+      1.25
+    ]
   },
   {
     "id": "schedule",
@@ -43,7 +61,13 @@
         69.9
       ]
     ],
-    "narration": "See what's on now, and what's coming up, in your time zone."
+    "narration": "See what's on now, and what's coming up, in your time zone.",
+    "zoom": [
+      1518,
+      470,
+      1.05,
+      1.45
+    ]
   },
   {
     "id": "news",
@@ -55,7 +79,13 @@
     ],
     "narration": "Catch up on world news.",
     "lead": 0.25,
-    "tail": 0.18
+    "tail": 0.18,
+    "zoom": [
+      750,
+      413,
+      1.12,
+      1.22
+    ]
   },
   {
     "id": "markets",
@@ -67,7 +97,13 @@
     ],
     "narration": "Follow the markets.",
     "lead": 0.12,
-    "tail": 0.18
+    "tail": 0.18,
+    "zoom": [
+      750,
+      413,
+      1.22,
+      1.12
+    ]
   },
   {
     "id": "sports",
@@ -79,7 +115,13 @@
     ],
     "narration": "Or find your next adventure.",
     "lead": 0.12,
-    "tail": 0.18
+    "tail": 0.18,
+    "zoom": [
+      750,
+      413,
+      1.1,
+      1.22
+    ]
   },
   {
     "id": "mini",
@@ -89,7 +131,13 @@
         251.1
       ]
     ],
-    "narration": "Keep watching in the mini player while you browse."
+    "narration": "Keep watching in the mini player while you browse.",
+    "zoom": [
+      1497,
+      734,
+      1.0,
+      1.3
+    ]
   },
   {
     "id": "filter",
@@ -103,7 +151,13 @@
         260.8
       ]
     ],
-    "narration": "Narrow your search by country, language, or category."
+    "narration": "Narrow your search by country, language, or category.",
+    "zoom": [
+      961,
+      559,
+      1.0,
+      1.18
+    ]
   },
   {
     "id": "saved",
@@ -113,7 +167,13 @@
         267.8
       ]
     ],
-    "narration": "Save your favourites. Come back to them on Home."
+    "narration": "Save your favourites. Come back to them on Home.",
+    "zoom": [
+      900,
+      380,
+      1.0,
+      1.1
+    ]
   },
   {
     "id": "phone",
@@ -131,6 +191,12 @@
       90,
       1080,
       2250
+    ],
+    "zoom": [
+      960,
+      490,
+      1.0,
+      1.08
     ]
   },
   {

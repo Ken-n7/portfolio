@@ -176,11 +176,32 @@ def note(canvas, text, alpha):
 
 
 ICON = Image.open(PREVIEWS / "relivetv.png").convert("RGBA")
+VIDEO = (31, 70, 1149, 699)  # the player picture inside the desktop take
+# real channel footage, blurred behind the cards: (take time, playback speed); clean playback, no buffering
+BACKDROPS = {"intro": (216.6, .65), "disclaimer": (158.4, .5), "outro": (216.9, .6)}  # Red Bull stays before 220.5, where an old-film effect starts
+XFADE = 15  # frames of cross-fade at every scene change
 
 
-def card(kind, t, length):
-    img = Image.new("RGB", (W, H), BG)
-    d = ImageDraw.Draw(img)
+def camera(img, cx, cy, z):
+    """Crop toward (cx, cy) at zoom z and scale back to the frame: one resample from the 1:1 canvas."""
+    if z <= 1.0005:
+        return img
+    w, h = W / z, H / z
+    x, y = min(max(cx - w / 2, 0), W - w), min(max(cy - h / 2, 0), H - h)
+    return img.resize((W, H), Image.BICUBIC, box=(x, y, x + w, y + h))
+
+
+def backdrop(frame, t, length):
+    small = frame.resize((256, 144), Image.BILINEAR).filter(ImageFilter.GaussianBlur(4))
+    z = 1.08 + .07 * t / length  # slow drift so the card never sits still
+    w, h = 256 / z, 144 / z
+    img = small.resize((W, H), Image.BICUBIC, box=((256 - w) / 2, (144 - h) / 2, (256 + w) / 2, (144 + h) / 2))
+    return Image.blend(Image.new("RGB", (W, H), BG), img, .36)
+
+
+def card(kind, t, length, base):
+    layer = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    d = ImageDraw.Draw(layer)
 
     def fade(start, dur=0.5):
         return ease((t - start) / dur)
@@ -189,8 +210,7 @@ def card(kind, t, length):
         if a <= 0:
             return
         w = d.textlength(text, font=f)
-        c = tuple(round(BG[k] + (color[k] - BG[k]) * a) for k in range(3))
-        d.text(((W - w) / 2, y + (1 - a) * 12), text, font=f, fill=c)
+        d.text(((W - w) / 2, y + (1 - a) * 12), text, font=f, fill=color + (round(255 * a),))
 
     if kind in ("intro", "outro"):
         size = 200 if kind == "intro" else 150
@@ -198,7 +218,7 @@ def card(kind, t, length):
         icon = ICON.resize((size, size), Image.LANCZOS)
         icon.putalpha(icon.getchannel("A").point(lambda v: round(v * a)))
         y0 = 250 if kind == "intro" else 230
-        img.paste(icon, ((W - size) // 2, y0), icon)
+        layer.alpha_composite(icon, ((W - size) // 2, y0))
         text_center(y0 + size + 30, "reLiveTV", font(96, True), TEXT, fade(0.7))
         if kind == "intro":
             text_center(y0 + size + 160, "free live TV from around the world", font(40), MUTED, fade(1.2))
@@ -211,17 +231,18 @@ def card(kind, t, length):
                  "Some channels may be offline or unavailable in your region.",
                  "Schedules may be inaccurate.",
                  "reLiveTV does not host any streams."]
-        y = 380
         for i, line in enumerate(lines):
-            text_center(y, line, font(40), MUTED if i != 2 else MUTED, fade(0.6 + i * 0.25))
-            y += 88
+            text_center(380 + i * 88, line, font(40), (190, 190, 190), fade(0.6 + i * 0.25))
+    img = Image.alpha_composite(base.convert("RGBA"), layer).convert("RGB")
+    if kind == "intro" and t < 0.6:
+        img = Image.blend(Image.new("RGB", (W, H), (0, 0, 0)), img, ease(t / 0.6))
     if kind == "outro" and length - t < 0.5:
         img = Image.blend(Image.new("RGB", (W, H), (0, 0, 0)), img, ease((length - t) / 0.5))
     return img
 
 
 def frames(picks=None):
-    takes = {}
+    takes = {"bg": Take(WORK / "take.mp4", VIDEO)}
     last = None
     frame_number = 0
     for si, scene in enumerate(scenes):
@@ -230,47 +251,50 @@ def frames(picks=None):
         caps = phrases(scene["narration"], scene["voice_duration"])
         cuts = scene.get("cuts", [])
         source = scene.get("source", "desktop")
-        still = None
-        if scene.get("still"):
-            still = Image.open(WORK / scene["still"]).convert("RGB").crop(scene["still_crop"])
-            # the still is the app at phone size in logical pixels; scale up cleanly before framing
-            still = still.resize((still.width * 3, still.height * 3), Image.LANCZOS)
-            source = "phone"
+        cx, cy, z0, z1 = scene.get("zoom", (W / 2, H / 2, 1, 1))
+        cut_last = None
         if cuts and source not in takes:
             takes[source] = Take(WORK / ("take.mp4" if source == "desktop" else "phone.mp4"),
                                  CROP if source == "desktop" else scene.get("crop"))
         for i in range(n):
             frame_number += 1
-            if picks is not None and frame_number - 1 not in picks:
+            # the tail of a skipped transition still needs the outgoing frame, so only skip once past it
+            if picks is not None and frame_number - 1 not in picks and i >= XFADE:
                 continue
             t = i / FPS
             if "card" in scene:
-                img = card(scene["card"], t, scene["duration"])
-            elif still is not None:
-                img = phone(still)
+                at, speed = BACKDROPS[scene["card"]]
+                img = card(scene["card"], t, scene["duration"],
+                           backdrop(takes["bg"].at(at + t * speed), t, scene["duration"]))
             else:
-                left, src = t, cuts[-1][1]
-                for a, b in cuts:
+                left, src, part = t, cuts[-1][1], len(cuts) - 1
+                for k, (a, b) in enumerate(cuts):
                     if left < b - a:
-                        src = a + left
+                        src, part = a + left, k
                         break
                     left -= b - a
                 frame = takes[source].at(src)
                 img = desktop(frame) if source == "desktop" else phone(frame)
                 if scene.get("note"):
                     img = note(img, scene["note"], ease((t - 0.6) / 0.4) * ease((scene["duration"] - t) / 0.4))
-            # cross-fade from and to cards, and between desktop and phone
-            prev = scenes[si - 1] if si else {}
-            if last is not None and i < 14 and ("card" in prev or "card" in scene
-                                                 or prev.get("source", "desktop") != source):
-                img = Image.blend(last, img, ease(i / 14))
+                img = camera(img, cx, cy, z0 + (z1 - z0) * ease(t / scene["duration"]))
+                # a jump between cuts inside one scene dissolves too
+                if part and left < XFADE / FPS and cut_last is not None:
+                    img = Image.blend(cut_last, img, ease((left * FPS + 1) / (XFADE + 1)))
+                elif left >= XFADE / FPS or not part:
+                    cut_last = img
+            scene_last = img
+            if last is not None and i < XFADE:
+                img = Image.blend(last, img, ease((i + 1) / (XFADE + 1)))
             v = t - scene["voice_start"]
-            hit = next(((a, b, p) for a, b, p in caps if a <= v < b), None)
+            end = caps[-1][1]
+            hit = next(((a, b, p) for a, b, p in caps if a <= v < (b if b < end else end + .25)), None)
             if hit:
                 a, b, text = hit
-                img = caption(img, text, min(ease((v - a) / 0.15), ease((b - v) / 0.15) if b < caps[-1][1] else 1))
-            scene_last = img
-            yield img
+                img = caption(img, text, min(ease((v - a) / 0.15), ease((b - v) / 0.15) if b < end
+                                              else ease((end + .25 - v) / .25)))
+            if picks is None or frame_number - 1 in picks:
+                yield img
         if scene_last is not None:
             last = scene_last
     for take in takes.values():
