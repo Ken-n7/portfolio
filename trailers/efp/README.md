@@ -109,8 +109,8 @@ new speech synthesis or poster change is needed for this audio-only update.
 
 - Track: [Inspired](https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1600022) — Kevin MacLeod (incompetech.com).
 - License: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
-- Full attribution: [`../../previews/music-credits.txt`](../../previews/music-credits.txt),
-  linked from the site's footer and embedded in the MP4's metadata.
+- Full attribution: [`README.md`](../../README.md),
+  and embedded in the MP4's metadata.
 - Original publication: 2016-04-20. No generated music is used.
 - Exact download URL, source SHA-256 and mix settings: [`music.json`](music.json).
 - Preservation checks: ignored `work/music-verification.json` records the

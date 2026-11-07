@@ -27,7 +27,7 @@ The cover, poster, browser/phone frames, titles, captions, and transitions are c
 - Music is **Bossa Antigua** by Kevin MacLeod, published 2017-11-17: a relaxed 70 BPM jazz recording with guitar, bass, and drums. It differs from the TagTune, EFP, and reLiveTV tracks.
 - [Official music source](https://incompetech.com/music/royalty-free/index.html?Search=Search&isrc=USUAN1700069); [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/).
 - Music is excerpted, faded, and ducked beneath speech. The audible bed uses the portfolio's increased music-gain convention. The mix is mastered to about −16 LUFS with a −1.5 dBTP target.
-- Attribution appears on the closing card, in the MP4 metadata, and in [music-credits.txt](../../previews/music-credits.txt). No new credit button is added to the portfolio.
+- Attribution appears on the closing card, in the MP4 metadata, and in the [repo README](../../README.md). No new credit button is added to the portfolio.
 - The source download URL, hash, and mix settings are recorded in [music.json](music.json). No music was generated.
 
 ## Rebuild
