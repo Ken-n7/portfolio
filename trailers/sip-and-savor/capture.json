@@ -1,0 +1,107 @@
+{
+  "base_url": "https://sip-and-savor.vercel.app",
+  "app_commit": "ccc882e",
+  "browser_errors": [],
+  "shots": {
+    "intro": {
+      "source": "desktop",
+      "cuts": [
+        [
+          4.0965269410000005,
+          7.096705318000001
+        ]
+      ]
+    },
+    "search": {
+      "source": "desktop",
+      "cuts": [
+        [
+          7.096761960000001,
+          7.941290939000001
+        ],
+        [
+          9.668924316,
+          14.069153120000001
+        ]
+      ]
+    },
+    "browse": {
+      "source": "desktop",
+      "cuts": [
+        [
+          16.831501027,
+          19.834724255
+        ],
+        [
+          21.557805327999997,
+          25.05871143
+        ]
+      ]
+    },
+    "meal": {
+      "source": "desktop",
+      "cuts": [
+        [
+          26.599275176,
+          28.399561121999998
+        ],
+        [
+          28.479213012,
+          30.280378992000003
+        ],
+        [
+          31.784277772,
+          35.585093287999996
+        ]
+      ]
+    },
+    "cocktail": {
+      "source": "desktop",
+      "cuts": [
+        [
+          36.828131053999996,
+          39.629917674
+        ],
+        [
+          39.670033957,
+          43.675934984
+        ]
+      ]
+    },
+    "mobile": {
+      "source": "phone",
+      "cuts": [
+        [
+          4.501776256999998,
+          6.802438269999999
+        ],
+        [
+          6.802458245000001,
+          12.358153479
+        ]
+      ]
+    },
+    "saved": {
+      "source": "phone",
+      "cuts": [
+        [
+          14.130302405000002,
+          16.934287349999998
+        ],
+        [
+          16.934303135,
+          19.81889875100001
+        ]
+      ]
+    }
+  },
+  "desktop": {
+    "width": 1440,
+    "height": 780
+  },
+  "phone": {
+    "width": 390,
+    "height": 780
+  },
+  "notes": "Actual deployed UI and public APIs. Cuts omit loading waits. No mocked responses, click rings, touch markers, or generated imagery."
+}

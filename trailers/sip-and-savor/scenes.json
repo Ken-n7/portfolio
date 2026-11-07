@@ -1,0 +1,10 @@
+[
+  {"id":"intro","layout":"pair","title":"Sip & Savor","subtitle":"Find your next favorite.","narration":"Sip and Savor. Discover something delicious, whether you're planning dinner or mixing a drink.","min_duration":6.5},
+  {"id":"search","layout":"desktop","title":"Search meals and cocktails","narration":"Search meals and cocktails together. Find a favorite, or explore something you haven't tried.","min_duration":7},
+  {"id":"browse","layout":"desktop","title":"A little inspiration for dinner","narration":"Browse meals by category or cuisine, and let the recipes give you ideas.","min_duration":6.5},
+  {"id":"meal","layout":"desktop","title":"Everything you need to get cooking","narration":"Open a recipe for ingredients, measurements, and clear, step-by-step instructions.","min_duration":7.5},
+  {"id":"cocktail","layout":"desktop","title":"Something to sip, too","narration":"Explore cocktails too, with ingredients and serving details ready when you need them.","min_duration":6.5},
+  {"id":"mobile","layout":"phone","title":"The same website. Your phone.","narration":"On your phone, the same website keeps every recipe easy to browse and read.","min_duration":7},
+  {"id":"saved","layout":"phone","title":"Keep the recipes you love","narration":"Save your favorites, and find them again in one place.","min_duration":6.5},
+  {"id":"outro","layout":"outro","title":"Find your next favorite.","subtitle":"Select Live site to open the website.","narration":"Ready to try it? Select the Live site button to open the website.","min_duration":8}
+]

@@ -4,8 +4,9 @@ All music below was composed by Kevin MacLeod and downloaded from Incompetech.
 Each recording is licensed under Creative Commons Attribution 4.0 International.
 License: https://creativecommons.org/licenses/by/4.0/
 
-Edits: excerpts trimmed to each existing video, faded in and out, volume lowered
-beneath narration. No music was generated. Original clips and narration retained.
+Edits: excerpts trimmed to each video, faded in and out, and ducked beneath
+narration. No music was generated. The existing TagTune, EFP and reLiveTV
+clips and narration were retained during their music updates.
 
 TagTune — tagtune-demo.mp4
 "Wallpaper" Kevin MacLeod (incompetech.com)
@@ -27,3 +28,12 @@ https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1600048
 Licensed under Creative Commons: By Attribution 4.0 License
 https://creativecommons.org/licenses/by/4.0/
 Original publication: 2016-08-20. ISRC: USUAN1600048.
+
+Sip & Savor — sip-and-savor-demo.mp4
+"Bossa Antigua" Kevin MacLeod (incompetech.com)
+https://incompetech.com/music/royalty-free/index.html?Search=Search&isrc=USUAN1700069
+Licensed under Creative Commons: By Attribution 4.0 License
+https://creativecommons.org/licenses/by/4.0/
+Original publication: 2017-11-17. ISRC: USUAN1700069.
+Edits: excerpted, faded, ducked and mixed beneath new narration.
+Credit also appears in the closing card and MP4 metadata.

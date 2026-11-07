@@ -1,0 +1,100 @@
+[
+  {
+    "id": "intro",
+    "layout": "pair",
+    "title": "Sip & Savor",
+    "subtitle": "Find your next favorite.",
+    "narration": "Sip and Savor. Discover something delicious, whether you're planning dinner or mixing a drink.",
+    "min_duration": 6.5,
+    "start": 0.0,
+    "duration": 7.433333333333334,
+    "voice_start": 1.0,
+    "voice_duration": 5.4223,
+    "voice": "af_heart"
+  },
+  {
+    "id": "search",
+    "layout": "desktop",
+    "title": "Search meals and cocktails",
+    "narration": "Search meals and cocktails together. Find a favorite, or explore something you haven't tried.",
+    "min_duration": 7,
+    "start": 7.4333,
+    "duration": 7.033333333333333,
+    "voice_start": 0.5,
+    "voice_duration": 5.6723,
+    "voice": "af_heart"
+  },
+  {
+    "id": "browse",
+    "layout": "desktop",
+    "title": "A little inspiration for dinner",
+    "narration": "Browse meals by category or cuisine, and let the recipes give you ideas.",
+    "min_duration": 6.5,
+    "start": 14.4667,
+    "duration": 6.5,
+    "voice_start": 0.5,
+    "voice_duration": 4.6883,
+    "voice": "af_heart"
+  },
+  {
+    "id": "meal",
+    "layout": "desktop",
+    "title": "Everything you need to get cooking",
+    "narration": "Open a recipe for ingredients, measurements, and clear, step-by-step instructions.",
+    "min_duration": 7.5,
+    "start": 20.9667,
+    "duration": 7.5,
+    "voice_start": 0.5,
+    "voice_duration": 5.3075,
+    "voice": "af_heart"
+  },
+  {
+    "id": "cocktail",
+    "layout": "desktop",
+    "title": "Something to sip, too",
+    "narration": "Explore cocktails too, with ingredients and serving details ready when you need them.",
+    "min_duration": 6.5,
+    "start": 28.4667,
+    "duration": 6.5,
+    "voice_start": 0.5,
+    "voice_duration": 4.8856,
+    "voice": "af_heart"
+  },
+  {
+    "id": "mobile",
+    "layout": "phone",
+    "title": "The same website. Your phone.",
+    "narration": "On your phone, the same website keeps every recipe easy to browse and read.",
+    "min_duration": 7,
+    "start": 34.9667,
+    "duration": 7.0,
+    "voice_start": 0.5,
+    "voice_duration": 4.7071,
+    "voice": "af_heart"
+  },
+  {
+    "id": "saved",
+    "layout": "phone",
+    "title": "Keep the recipes you love",
+    "narration": "Save your favorites, and find them again in one place.",
+    "min_duration": 6.5,
+    "start": 41.9667,
+    "duration": 6.5,
+    "voice_start": 0.5,
+    "voice_duration": 3.0809,
+    "voice": "af_heart"
+  },
+  {
+    "id": "outro",
+    "layout": "outro",
+    "title": "Find your next favorite.",
+    "subtitle": "Select Live site to open the website.",
+    "narration": "Ready to try it? Select the Live site button to open the website.",
+    "min_duration": 8,
+    "start": 48.4667,
+    "duration": 8.0,
+    "voice_start": 0.6,
+    "voice_duration": 3.8644,
+    "voice": "af_heart"
+  }
+]

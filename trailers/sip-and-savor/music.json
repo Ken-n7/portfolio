@@ -1,0 +1,22 @@
+{
+  "title": "Bossa Antigua",
+  "composer": "Kevin MacLeod",
+  "publisher": "incompetech.com",
+  "source_url": "https://incompetech.com/music/royalty-free/index.html?Search=Search&isrc=USUAN1700069",
+  "download_url": "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Bossa%20Antigua.mp3",
+  "license": "CC BY 4.0",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "published": "2017-11-17",
+  "isrc": "USUAN1700069",
+  "tempo_bpm": 70,
+  "instruments": "Guitar, Bass, Drums",
+  "source_sha256": "322103dd6ac5fae4872122f91d32cccd4d964b86d300585a5a0cdfaf7048af5d",
+  "music_lufs": -28,
+  "music_gain_db": 6,
+  "source_start_seconds": 0,
+  "fade_in_seconds": 1.2,
+  "fade_out_seconds": 2.5,
+  "video_file": "sip-and-savor-demo.mp4",
+  "narration_source": "narration-raw.wav",
+  "attribution": "\"Bossa Antigua\" Kevin MacLeod (incompetech.com). Licensed under Creative Commons: By Attribution 4.0 License. https://creativecommons.org/licenses/by/4.0/ . Excerpted, faded, ducked and mixed beneath narration."
+}
